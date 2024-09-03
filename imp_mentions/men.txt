@@ -1,9 +1,0 @@
-
-
-on 13/06/2022
-Changed Invoice 26035 and its subtable with GM permision
-Changes : DN 49306 and DN 49403 price changed from 4.4 to 4.8
-
-on 20/06/2024
-clubbed normal receipt with advance receipt
-so type=2 is removed from receipt
