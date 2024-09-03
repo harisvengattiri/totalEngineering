@@ -200,7 +200,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $customer1id; ?>"><?php echo $customer1; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer1id; ?>"><?php echo $customer1; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $customer1type; ?></small>
 										</div>
 									</li>
@@ -211,7 +211,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $customer2id; ?>"><?php echo $customer2; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer2id; ?>"><?php echo $customer2; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $customer2type; ?></small>
 										</div>
 									</li>
@@ -222,7 +222,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $customer3id; ?>"><?php echo $customer3; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer3id; ?>"><?php echo $customer3; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $customer3type; ?></small>
 										</div>
 									</li>
@@ -233,7 +233,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $customer4id; ?>"><?php echo $customer4; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer4id; ?>"><?php echo $customer4; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $customer4type; ?></small>
 										</div>
 									</li>
@@ -244,7 +244,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $customer5id; ?>"><?php echo $customer5; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer5id; ?>"><?php echo $customer5; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $customer5type; ?></small>
 										</div>
 									</li>
@@ -255,7 +255,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $customer6id; ?>"><?php echo $customer6; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer6id; ?>"><?php echo $customer6; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $customer6type; ?></small>
 										</div>
 									</li>
@@ -278,7 +278,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $shop1id; ?>"><?php echo $shop1; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop1id; ?>"><?php echo $shop1; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $shop1amount; ?> AED</small>
 										</div>
 									</li>
@@ -289,7 +289,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $shop2id; ?>"><?php echo $shop2; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop2id; ?>"><?php echo $shop2; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $shop2amount; ?> AED</small>
 										</div>
 									</li>
@@ -300,7 +300,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $shop3id; ?>"><?php echo $shop3; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop3id; ?>"><?php echo $shop3; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $shop3amount; ?> AED</small>
 										</div>
 									</li>
@@ -311,7 +311,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $shop4id; ?>"><?php echo $shop4; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop4id; ?>"><?php echo $shop4; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $shop4amount; ?> AED</small>
 										</div>
 									</li>
@@ -322,7 +322,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $shop5id; ?>"><?php echo $shop5; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop5id; ?>"><?php echo $shop5; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $shop5amount; ?> AED</small>
 										</div>
 									</li>
@@ -333,7 +333,7 @@ if ($custcnt6 > $custcnt7) {
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo $baseurl; ?>/customers?id=<?php echo $shop6id; ?>"><?php echo $shop6; ?></a></div>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop6id; ?>"><?php echo $shop6; ?></a></div>
 											<small class="text-muted text-ellipsis"><?php echo $shop6amount; ?> AED</small>
 										</div>
 									</li>
@@ -359,7 +359,7 @@ if ($custcnt6 > $custcnt7) {
 								?>
 								<!--<ul class="list no-border m-a-0">-->
 								<!--<li class="list-item">-->
-								<!--<div class="list-body"><a href="<?php echo $baseurl; ?>/edit/approve_po?id=<?php echo $fetch_po_appr['id']; ?>">PO|<?php echo $fetch_po_appr['order_referance']; ?><span class="pull-right text-danger">Approve</span></a></div>-->
+								<!--<div class="list-body"><a href="<?php echo BASEURL; ?>/edit/approve_po?id=<?php echo $fetch_po_appr['id']; ?>">PO|<?php echo $fetch_po_appr['order_referance']; ?><span class="pull-right text-danger">Approve</span></a></div>-->
 								<!--</li>-->
 								<!--</ul>-->
 								<?php // } 
@@ -367,7 +367,7 @@ if ($custcnt6 > $custcnt7) {
 
 
 
-								<form style="padding-bottom:10px;" role="form" action="<?php echo $baseurl; ?>/edit/po_approval" method="post">
+								<form style="padding-bottom:10px;" role="form" action="<?php echo BASEURL; ?>/edit/po_approval" method="post">
 									<div class="form-group row">
 										<label for="type" align="right" class="col-sm-3 form-control-label">Sales Order</label>
 										<div class="col-sm-5">
@@ -587,7 +587,7 @@ if ($custcnt6 > $custcnt7) {
 	<div style="background-color: #a3cfe5;" class="row-col warning">
 		<div class="row-cell">
 			<div class="text-center col-sm-6 offset-sm-3 p-y-lg">
-				<img align="center" src="<?php echo $baseurl; ?>/images/logo.png">
+				<img align="center" src="<?php echo BASEURL; ?>/images/logo.png">
 				<h1 class="display-4 m-y-lg">WELCOME</h1>
 				<h2 class="display-5 m-y-lg">To Our Admin Panel.</h2>
 				<p class="m-y text-muted h4">

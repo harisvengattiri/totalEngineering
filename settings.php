@@ -277,14 +277,14 @@ if ($conn->query($sql) === TRUE) {
 				}}  
         ?>
               <button class="btn btn-outline b-danger text-danger"><?php echo $category." [#".$parent_name."]"; ?> 
-              <a href="<?php echo $baseurl; ?>/settings?purpose=asset_subcategory_delete&id=<?php echo $id; ?>" onclick="return confirm('Are you sure?')">
+              <a href="<?php echo BASEURL; ?>/settings?purpose=asset_subcategory_delete&id=<?php echo $id; ?>" onclick="return confirm('Are you sure?')">
               <i class="fa fa-close"></i></a></button>&nbsp;
         <?php
                 }
 		}
 	?>
         </div>
-        <form role="form" action="<?php echo $baseurl;?>/settings" method="post">
+        <form role="form" action="<?php echo BASEURL;?>/settings" method="post">
         <div class="col-sm-4"> 
 <select name="parent" id="parent" placeholder="Parent" class="form-control select2" data-ui-options="{theme: 'bootstrap'}">
 				<?php 
@@ -338,14 +338,14 @@ if ($conn->query($sql) === TRUE) {
 				}}  
         ?>
               <button class="btn btn-outline b-danger text-danger"><?php echo $category." [#".$parent_name."]"; ?> 
-              <a href="<?php echo $baseurl; ?>/settings?purpose=liability_subcategory_delete&id=<?php echo $id; ?>" onclick="return confirm('Are you sure?')">
+              <a href="<?php echo BASEURL; ?>/settings?purpose=liability_subcategory_delete&id=<?php echo $id; ?>" onclick="return confirm('Are you sure?')">
               <i class="fa fa-close"></i></a></button>&nbsp;
         <?php
                 }
 		}
 	?>
         </div>
-        <form role="form" action="<?php echo $baseurl;?>/settings" method="post">
+        <form role="form" action="<?php echo BASEURL;?>/settings" method="post">
         <div class="col-sm-4"> 
 <select name="parent" id="parent" placeholder="Parent" class="form-control select2" data-ui-options="{theme: 'bootstrap'}">
 				<?php 
@@ -427,7 +427,7 @@ if ($conn->query($sql) === TRUE) {
             <?php // if($_SESSION['username'] == 'developer') { ?>
             <td>
             <button class="btn btn-sm btn-outline b-primary text-primary">
-              <a href="<?php echo $baseurl; ?>/edit/settings?purpose=sub_edit&id=<?php echo $id; ?>">
+              <a href="<?php echo BASEURL; ?>/edit/settings?purpose=sub_edit&id=<?php echo $id; ?>">
               <i class="fa fa-pencil"></i></a>
             </button>&nbsp;
             </td>
@@ -435,7 +435,7 @@ if ($conn->query($sql) === TRUE) {
             
             <!--<td>-->
             <!--<button class="btn btn-sm btn-outline b-danger text-danger">-->
-            <!--  <a href="<?php // echo $baseurl; ?>/settings?purpose=expense_subcategory_delete&id=<?php // echo $id; ?>" onclick="return confirm('Are you sure?')">-->
+            <!--  <a href="<?php // echo BASEURL; ?>/settings?purpose=expense_subcategory_delete&id=<?php // echo $id; ?>" onclick="return confirm('Are you sure?')">-->
             <!--  <i class="fa fa-close"></i></a>-->
             <!--</button>&nbsp;-->
             <!--</td>-->
@@ -453,7 +453,7 @@ if ($conn->query($sql) === TRUE) {
          </tfoot>
         </table>
         <!--</div>-->
-        <form role="form" action="<?php echo $baseurl;?>/settings" method="post" style="margin-bottom:85px;">
+        <form role="form" action="<?php echo BASEURL;?>/settings" method="post" style="margin-bottom:85px;">
         <div class="col-sm-4"> 
 <select name="parent" id="parent" placeholder="Parent" class="form-control select2" data-ui-options="{theme: 'bootstrap'}">
 				<?php 
@@ -497,14 +497,14 @@ if ($conn->query($sql) === TRUE) {
 		{
         ?>
               <button class="btn btn-outline b-danger text-danger"><?php echo $row['tag']; ?> 
-              <a href="<?php echo $baseurl; ?>/settings?purpose=customer_tag_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
+              <a href="<?php echo BASEURL; ?>/settings?purpose=customer_tag_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
               <i class="fa fa-close"></i></a></button>&nbsp;
         <?php
                 }
 		}
 	?>
         </div>
-        <form role="form" action="<?php echo $baseurl;?>/settings" method="post">
+        <form role="form" action="<?php echo BASEURL;?>/settings" method="post">
         <div class="col-sm-4">
         <input type="text" class="form-control" name="customer_tag" id="customer_tag" placeholder="Enter New Customer Tag">
         </div>
@@ -544,7 +544,7 @@ if ($conn->query($sql) === TRUE) {
             <?php // if($_SESSION['username'] == 'developer') { ?>
             <td>
                 <button class="btn btn-sm btn-outline b-primary text-primary">
-                <a href="<?php echo $baseurl; ?>/edit/settings?purpose=main_edit&id=<?php echo $row['id']; ?>">
+                <a href="<?php echo BASEURL; ?>/edit/settings?purpose=main_edit&id=<?php echo $row['id']; ?>">
                 <i class="fa fa-pencil"></i></a>
                 </button>&nbsp;
             </td>
@@ -552,7 +552,7 @@ if ($conn->query($sql) === TRUE) {
             
             <!--<td>-->
             <!--    <button class="btn btn-sm btn-outline b-danger text-danger">-->
-            <!--    <a href="<?php // echo $baseurl; ?>/settings?purpose=expense_main_category_delete&id=<?php // echo $row['id']; ?>" onclick="return confirm('Are you sure?')">-->
+            <!--    <a href="<?php // echo BASEURL; ?>/settings?purpose=expense_main_category_delete&id=<?php // echo $row['id']; ?>" onclick="return confirm('Are you sure?')">-->
             <!--    <i class="fa fa-close"></i></a>-->
             <!--    </button>&nbsp;-->
             <!--</td>-->
@@ -564,7 +564,7 @@ if ($conn->query($sql) === TRUE) {
 	    </tbody>
     </table>
     <!--</div>-->
-    <form role="form" action="<?php echo $baseurl;?>/settings" method="post" style="margin-bottom:85px;">
+    <form role="form" action="<?php echo BASEURL;?>/settings" method="post" style="margin-bottom:85px;">
         <div class="col-sm-4">
         <input type="text" class="form-control" name="expense_main_category" placeholder="Enter New Main Category">
         </div>
@@ -609,14 +609,14 @@ if ($conn->query($sql) === TRUE) {
                 
                 <?php // if($_SESSION['username'] == 'developer') { ?>
                 <td><button class="btn btn-sm btn-outline b-primary text-primary">
-                      <a href="<?php echo $baseurl; ?>/edit/settings?purpose=cat_edit&id=<?php echo $row['id']; ?>">
+                      <a href="<?php echo BASEURL; ?>/edit/settings?purpose=cat_edit&id=<?php echo $row['id']; ?>">
                       <i class="fa fa-pencil"></i></a>
                     </button>&nbsp;
                  </td>
                 <?php // } ?>
                 
                 <!--<td><button class="btn btn-sm btn-outline b-danger text-danger">-->
-                <!--      <a href="<?php // echo $baseurl; ?>/settings?purpose=expense_category_delete&id=<?php // echo $row['id']; ?>" onclick="return confirm('Are you sure?')">-->
+                <!--      <a href="<?php // echo BASEURL; ?>/settings?purpose=expense_category_delete&id=<?php // echo $row['id']; ?>" onclick="return confirm('Are you sure?')">-->
                 <!--      <i class="fa fa-close"></i></a>-->
                 <!--    </button>&nbsp;-->
                 <!-- </td>-->
@@ -627,7 +627,7 @@ if ($conn->query($sql) === TRUE) {
         </tbody>
         </table>
         <!--</div>-->
-        <form role="form" action="<?php echo $baseurl;?>/settings" method="post" style="margin-bottom:85px;">
+        <form role="form" action="<?php echo BASEURL;?>/settings" method="post" style="margin-bottom:85px;">
         <div class="col-sm-4">
         <input type="text" class="form-control" name="expense_category" id="expense_category" placeholder="Enter New Category">
         </div>
@@ -667,14 +667,14 @@ if ($conn->query($sql) === TRUE) {
 		{
         ?>
               <button class="btn btn-outline b-danger text-danger"><?php echo $row['tag']; ?> 
-              <a href="<?php echo $baseurl; ?>/settings?purpose=asset_category_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
+              <a href="<?php echo BASEURL; ?>/settings?purpose=asset_category_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
               <i class="fa fa-close"></i></a></button>&nbsp;
         <?php
                 }
 		}
 	?>
         </div>
-        <form role="form" action="<?php echo $baseurl;?>/settings" method="post">
+        <form role="form" action="<?php echo BASEURL;?>/settings" method="post">
         <div class="col-sm-4">
         <input type="text" class="form-control" name="asset_category" id="asset_category" placeholder="Enter New Asset Category">
         </div>
@@ -699,14 +699,14 @@ if ($conn->query($sql) === TRUE) {
 		{
         ?>
               <button class="btn btn-outline b-danger text-danger"><?php echo $row['tag']; ?> 
-              <a href="<?php echo $baseurl; ?>/settings?purpose=liability_category_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
+              <a href="<?php echo BASEURL; ?>/settings?purpose=liability_category_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
               <i class="fa fa-close"></i></a></button>&nbsp;
         <?php
                 }
 		}
 	?>
         </div>
-        <form role="form" action="<?php echo $baseurl;?>/settings" method="post">
+        <form role="form" action="<?php echo BASEURL;?>/settings" method="post">
         <div class="col-sm-4">
         <input type="text" class="form-control" name="liability_category" id="liability_category" placeholder="Enter New Liability Category">
         </div>
@@ -730,14 +730,14 @@ if ($conn->query($sql) === TRUE) {
 		{
         ?>
               <button class="btn btn-outline b-danger text-danger"><?php echo $row['tag']; ?> 
-              <a href="<?php echo $baseurl; ?>/settings?purpose=project_tag_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
+              <a href="<?php echo BASEURL; ?>/settings?purpose=project_tag_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
               <i class="fa fa-close"></i></a></button>&nbsp;
         <?php
                 }
 		}
 	?>
         </div>
-        <form role="form" action="<?php echo $baseurl;?>/settings" method="post">
+        <form role="form" action="<?php echo BASEURL;?>/settings" method="post">
         <div class="col-sm-4">
         <input type="text" class="form-control" name="project_tag" id="project_tag" placeholder="Enter New Project Tag">
         </div>
@@ -763,14 +763,14 @@ if ($conn->query($sql) === TRUE) {
 		{
         ?>
               <button class="btn btn-outline b-danger text-danger"><?php echo $row['tag']; ?> 
-              <a href="<?php echo $baseurl; ?>/settings?purpose=maintenance_tag_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
+              <a href="<?php echo BASEURL; ?>/settings?purpose=maintenance_tag_delete&id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?')">
               <i class="fa fa-close"></i></a></button>&nbsp;
         <?php
                 }
 		}
 	?>
         </div>
-        <form role="form" action="<?php echo $baseurl;?>/settings" method="post">
+        <form role="form" action="<?php echo BASEURL;?>/settings" method="post">
         <div class="col-sm-4">
         <input type="text" class="form-control" name="maintenance_tag" id="maintenance_tag" placeholder="Enter New Maintenance Tag">
         </div>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['userid'])) {
-  header("Location:$baseurl/login/");
+  header("Location:BASEURL/login/");
 }
 ?>
 <?php $pageissue = 'noissue'; ?>
@@ -16,22 +16,22 @@ if (!isset($_SESSION['userid'])) {
   <meta name="description" content="Responsive, Bootstrap, BS4" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="shortcut icon" href="<?php echo $baseurl; ?>/images/icon.png">
+  <link rel="shortcut icon" href="<?php echo BASEURL; ?>/images/icon.png">
 
   <!-- style -->
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/animate.css/animate.min.css" type="text/css" />
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/glyphicons/glyphicons.css" type="text/css" />
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/font-awesome/css/font-awesome.min.css" type="text/css" />
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/material-design-icons/material-design-icons.css" type="text/css" />
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/ionicons/css/ionicons.min.css" type="text/css" />
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/simple-line-icons/css/simple-line-icons.css" type="text/css" />
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/animate.css/animate.min.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/glyphicons/glyphicons.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/material-design-icons/material-design-icons.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/ionicons/css/ionicons.min.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/simple-line-icons/css/simple-line-icons.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
 
   <!-- build:css css/styles/app.min.css -->
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/styles/app.css" type="text/css" />
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/styles/style.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/styles/app.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/styles/style.css" type="text/css" />
   <!-- endbuild -->
-  <link rel="stylesheet" href="<?php echo $baseurl; ?>/css/styles/font.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/styles/font.css" type="text/css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 
@@ -48,8 +48,8 @@ if (!isset($_SESSION['userid'])) {
       <div class="navside dk" data-layout="column">
         <div class="navbar no-radius">
           <!-- brand -->
-          <a href="<?php echo $baseurl; ?>/" class="navbar-brand">
-            <img src="<?php echo $baseurl; ?>/images/logo_full_white.png" alt="Cyboz ERP">
+          <a href="<?php echo BASEURL; ?>/" class="navbar-brand">
+            <img src="<?php echo BASEURL; ?>/images/logo_full_white.png" alt="Cyboz ERP">
           </a>
           <!-- / brand -->
         </div>
@@ -61,7 +61,7 @@ if (!isset($_SESSION['userid'])) {
                 <span class="text-xs">Main New</span>
               </li>
               <li>
-                <a href="<?php echo $baseurl; ?>/" class="b-danger">
+                <a href="<?php echo BASEURL; ?>/" class="b-danger">
                   <span class="nav-icon text-white no-fade">
                     <i class="ion-filing"></i>
                   </span>
@@ -83,7 +83,7 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo $baseurl; ?>/customers">
+                    <a href="<?php echo BASEURL; ?>/customers">
                       <span class="nav-text">Contacts</span>
                     </a>
                   </li>
@@ -101,7 +101,7 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo $baseurl; ?>/items">
+                    <a href="<?php echo BASEURL; ?>/items">
                       <span class="nav-text">Items</span>
                     </a>
                   </li>
@@ -120,29 +120,29 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo $baseurl; ?>/quotation">
+                    <a href="<?php echo BASEURL; ?>/quotation">
                       <span class="nav-text">Quotation</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/sales_order_new">
+                    <a href="<?php echo BASEURL; ?>/sales_order_new">
                       <span class="nav-text">Delivery Challan</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/delivery_note">
+                    <a href="<?php echo BASEURL; ?>/delivery_note">
                       <span class="nav-text">Delivery Note</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/credits">
+                    <a href="<?php echo BASEURL; ?>/credits">
                       <span class="nav-text">Credit Application</span>
                     </a>
                   </li>
                 </ul>
               </li>
               <li>
-                <a href="<?php echo $baseurl; ?>/vehicle" class="b-warn">
+                <a href="<?php echo BASEURL; ?>/vehicle" class="b-warn">
                   <span class="nav-icon text-white no-fade">
                     <i class="ion-android-car"></i>
                   </span>
@@ -163,32 +163,32 @@ if (!isset($_SESSION['userid'])) {
                 <ul class="nav-sub">
 
                   <li>
-                    <a href="<?php echo $baseurl; ?>/acc_dashboard_new">
+                    <a href="<?php echo BASEURL; ?>/acc_dashboard_new">
                       <span class="nav-text">Dashboard</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/add/receipt">
+                    <a href="<?php echo BASEURL; ?>/add/receipt">
                       <span class="nav-text">Receipt Voucher</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/add/jv">
+                    <a href="<?php echo BASEURL; ?>/add/jv">
                       <span class="nav-text">Journal Voucher</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/add/pv">
+                    <a href="<?php echo BASEURL; ?>/add/pv">
                       <span class="nav-text">Payment Voucher</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/crdt_note">
+                    <a href="<?php echo BASEURL; ?>/crdt_note">
                       <span class="nav-text">Credit Note</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/add/debitnote_new">
+                    <a href="<?php echo BASEURL; ?>/add/debitnote_new">
                       <span class="nav-text">Debit Note</span>
                     </a>
                   </li>
@@ -206,27 +206,27 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo $baseurl; ?>/invoice">
+                    <a href="<?php echo BASEURL; ?>/invoice">
                       <span class="nav-text">Invoices</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/crdt_note">
+                    <a href="<?php echo BASEURL; ?>/crdt_note">
                       <span class="nav-text">Credit Note</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/advance">
+                    <a href="<?php echo BASEURL; ?>/advance">
                       <span class="nav-text">Receipts</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/refund">
+                    <a href="<?php echo BASEURL; ?>/refund">
                       <span class="nav-text">Refund</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/ac_stmnt">
+                    <a href="<?php echo BASEURL; ?>/ac_stmnt">
                       <span class="nav-text">Account Statement</span>
                     </a>
                   </li>
@@ -245,44 +245,44 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo $baseurl; ?>/pdc_rec">
+                    <a href="<?php echo BASEURL; ?>/pdc_rec">
                       <span class="nav-text">PDC Receivable</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/pdc_pay">
+                    <a href="<?php echo BASEURL; ?>/pdc_pay">
                       <span class="nav-text">PDC Payable</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/inv_pay">
+                    <a href="<?php echo BASEURL; ?>/inv_pay">
                       <span class="nav-text">Receivable Report</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/chart_of_accounts">
+                    <a href="<?php echo BASEURL; ?>/chart_of_accounts">
                       <span class="nav-text">Chart of Accounts</span>
                     </a>
                   </li>
 
                   <li>
-                    <a href="<?php echo $baseurl; ?>/trial_balance_new">
+                    <a href="<?php echo BASEURL; ?>/trial_balance_new">
                       <span class="nav-text">Trial Balance</span>
                     </a>
                   </li>
 
                   <li>
-                    <a href="<?php echo $baseurl; ?>/accounts/statements">
+                    <a href="<?php echo BASEURL; ?>/accounts/statements">
                       <span class="nav-text">Acc Statement</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/accounts/pro_loss">
+                    <a href="<?php echo BASEURL; ?>/accounts/pro_loss">
                       <span class="nav-text">Profit & Loss</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/accounts/bal_sheet">
+                    <a href="<?php echo BASEURL; ?>/accounts/bal_sheet">
                       <span class="nav-text">Balance Sheet</span>
                     </a>
                   </li>
@@ -303,32 +303,32 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo $baseurl; ?>/report_qtn">
+                    <a href="<?php echo BASEURL; ?>/report_qtn">
                       <span class="nav-text">Quotation</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/report_order">
+                    <a href="<?php echo BASEURL; ?>/report_order">
                       <span class="nav-text">Order</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/report_delivery">
+                    <a href="<?php echo BASEURL; ?>/report_delivery">
                       <span class="nav-text">Sales</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/report_transportation">
+                    <a href="<?php echo BASEURL; ?>/report_transportation">
                       <span class="nav-text">Transportation</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/receive_rpt">
+                    <a href="<?php echo BASEURL; ?>/receive_rpt">
                       <span class="nav-text">Receivable Report</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/vat_rpt">
+                    <a href="<?php echo BASEURL; ?>/vat_rpt">
                       <span class="nav-text">GST Report</span>
                     </a>
                   </li>
@@ -336,7 +336,7 @@ if (!isset($_SESSION['userid'])) {
               </li>
 
               <!-- <li>
-                <a href="<?php echo $baseurl; ?>/backup" class="b-danger">
+                <a href="<?php echo BASEURL; ?>/backup" class="b-danger">
                   <span class="nav-icon text-white no-fade">
                     <i class="ion-filing"></i>
                   </span>
@@ -345,7 +345,7 @@ if (!isset($_SESSION['userid'])) {
               </li> -->
 
               <li>
-                <a href="<?php echo $baseurl; ?>/settings" class="b-primary">
+                <a href="<?php echo BASEURL; ?>/settings" class="b-primary">
                   <span class="nav-icon text-white no-fade">
                     <i class="ion-gear-b"></i>
                   </span>
@@ -354,7 +354,7 @@ if (!isset($_SESSION['userid'])) {
               </li>
 
               <li>
-                <a href="<?php echo $baseurl; ?>/activity_log" class="b-danger">
+                <a href="<?php echo BASEURL; ?>/activity_log" class="b-danger">
                   <span class="nav-icon text-white no-fade">
                     <i class="fa fa-bars"></i>
                   </span>
@@ -392,14 +392,14 @@ if (!isset($_SESSION['userid'])) {
               <a class="dropdown-item" href="#">
                 <span>Profile</span>
               </a>
-              <a class="dropdown-item" href="<?php echo $baseurl; ?>/settings">
+              <a class="dropdown-item" href="<?php echo BASEURL; ?>/settings">
                 <span>Settings</span>
               </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" target="_blank" href="http://cyboz.co.in/contact/">
                 Need help?
               </a>
-              <a class="dropdown-item" href="<?php echo $baseurl; ?>/logout">Sign out</a>
+              <a class="dropdown-item" href="<?php echo BASEURL; ?>/logout">Sign out</a>
             </div>
           </div>
         </div>
@@ -436,15 +436,15 @@ if (!isset($_SESSION['userid'])) {
                 <a class="dropdown-item" href="#">
                   <span>Profile</span>
                 </a>
-                <a class="dropdown-item" href="<?php echo $baseurl; ?>/settings">
+                <a class="dropdown-item" href="<?php echo BASEURL; ?>/settings">
                   <span>Settings</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" target="_blank" href="http://cyboz.co.in/contact/">
                   Need help?
                 </a>
-                <a class="dropdown-item" href="<?php echo $baseurl; ?>/reset_pass">Reset Password</a>
-                <a class="dropdown-item" href="<?php echo $baseurl; ?>/logout">Sign out</a>
+                <a class="dropdown-item" href="<?php echo BASEURL; ?>/reset_pass">Reset Password</a>
+                <a class="dropdown-item" href="<?php echo BASEURL; ?>/logout">Sign out</a>
               </div>
             </li>
           </ul>
@@ -490,7 +490,7 @@ if (!isset($_SESSION['userid'])) {
             idle_reloader_timer = setTimeout(() => {
               $('form').each((index, form) => form.reset())
               /*alert('Dear MANCON user,You should reload due to security issue')*/
-              window.location.href = "<?php echo $baseurl; ?>"
+              window.location.href = "<?php echo BASEURL; ?>"
               idle_reloader()
             }, 20 * 60 * 1000)
           }

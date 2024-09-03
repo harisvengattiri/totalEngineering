@@ -68,7 +68,7 @@ if ($conn->query($sql) === TRUE) {
 </span>
     </div><br/>
     <div class="box-body">
-       <form role="form" action="<?php echo $baseurl;?>/reset_pass" method="post">
+       <form role="form" action="<?php echo BASEURL;?>/reset_pass" method="post">
             <!--<div class="form-group row">-->
             <!--    <label for="Quantity" class="col-sm-2 form-control-label">User Name</label>-->
             <!--    <div class="col-sm-6">-->

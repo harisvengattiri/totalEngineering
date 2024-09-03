@@ -128,34 +128,34 @@ popProductsList();
 <!-- build:js scripts/app.min.js -->
 <!-- jQuery -->
 
-  <script src="<?php echo $baseurl; ?>/libs/jquery/dist/jquery.js"></script>
+  <script src="<?php echo BASEURL; ?>/libs/jquery/dist/jquery.js"></script>
 <!-- Bootstrap -->
 
-  <script src="<?php echo $baseurl; ?>/libs/tether/dist/js/tether.min.js"></script>
-  <script src="<?php echo $baseurl; ?>/libs/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="<?php echo BASEURL; ?>/libs/tether/dist/js/tether.min.js"></script>
+  <script src="<?php echo BASEURL; ?>/libs/bootstrap/dist/js/bootstrap.js"></script>
 <!-- core -->
   	
-  <script src="<?php echo $baseurl; ?>/libs/jQuery-Storage-API/jquery.storageapi.min.js"></script>
-  <script src="<?php echo $baseurl; ?>/libs/PACE/pace.min.js"></script>
-  <!--<script src="<?php // echo $baseurl; ?>/libs/jquery-pjax/jquery.pjax.js"></script>-->
-  <script src="<?php echo $baseurl; ?>/libs/blockUI/jquery.blockUI.js"></script>
-  <script src="<?php echo $baseurl; ?>/libs/jscroll/jquery.jscroll.min.js"></script>
+  <script src="<?php echo BASEURL; ?>/libs/jQuery-Storage-API/jquery.storageapi.min.js"></script>
+  <script src="<?php echo BASEURL; ?>/libs/PACE/pace.min.js"></script>
+  <!--<script src="<?php // echo BASEURL; ?>/libs/jquery-pjax/jquery.pjax.js"></script>-->
+  <script src="<?php echo BASEURL; ?>/libs/blockUI/jquery.blockUI.js"></script>
+  <script src="<?php echo BASEURL; ?>/libs/jscroll/jquery.jscroll.min.js"></script>
   
-  <script src="<?php echo $baseurl; ?>/scripts/config.lazyload.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-load.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-jp.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-include.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-device.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-form.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-modal.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-nav.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-list.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-screenfull.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-scroll-to.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-toggle-class.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ui-taburl.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/app.js"></script>
-  <script src="<?php echo $baseurl; ?>/scripts/ajax.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/config.lazyload.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-load.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-jp.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-include.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-device.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-form.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-modal.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-nav.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-list.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-screenfull.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-scroll-to.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-toggle-class.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ui-taburl.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/app.js"></script>
+  <script src="<?php echo BASEURL; ?>/scripts/ajax.js"></script>
   <script type="text/javascript">
  $(document).ready(function() {
   $("#country").change(function() {

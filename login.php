@@ -11,13 +11,13 @@ session_destroy();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Cyboz ERP">
-    <link rel="shortcut icon" href="<?php echo $baseurl;?>/images/icon.png">
+    <link rel="shortcut icon" href="<?php echo BASEURL;?>/images/icon.png">
     <title><?php echo $title;?></title>
 
 
 <style>
 html{
-    background-image: url("<?php echo $baseurl;?>/images/login-bg.jpg");
+    background-image: url("<?php echo BASEURL;?>/images/login-bg.jpg");
     background-size: , 100%;
     background-repeat: no-repeat;
 }	
@@ -647,7 +647,7 @@ html {
   <body>
     <div class="logmod">
     <div class="login_logo" align="center">
-          <img src="<?php echo $baseurl;?>/images/logo_full.png" alt=""/>
+          <img src="<?php echo BASEURL;?>/images/logo_full.png" alt=""/>
     </div>
   <div class="logmod__wrapper">
     <div class="logmod__container">
@@ -724,7 +724,7 @@ echo'<div class="alert alert-info"><i class="fa fa-user-secret"></i><strong> Suc
           <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span>
         </div> 
         <div class="logmod__form">
-          <form action="<?php echo $baseurl;?>/login-check" method="post" class="simform">
+          <form action="<?php echo BASEURL;?>/login-check" method="post" class="simform">
             <div class="sminputs">
               <div class="input full">
                 <label class="string optional" for="user-name">User Name*</label>

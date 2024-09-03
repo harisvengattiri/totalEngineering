@@ -158,13 +158,13 @@ if($tags != NULL) {
 								session_start();
 					      	    if($_SESSION['role'] == 'admin' && $_SESSION['username'] == 'developer') {
 					      	    ?>
-					            <a href="<?php echo $baseurl; ?>/customers?purpose=delete&id=<?php echo $id;?>" onclick="return confirm('Are you sure?')" class="btn btn-xs white rounded">
+					            <a href="<?php echo BASEURL; ?>/customers?purpose=delete&id=<?php echo $id;?>" onclick="return confirm('Are you sure?')" class="btn btn-xs white rounded">
 					            	<i class="fa fa-trash m-r-xs"></i>
 					            	Delete
 					            </a>
 					            <?php } ?>
 					        </div>
-					      	<a href="<?php echo $baseurl; ?>/edit/customer?id=<?php echo $id;?>" class="btn btn-xs primary rounded">
+					      	<a href="<?php echo BASEURL; ?>/edit/customer?id=<?php echo $id;?>" class="btn btn-xs primary rounded">
 				            	<i class="fa fa-pencil m-r-xs"></i>
 				            	Edit
 				            </a>
