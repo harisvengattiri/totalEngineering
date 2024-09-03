@@ -87,31 +87,8 @@ if (!isset($_SESSION['userid'])) {
                       <span class="nav-text">Contacts</span>
                     </a>
                   </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/customer_site">
-                      <span class="nav-text">Customer Site</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/fair">
-                      <span class="nav-text">Location Fares</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/driver_type">
-                      <span class="nav-text">Driver Type</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/banned">
-                      <span class="nav-text">Customer Ban</span>
-                    </a>
-                  </li>
                 </ul>
               </li>
-
-
-
               <li>
                 <a class="b-warning">
                   <span class="nav-caret">
@@ -149,12 +126,7 @@ if (!isset($_SESSION['userid'])) {
                   </li>
                   <li>
                     <a href="<?php echo $baseurl; ?>/sales_order_new">
-                      <span class="nav-text">Customer P O</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/un_po">
-                      <span class="nav-text">Un Approved PO</span>
+                      <span class="nav-text">Delivery Challan</span>
                     </a>
                   </li>
                   <li>
@@ -167,32 +139,8 @@ if (!isset($_SESSION['userid'])) {
                       <span class="nav-text">Credit Application</span>
                     </a>
                   </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/stock_return">
-                      <span class="nav-text">Stock Return</span>
-                    </a>
-                  </li>
                 </ul>
               </li>
-
-
-
-              <!--              <li>
-                <a href="<?php echo $baseurl; ?>/operators" class="b-danger">
-                  <span class="nav-icon text-white no-fade">
-                    <i class="ion-pricetags"></i>
-                  </span>
-                  <span class="nav-text">Operators</span>
-                </a>
-              </li>-->
-              <!--              <li>
-                <a href="<?php echo $baseurl; ?>/driver" class="b-warn">
-                  <span class="nav-icon text-white no-fade">
-                    <i class="ion-person-stalker"></i>
-                  </span>
-                  <span class="nav-text">Drivers</span>
-                </a>
-              </li>-->
               <li>
                 <a href="<?php echo $baseurl; ?>/vehicle" class="b-warn">
                   <span class="nav-icon text-white no-fade">
@@ -244,20 +192,8 @@ if (!isset($_SESSION['userid'])) {
                       <span class="nav-text">Debit Note</span>
                     </a>
                   </li>
-
                 </ul>
               </li>
-
-
-              <!--              <li>
-                <a href="<?php echo $baseurl; ?>/invoice" class="b-danger">
-                  <span class="nav-icon text-white no-fade">
-                    <i class="fa fa-file-text-o"></i>
-                  </span>
-                  <span class="nav-text">Invoice</span>
-                </a>
-              </li>-->
-
               <li>
                 <a class="b-primary">
                   <span class="nav-caret">
@@ -279,11 +215,6 @@ if (!isset($_SESSION['userid'])) {
                       <span class="nav-text">Credit Note</span>
                     </a>
                   </li>
-                  <!--<li>-->
-                  <!--  <a href="<?php echo $baseurl; ?>/receipt" >-->
-                  <!--    <span class="nav-text">Receipts</span>-->
-                  <!--  </a>-->
-                  <!--</li>-->
                   <li>
                     <a href="<?php echo $baseurl; ?>/advance">
                       <span class="nav-text">Receipts</span>
@@ -295,38 +226,12 @@ if (!isset($_SESSION['userid'])) {
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/openings">
-                      <span class="nav-text">Openings</span>
-                    </a>
-                  </li>
-                  <li>
                     <a href="<?php echo $baseurl; ?>/ac_stmnt">
                       <span class="nav-text">Account Statement</span>
                     </a>
                   </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/ac_stmnt_supplier">
-                      <span class="nav-text">Supplier Statement</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/receipt_cash">
-                      <span class="nav-text">Cash Accounts</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/receipt_cheque">
-                      <span class="nav-text">Receivable I</span>
-                    </a>
-                  </li>
-                  <!--<li>-->
-                  <!--  <a href="<?php echo $baseurl; ?>/non_receipt" >-->
-                  <!--    <span class="nav-text">Receivable II</span>-->
-                  <!--  </a>-->
-                  <!--</li>-->
                 </ul>
               </li>
-
 
               <li>
                 <a class="b-success">
@@ -398,11 +303,6 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo $baseurl; ?>/cust_aging">
-                      <span class="nav-text">Aging Report</span>
-                    </a>
-                  </li>
-                  <li>
                     <a href="<?php echo $baseurl; ?>/report_qtn">
                       <span class="nav-text">Quotation</span>
                     </a>
@@ -418,46 +318,8 @@ if (!isset($_SESSION['userid'])) {
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/report_lot">
-                      <span class="nav-text">Stock Report</span>
-                    </a>
-                  </li>
-                  <li>
                     <a href="<?php echo $baseurl; ?>/report_transportation">
                       <span class="nav-text">Transportation</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/report_individual">
-                      <span class="nav-text">Individual</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/report_summery">
-                      <span class="nav-text">Summary Report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/percentage">
-                      <span class="nav-text">Percentage</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/comparison">
-                      <span class="nav-text">Comparison</span>
-                    </a>
-                  </li>
-
-
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/invoice_report">
-                      <span class="nav-text">Invoice Report</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/cheque_report">
-                      <span class="nav-text">Cheque Status</span>
                     </a>
                   </li>
                   <li>
@@ -466,38 +328,21 @@ if (!isset($_SESSION['userid'])) {
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $baseurl; ?>/pay_rpt">
-                      <span class="nav-text">Payable Report</span>
-                    </a>
-                  </li>
-                  <li>
                     <a href="<?php echo $baseurl; ?>/vat_rpt">
-                      <span class="nav-text">Vat Report</span>
+                      <span class="nav-text">GST Report</span>
                     </a>
                   </li>
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/vat_rpt_output">
-                      <span class="nav-text">Output Vat</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="<?php echo $baseurl; ?>/receive2_rpt">
-                      <span class="nav-text">Receivable II Report</span>
-                    </a>
-                  </li>
-
                 </ul>
               </li>
 
-              <li>
+              <!-- <li>
                 <a href="<?php echo $baseurl; ?>/backup" class="b-danger">
                   <span class="nav-icon text-white no-fade">
                     <i class="ion-filing"></i>
                   </span>
                   <span class="nav-text">Backup</span>
                 </a>
-              </li>
+              </li> -->
 
               <li>
                 <a href="<?php echo $baseurl; ?>/settings" class="b-primary">
