@@ -1,9 +1,7 @@
 <?php
 
-// $baseurl = "https://mancon.gulfit.in";
-// $baseurl = "http://localhost/haris/mancon";
-
-$baseurl = "https://gulfit.in/cybozErp";
+$baseurl = "http://localhost/totalEngineering";
+// $baseurl = "http://gulfit.in/cybozErp";
 
 $cdn_url = $baseurl."/cdn/mancon";
 
@@ -11,10 +9,8 @@ setlocale(LC_MONETARY,"en_US");
 date_default_timezone_set('Asia/Dubai');
 
 $servername = "localhost";
-$username = "userErp";
-$username_backup = "userErp";
-$password = "9OAMdLbNEA?Q";
-$password_backup = "9OAMdLbNEA?Q";
+$username = "root";
+$password = "";
 $dbname = "cybozErp";
 
 $title="CERP | MOHAMMED AL NASERI CONCRETE PRODUCTION AND BLOCK FACTORY - "
@@ -23,12 +19,9 @@ $title="CERP | MOHAMMED AL NASERI CONCRETE PRODUCTION AND BLOCK FACTORY - "
 $erp_version="Version 2.1.6";
 
 $db = new mysqli($servername,$username,$password,$dbname);
-$db_backup = new mysqli($servername,$username_backup,$password_backup,$dbname);
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-$conn_backup = mysqli_connect($servername, $username_backup, $password_backup, $dbname);
-
 
 // Check connection
 if (!$conn) {
