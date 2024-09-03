@@ -1,0 +1,117 @@
+<?php
+if(isset($_POST['c_id'])) {
+    $country = $_POST['c_id'];
+    if ($country != '') {
+    include('../config.php');
+    $sql1="SELECT * FROM sales_order WHERE order_referance='".$country."'";
+    //echo $sql1;
+    $result=$conn->query($sql1);   
+    if($result->num_rows > 0){
+    
+       while($row=$result->fetch_assoc()) {
+            
+            $id=$row['id'];
+            $site=$row['site'];
+            $salesrep=$row['salesrep'];
+            $customer=$row['customer'];
+            $lpo=$row['lpo'];
+        	
+//       echo "<option value='" . $row['site'] . "'>" . $row['site'] . "</option>";
+          ?>
+<!--<input type="text" class="form-control" name="driver" value="<?php echo $row[site];?>">-->
+<?php
+        
+	} }
+       ?> 
+             <br>
+               <hr><hr>
+
+               <?php
+                 $sql="SELECT * from order_item where item_id=$id";
+                 $result = mysqli_query($conn, $sql);
+                 if (mysqli_num_rows($result) > 0) 
+				{
+				while($row = mysqli_fetch_assoc($result)) 
+				{
+                                     $item1=$row['item'];
+                                     $item = mysqli_real_escape_string($conn,$row['item']);
+                                     $quantityreq=$row['quantity'];
+                                     $price=$row['unit'];
+                                     
+                                     
+                                     
+//                                   $sql1="SELECT * FROM batches_lots WHERE item='".$item."'";
+//                                   $result1=$conn->query($sql1);
+//                                   if($result1->num_rows > 0){
+//                                        while($row1=$result1->fetch_assoc()) 
+//                                                {
+//                                                   $coc=$row1['COC_No'];
+//                                                   $quantity=$row1['quantity'];
+//                                                   $pdate=$row1['pdate'];
+//                                                   $batch=$row1['batch'];
+                                                   
+                                               ?>
+             
+               <div class="form-group row">
+               <label for="endd" class="col-sm-1 form-control-label">Item</label>
+              <div class="col-sm-2">
+                   <input name="price[]" value="<?php echo $price;?> "hidden="hidden">
+                   <input name="lpo" value="<?php echo $lpo;?> "hidden="hidden">
+                   <input type="text" class="form-control" name="item[]" value="<?php echo $item1;?>" id="endd" placeholder="Item">
+              </div>
+               <label for="endd" align="right" class="col-sm-1 form-control-label">Order Quantity</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" name="reqquantity[]" value="<?php echo $quantityreq;?>" id="endd" placeholder="Quantity">
+              </div>
+                <label for="endd" align="right" class="col-sm-1 form-control-label">Batch No</label>
+              <div class="col-sm-2">
+                   <select class="form-control" name="batch" id="batch">
+                        <?php 
+                        $sql1="SELECT * FROM batches_lots WHERE item='".$item."' and quantity !=0";
+                                   $result1=$conn->query($sql1);
+                                   if($result1->num_rows > 0){
+                                        ?> <option><?php echo $batch;?> </option> <?php
+                                        while($row1=$result1->fetch_assoc()) 
+                                                {
+                                                   $batch=$row1['batch'];
+                        ?>
+                        <option><?php echo $batch;?> </option>
+                                   <?php } } ?>
+                   </select>
+              </div>
+                
+               <label for="endd" align="right" class="col-sm-1 form-control-label">LOT Stock Available</label>
+               <div class="col-sm-2" id="quantity">
+                    <input type="text" class="form-control" readonly>
+               </div>
+               
+               </div>
+               
+           <style>
+               hr { 
+                display: block;
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+                margin-left: auto;
+                margin-right: auto;
+                border-style: inset;
+                border-width: 1px;
+                border-top: 1px solid rgba(14, 4, 4, 0.74);
+                } 
+          </style>
+          <hr>
+                              
+                                <hr><br><br>
+                               <?php }} ?>
+
+
+
+               
+    <?php
+          }
+    else
+    {
+        echo  'fdhg';
+    }
+}
+?>

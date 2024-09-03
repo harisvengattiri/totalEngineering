@@ -1,0 +1,49 @@
+[20-Nov-2023 10:03:15 Asia/Dubai] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sum(amount) as cd_amt, '' as db_amt FROM `jv_items` WHERE `type` = 'credit' AND ' at line 2 in /home/ci6c3ivtlnuw/public_html/mancon/accounts/ledger.php:215
+Stack trace:
+#0 /home/ci6c3ivtlnuw/public_html/mancon/accounts/ledger.php(215): mysqli_query()
+#1 {main}
+  thrown in /home/ci6c3ivtlnuw/public_html/mancon/accounts/ledger.php on line 215
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 104
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 104
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 243
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 243
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 243
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 371
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 371
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 786
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 786
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 786
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 794
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 794
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 837
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 837
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1105
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1105
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1108
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1230
+[30-Dec-2023 15:33:46 Asia/Dubai] PHP Warning:  Undefined array key "time" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1256
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 104
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 104
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 243
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 243
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 243
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 371
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 371
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 786
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 786
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 786
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 794
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 794
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 837
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "role" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 837
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1105
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1105
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1108
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "username" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1230
+[19-Feb-2024 08:59:29 Asia/Dubai] PHP Warning:  Undefined array key "time" in /home/ci6c3ivtlnuw/public_html/mancon/includes/menu.php on line 1256
+[06-Aug-2024 10:52:14 Asia/Dubai] PHP Fatal error:  Uncaught mysqli_sql_exception: MySQL server has gone away in /home/t7p8w5juchq8/public_html/mancon/includes/menu.php:396
+Stack trace:
+#0 /home/t7p8w5juchq8/public_html/mancon/includes/menu.php(396): mysqli_query()
+#1 /home/t7p8w5juchq8/public_html/mancon/accounts/pro_loss.php(2): include('/home/t7p8w5juc...')
+#2 {main}
+  thrown in /home/t7p8w5juchq8/public_html/mancon/includes/menu.php on line 396

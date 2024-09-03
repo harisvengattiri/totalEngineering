@@ -1,0 +1,20 @@
+[23-Oct-2023 13:25:16 Asia/Dubai] PHP Fatal error:  Uncaught mysqli_sql_exception: MySQL server has gone away in /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php:10
+Stack trace:
+#0 /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php(10): mysqli->query()
+#1 {main}
+  thrown in /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php on line 10
+[24-Oct-2023 08:55:25 Asia/Dubai] PHP Fatal error:  Uncaught mysqli_sql_exception: MySQL server has gone away in /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php:10
+Stack trace:
+#0 /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php(10): mysqli->query()
+#1 {main}
+  thrown in /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php on line 10
+[24-Oct-2023 08:55:25 Asia/Dubai] PHP Fatal error:  Uncaught mysqli_sql_exception: MySQL server has gone away in /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php:10
+Stack trace:
+#0 /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php(10): mysqli->query()
+#1 {main}
+  thrown in /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php on line 10
+[24-Oct-2023 09:19:50 Asia/Dubai] PHP Fatal error:  Uncaught mysqli_sql_exception: MySQL server has gone away in /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php:10
+Stack trace:
+#0 /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php(10): mysqli->query()
+#1 {main}
+  thrown in /home/ci6c3ivtlnuw/public_html/mancon/delete/receipt_adv.php on line 10

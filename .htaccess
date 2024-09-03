@@ -1,0 +1,33 @@
+<IfModule mod_rewrite.c>
+  Options +FollowSymLinks
+  RewriteEngine On
+  RewriteBase /cybozErp/
+
+  
+#Add trailing slash to url
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/|#(.*))$
+  RewriteRule ^(.*)$ $1/ 
+
+#Remove .php-extension from url
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.php -f
+  RewriteRule ^([^\.]+)/$ $1.php
+  
+#Forced .php-extension Removal from url
+#Removing .php and add /
+  RewriteCond %{THE_REQUEST} \s/+(.*?/)?(?:index)?(.*?)\.php[\s?] [NC]
+  RewriteRule ^ %1%2/ [R=302,L,NE] 
+  
+#404 redirection
+  ErrorDocument 404 /404.php
+  ErrorDocument 500 /500.php
+  
+#End of Apache Rewrite Rules
+ </IfModule>
+
+<IfModule mod_php5.c>
+    #Session timeout
+    php_value session.cookie_lifetime 2592000
+    php_value session.gc_maxlifetime 2592000
+</IfModule>
