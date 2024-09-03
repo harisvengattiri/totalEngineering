@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['userid'])) {
-  header("Location:BASEURL/login/");
+  header("Location:".BASEURL."/login/");
 }
 ?>
 <?php $pageissue = 'noissue'; ?>
@@ -336,7 +336,7 @@ if (!isset($_SESSION['userid'])) {
               </li>
 
               <!-- <li>
-                <a href="<?php echo BASEURL; ?>/backup" class="b-danger">
+                <a href="<?php // echo BASEURL; ?>/backup" class="b-danger">
                   <span class="nav-icon text-white no-fade">
                     <i class="ion-filing"></i>
                   </span>

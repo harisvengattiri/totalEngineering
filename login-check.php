@@ -28,7 +28,7 @@ error_reporting(0);
 				$sql = "INSERT INTO login_log (ip, time, location, username, status) 
 				        values ('$ip', '$date1', '$ip_location', '$username', 'success')";
                                 $result=$conn->query($sql);
-				header("Location:BASEURL/?folded=false");
+				header("Location:".BASEURL."/?folded=false");
 				}
 				else
 				{
@@ -36,6 +36,6 @@ error_reporting(0);
 				        values ('$ip', '$date1', '$ip_location', '$username', 'failed')";
                                 $result=$conn->query($sql);
                                 session_destroy();
-				header("Location:BASEURL/login/?status=failed");
+				header("Location:".BASEURL."/login/?status=failed");
 				}
 ?>
