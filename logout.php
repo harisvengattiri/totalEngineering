@@ -2,5 +2,4 @@
 include "config.php";
 session_start(); 
 session_destroy();
-header("Location:".BASEURL."/login?status=logout");
-?>
+header('Location:'.BASEURL.'/login?status=logout');
