@@ -119,12 +119,6 @@
   });
 });
 </script>
-  
-<?php
-if($pageissue == 'issue') {
-popProductsList();
-}
-?>
 <!-- build:js scripts/app.min.js -->
 <!-- jQuery -->
 
