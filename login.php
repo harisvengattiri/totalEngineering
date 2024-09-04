@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<?php include "config.php"; ?>
+<?php require_once "config.php"; ?>
 
 <head>
   <meta charset="utf-8">
