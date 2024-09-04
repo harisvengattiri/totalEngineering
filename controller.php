@@ -13,6 +13,9 @@ switch ($controller) {
     case 'contacts':
         handleCustomer();
         break;
+    case 'items':
+        handleItems();
+        break;
 }
 
 // Customer Section here
@@ -44,6 +47,20 @@ function handleCustomer() {
             exit();
         } catch (Exception $e) {
             header('Location: '.BASEURL.'/customers?status=failed');
+            exit();
+        }
+    }
+}
+
+// Items Section here
+function handleItems() {
+    if (isset($_REQUEST['submit_add_item'])) {
+        try {
+            insertItem($_REQUEST);
+            header('Location: '.BASEURL.'/items?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/items?status=failed');
             exit();
         }
     }

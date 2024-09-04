@@ -112,6 +112,31 @@ function getContactNameFromId($id) {
 }
 // CUSTOMER SECTION ENDS
 
+// ITEMS SECTION STARTS
+function getItemsList() {
+    global $conn;
+
+    $sql = "SELECT * FROM `items` ORDER BY id DESC LIMIT 0,100";
+    $result = $conn->query($sql);
+    $items = [];
+    while ($row = mysqli_fetch_array($result)) {
+        $items[] = $row;
+    }
+    return $items;
+}
+
+function insertItem($data) {
+    global $conn;
+
+    $sql = "INSERT INTO `items` (`items`,`price`,`description`,`dimension`,`unit`) 
+            VALUES ('{$data["items"]}','{$data["price"]}','{$data["description"]}','{$data["dimension"]}','{$data["unit"]}')";
+    $conn->query($sql);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('add','ITM',$conn->insert_id,$logQuery);
+}
+// ITEMS SECTION ENDS
+
+
 // ACTIVITY LOG SECTION STARTS
 function logActivity($process,$code,$id,$logQuery) {
     global $conn;
