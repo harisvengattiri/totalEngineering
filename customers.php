@@ -1,47 +1,8 @@
 <?php require_once "includes/menu.php"; ?>
-
+<?php 
+    $status = getStatusFromUrl();
+?>
 <div class="app-body">
-
-    <?php
-    $status = "NULL";
-    if (isset($_GET['purpose'])) {
-        $purpose = $_GET["purpose"];
-        $id = $_GET["id"];
-        $name = $_GET["name"];
-
-        if ($purpose = "delete") {
-            $sql = "DELETE FROM `customers` WHERE `id` = '$id'";
-        }
-
-        if ($conn->query($sql) === TRUE) {
-            $status = "deleted";
-            $date1 = date("d/m/Y h:i:s a");
-            session_start();
-            $username = $_SESSION['username'];
-            $code = "cid" . $id;
-            $query = mysqli_real_escape_string($conn, $sql);
-            $sql = "INSERT INTO activity_log (time, process, code, user, query) values ('$date1', 'delete', '$code', '$username', '$query')";
-            $result = mysqli_query($conn, $sql);
-
-
-            echo "<script type=\"text/javascript\">" .
-                "window.location='customers?status=deleted';" .
-                "</script>";
-        } else {
-            $status = "failed";
-        }
-    }
-    ?>
-    <!-- ############ PAGE START-->
-
-    <?php
-    if ($_GET) {
-        $sts = $_GET["status"];
-        if ($sts == 'deleted') {
-            $status = 'deleted';
-        }
-    }
-    ?>
     <div class="app-body-inner">
         <div class="row-col">
             <div class="white bg b-b"><?php if ($status == "success") { ?>
@@ -189,9 +150,6 @@
                                         if (isset($_GET['type'])) {
                                             $type = $_GET['type'];
                                             $sql = "SELECT id,name,email FROM customers where type='$type' ORDER BY name ASC";
-                                        } elseif (isset($_GET['tag'])) {
-                                            $tag = $_GET['tag'];
-                                            $sql = "SELECT id,name,email FROM customers where tags LIKE '%$tag%' ORDER BY name ASC";
                                         } else {
                                             $sql = "SELECT id,name,email FROM customers ORDER BY id DESC LIMIT 0,100";
                                         }
@@ -454,8 +412,6 @@
                         $sql = "SELECT * FROM customers where id=$id";
                     } else if (isset($_GET['type'])) {
                         $sql = "SELECT * FROM customers where type='$type' ORDER BY name ASC LIMIT 1";
-                    } else if (isset($_GET['tag'])) {
-                        $sql = "SELECT * FROM customers where tags LIKE '%$tag%' ORDER BY name ASC";
                     } else {
                         $sql = "SELECT * FROM customers ORDER BY id DESC LIMIT 1";
                     }
@@ -473,8 +429,6 @@
                             $phone = $row["phone"];
                             $mobile = $row["mobile"];
                             $type = $row["type"];
-                            $tags = $row["tags"];
-                            $tags = json_decode($tags);
                         }
                     }
 
@@ -517,18 +471,6 @@
                                                 <div class="animated fadeInUp">
                                                     <div>
                                                         <span class="text-md m-t block"><?php echo ucwords($name); ?></span>
-                                                        <?php
-                                                        if ($tags != NULL) {
-                                                            $arrlength = count($tags);
-                                                            for ($x = 0; $x < $arrlength; $x++) { ?>
-                                                                <a href="javascript:void(0);" onclick="contact_tag('<?php echo $tags[$x]; ?>')" class="label warning">#<?php echo $tags[$x]; ?></a>&nbsp;
-                                                        <?php
-                                                            }
-                                                            if ($arrlength > 0) {
-                                                                echo "<br/>";
-                                                            }
-                                                        }
-                                                        ?>
                                                         <br />
                                                         <a href="javascript:void(0);" onclick="contact_type('<?php echo $type; ?>')" class="btn btn-outline btn-sm rounded b-info text-info"><?php echo $type; ?></a>
                                                     </div>
@@ -606,8 +548,9 @@
                                     <div class="pull-right">
                                         <?php
                                         // session_start();
-                                        if ($_SESSION['role'] == 'admin' && $_SESSION['username'] == 'developer') { ?>
-                                            <a href="<?php echo BASEURL; ?>/customers?purpose=delete&id=<?php echo $id; ?>&name=<?php echo $name; ?>" onclick="return confirm('Are you sure?')" class="btn btn-xs white rounded">
+                                        if ($_SESSION['role'] == 'admin') { ?>
+                                            <a href="<?php echo BASEURL;?>/controller?controller=contacts&submit_delete_customer=delete&id=<?php echo $id;?>"
+                                            onclick="return confirm('Are you sure?')" class="btn btn-xs white rounded">
                                                 <i class="fa fa-trash m-r-xs"></i>
                                                 Delete
                                             </a>
