@@ -1,20 +1,8 @@
 <?php require_once "../includes/menu.php"; ?>
-<?php require_once("../database.php"); ?>
-
+<?php 
+    $status = getStatusFromUrl();
+?>
 <div class="app-body">
-  <?php
-  $status = "NULL";
-  if (isset($_POST['submit'])) {
-    if (isset($_SESSION['userid'])) {
-      try {
-        insertCustomer($_POST);
-        $status = "success";
-      } catch (Exception $e) {
-        $status = "failed";
-      }
-    }
-  }
-  ?>
   <!-- ############ PAGE START-->
   <div class="padding">
     <div class="row">
@@ -40,7 +28,8 @@
           </div>
           <div class="box-divider m-a-0"></div>
           <div class="box-body">
-            <form role="form" action="<?php echo BASEURL; ?>/add/customer" method="post">
+            <form role="form" action="<?php echo BASEURL; ?>/controller" method="post">
+              <input type="hidden" name="controller" value="contacts">
               <div class="form-group row">
                 <label for="name" class="col-sm-2 form-control-label">Contact Name</label>
                 <div class="col-sm-4">
@@ -116,7 +105,7 @@
               <div class="form-group row m-t-md">
                 <div align="right" class="col-sm-offset-2 col-sm-12">
                   <button type="reset" class="btn btn-sm btn-outline rounded b-danger text-danger">Clear</button>
-                  <button name="submit" type="submit" class="btn btn-sm btn-outline rounded b-success text-success">Save</button>
+                  <button name="submit_add_customer" type="submit" class="btn btn-sm btn-outline rounded b-success text-success">Save</button>
                 </div>
               </div>
 
