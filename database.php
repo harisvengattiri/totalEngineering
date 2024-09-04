@@ -53,3 +53,41 @@ function trackLoginAttempt($username, $ip_location, $status) {
     $result = $conn->query($sql);
 }
 // AUTHENTICATION SECTION ENDS
+
+// CUSTOMER SECTION STARTS
+function insertCustomer($data) {
+    global $conn;
+
+    $sql = "INSERT INTO customers (name,person,address,gst,phone,mobile,fax,email,type,slmn) 
+            VALUES ('{$data["name"]}','{$data["person"]}','{$data["address"]}','{$data["gst"]}','{$data["phone"]}','{$data["mobile"]}','{$data["fax"]}','{$data["email"]}','{$data["type"]}','{$data["slmn"]}')";
+    $conn->query($sql);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('add','CID',$conn->insert_id,$logQuery);
+}
+// CUSTOMER SECTION ENDS
+
+// ACTIVITY LOG SECTION STARTS
+function logActivity($process,$code,$id,$logQuery) {
+    global $conn;
+    
+    $date1 = date("d/m/Y h:i:s a");
+    $username = $_SESSION['username'];
+    $code = $code.$id;
+    $logSql = "INSERT INTO activity_log (time, process, code, user, query) 
+               VALUES ('$date1', '$process', '$code', '$username', '$logQuery')";
+    $conn->query($logSql);
+}
+// ACTIVITY LOG SECTION ENDS
+
+// CHECK EXISTANCE FOR EDIT AND DELETE
+function checkAccountExist($table,$column,$id) {
+    global $conn;
+
+    $sqlIdCheck = "SELECT * FROM `$table` WHERE `$column` = '$id'";
+    $query = $conn->query($sqlIdCheck);
+    $num_rows = mysqli_num_rows($query);
+
+    if(!$num_rows) {
+        throw new Exception();
+    }
+}
