@@ -12,17 +12,14 @@ $result = mysqli_query($conn, $sql);
 		{
 			$id=$row["id"];
 			$name=$row["name"];
-			$tin=$row["tin"];
+			$gst=$row["gst"];
 			$person=$row["person"];
 			$address=$row["address"];
 			$email=$row["email"];
 			$fax=$row["fax"];
-            $makani=$row["makani"];
 			$phone=$row["phone"];
             $mobile=$row["mobile"];
 			$type=$row["type"];
-			$tags=$row["tags"];
-			$tags = json_decode($tags);
 		}
 		}
 		
@@ -65,20 +62,6 @@ $result = mysqli_query($conn, $sql);
  	      		<div class="animated fadeInUp">
  		      		<div>
 			<span class="text-md m-t block"><?php echo ucwords($name); ?></span>
-<?php
-if($tags != NULL) {
-	$arrlength=count($tags);
-	for($x=0;$x<$arrlength;$x++)
-	{ ?>
-	<a href="javascript:void(0);" onclick="contact_tag('<?php echo $tags[$x]; ?>')" class="label warning">#<?php echo $tags[$x]; ?></a>&nbsp;
-	<?php
-	}
-	if($arrlength>0)
-	{
-	echo "<br/>";
-	}
-}
-?>
 <br/>		
 <a href="javascript:void(0);" onclick="contact_type('<?php echo $type; ?>')" class="btn btn-outline btn-sm rounded b-info text-info"><?php echo $type; ?></a>							
 		</div>
@@ -108,9 +91,9 @@ if($tags != NULL) {
  		            <li class="nav-item m-b-xs">
  		              	<a class="nav-link text-muted block">
  		                	<span class="pull-right text-sm">
- 		                		<b>TRN <i class="fa fa-fw fa-bank"></i></b>
+ 		                		<b>GST <i class="fa fa-fw fa-bank"></i></b>
  		                	</span>
- 		                	<span><?php echo $tin."&nbsp;"; ?></span>
+ 		                	<span><?php echo $gst."&nbsp;"; ?></span>
  		              	</a>
  		            </li>
  		            <li class="nav-item m-b-xs">
@@ -156,9 +139,9 @@ if($tags != NULL) {
 					      	<div class="pull-right">
 					      	    <?php
 								session_start();
-					      	    if($_SESSION['role'] == 'admin' && $_SESSION['username'] == 'developer') {
+					      	    if($_SESSION['role'] == 'admin') {
 					      	    ?>
-					            <a href="<?php echo BASEURL; ?>/customers?purpose=delete&id=<?php echo $id;?>" onclick="return confirm('Are you sure?')" class="btn btn-xs white rounded">
+					            <a href="<?php echo BASEURL; ?>/controller?controller=contacts&submit_delete_customer=delete&id=<?php echo $id;?>" onclick="return confirm('Are you sure?')" class="btn btn-xs white rounded">
 					            	<i class="fa fa-trash m-r-xs"></i>
 					            	Delete
 					            </a>
@@ -185,11 +168,6 @@ else
 		{
 		$sql = "SELECT id,name,email FROM customers where type='$type' ORDER BY name ASC";
         }
-		else if(isset($_GET["tag"]))
-		{
-		$tag=$_GET['tag'];
-		$sql = "SELECT id,name,email FROM customers where tags LIKE '%$tag%' ORDER BY name ASC";
-		}
 		else if(isset($_POST["cname"]))
 		{
 		$cname=$_POST['cname'];

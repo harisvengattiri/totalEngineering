@@ -64,6 +64,28 @@ function insertCustomer($data) {
     $logQuery = mysqli_real_escape_string($conn,$sql);
     logActivity('add','CID',$conn->insert_id,$logQuery);
 }
+
+function editCustomer($data) {
+    global $conn;
+
+    $sql = "UPDATE `customers` SET `name` = '{$data["name"]}', `person` = '{$data["person"]}', `gst` = '{$data["gst"]}', `address` =  '{$data["address"]}',
+            `phone` =  '{$data["phone"]}', `fax` =  '{$data["fax"]}', `mobile` =  '{$data["mobile"]}', `email` =  '{$data["email"]}', `type` =  '{$data["type"]}',
+            `slmn` =  '{$data["slmn"]}' WHERE  `id` = {$data["id"]}";
+    checkAccountExist('customers','id',$data['id']);
+    $conn->query($sql);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('edit','CID',$data['id'],$logQuery);
+}
+
+function deleteCustomer($data) {
+    global $conn;
+
+    $sql = "DELETE FROM `customers` WHERE `id` = {$data["id"]}";
+    checkAccountExist('customers','id',$data['id']);
+    $conn->query($sql);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('delete','CID',$data['id'],$logQuery);
+}
 // CUSTOMER SECTION ENDS
 
 // ACTIVITY LOG SECTION STARTS
