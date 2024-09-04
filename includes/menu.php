@@ -1,10 +1,14 @@
 <?php
+
+require_once($_SERVER['DOCUMENT_ROOT'].'totalEngineering/config.php');
+// require_once "config.php";
+
 session_start();
 if (!isset($_SESSION['userid'])) {
-  header("Location:".BASEURL."/login/");
+  require_once("login.php");
+  exit();
 }
 ?>
-<?php $pageissue = 'noissue'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
