@@ -1,5 +1,5 @@
-<?php include "config.php"; ?>
-<?php include "includes/menu.php"; ?>
+<?php require_once "includes/menu.php"; ?>
+
 <?php
 error_reporting(E_ERROR | E_PARSE);
 
@@ -136,8 +136,8 @@ if ($custcnt6 > $custcnt7) {
 							<span class="text-muted l-h-1x"><i class="ion-network text-muted"></i></span>
 						</div>
 						<div class="text-center">
-							<h2 class="text-center _600"><?php echo $project_total; ?></h2>
-							<p class="text-muted m-b-md">Total Projects</p>
+							<h2 class="text-center _600"><?php echo $contacts_total; ?></h2>
+							<p class="text-muted m-b-md">Total Items</p>
 							<div>
 								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $prjcnt; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
 							</div>
@@ -151,8 +151,8 @@ if ($custcnt6 > $custcnt7) {
 							<span class="text-muted l-h-1x"><i class="ion-settings text-muted"></i></span>
 						</div>
 						<div class="text-center">
-							<h2 class="text-center _600"><?php echo $maintenance_total; ?></h2>
-							<p class="text-muted m-b-md">Total Maintenances</p>
+							<h2 class="text-center _600"><?php echo $contacts_total; ?></h2>
+							<p class="text-muted m-b-md">Total Staff</p>
 							<div>
 								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $mntcnt; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
 							</div>
