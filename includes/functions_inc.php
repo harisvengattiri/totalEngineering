@@ -33,3 +33,9 @@ function findMyIPDetails() {
     return $ip_location;
   }
 }
+
+function getStatusFromUrl() {
+
+  $status = isset($_GET['status']) ? $_GET['status'] : '';
+  return $status;
+}
