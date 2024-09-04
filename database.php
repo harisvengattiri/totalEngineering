@@ -86,6 +86,30 @@ function deleteCustomer($data) {
     $logQuery = mysqli_real_escape_string($conn,$sql);
     logActivity('delete','CID',$data['id'],$logQuery);
 }
+
+function getCustomerDetails($cid) {
+    global $conn;
+
+    $sql = "SELECT * FROM `customers` WHERE `id` = $cid";
+    checkAccountExist('customers','id',$cid);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_assoc($result);
+    if(!$row) {
+        throw new Exception();
+    }
+    return $row;
+}
+
+function getContactNameFromId($id) {
+    global $conn;
+
+    $sql = "SELECT name FROM `customers` WHERE `id` = '$id'";
+    checkAccountExist('customers','id',$id);
+    $result = $conn->query($sql);
+    $fetch = mysqli_fetch_array($result);
+    $contact_name = $fetch['name'];
+    return $contact_name;
+}
 // CUSTOMER SECTION ENDS
 
 // ACTIVITY LOG SECTION STARTS

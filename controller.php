@@ -27,6 +27,16 @@ function handleCustomer() {
             exit();
         }
     }
+    if (isset($_REQUEST['submit_edit_customer'])) {
+        try {
+            editCustomer($_REQUEST);
+            header('Location: '.BASEURL."/edit/customer?id=$_REQUEST[id]&status=success");
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/customers?status=failed');
+            exit();
+        }
+    }
     if (isset($_REQUEST['submit_delete_customer'])) {
         try {
             deleteCustomer($_REQUEST);
@@ -37,5 +47,4 @@ function handleCustomer() {
             exit();
         }
     }
-    
 }
