@@ -115,32 +115,6 @@
       </div>
     </div>
   </div>
-
-  <!-- ############ PAGE END-->
-
 </div>
 </div>
-<!-- / -->
-<script type="text/javascript">
-  $(document).ready(function() {
-    $("#cust_type").change(function() {
-      var country_id = $(this).val();
-      if (country_id != "") {
-        $.ajax({
-          url: "get_period",
-          data: {
-            c_id: country_id
-          },
-          type: 'POST',
-          success: function(response) {
-            var resp = $.trim(response);
-            $("#period").html(resp);
-          }
-        });
-      } else {
-        $("#period").html("<option value=''>------- Select --------</option>");
-      }
-    });
-  });
-</script>
 <?php include "../includes/footer.php"; ?>
