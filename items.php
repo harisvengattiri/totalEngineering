@@ -26,14 +26,7 @@
                 <span style="float: right;">Search: <input id="filter" type="text" class="form-control form-control-sm input-sm w-auto inline m-r" /></span>
             </div>
             <div>
-                <?php
-                if (isset($_GET['view'])) {
-                    $list_count = 100;
-                } else {
-                    $list_count = 10;
-                }
-                ?>
-                <table class="table m-b-none" data-ui-jp="footable" data-filter="#filter" data-page-size="<?php echo $list_count; ?>">
+                <table class="table m-b-none" data-ui-jp="footable" data-filter="#filter" data-page-size="10">
                     <thead>
                         <tr>
                             <th data-toggle="true">
@@ -75,7 +68,8 @@
                                     <td>
                                         <a href="<?php echo BASEURL; ?>/edit/item?id=<?php echo $row["id"]; ?>"><button class="btn btn-xs btn-icon info"><i class="fa fa-pencil"></i></button></a>
                                         <?php if ($_SESSION['role'] == 'admin') { ?>
-                                            <a href="<?php echo BASEURL; ?>/delete/item?id=<?php echo $row["id"]; ?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
+                                            <a href="<?php echo BASEURL; ?>/controller?controller=items&submit_delete_item=delete&id=<?php echo $row["id"];?>" 
+                                            onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
                                         <?php } ?>
                                     </td>
                                 </tr>
