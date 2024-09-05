@@ -2,18 +2,18 @@
 <?php require_once("../database.php"); ?>
 <?php 
     $status = getStatusFromUrl();
-?>
-<div class="app-body">
-<?php
-  if ($_GET) { $cid = $_GET["id"];}
-  $customer_details = getCustomerDetails($cid);
+
+    if ($_GET) { $cid = $_GET["id"];}
+    $customer_details = getCustomerDetails($cid);
     $slmn = $customer_details['slmn'];
-    if (!$slmn) {
-        $sales_man = '';
-    } else {
-        $sales_man = getContactNameFromId($slmn);
-    }
+      if (!$slmn) {
+          $sales_man = '';
+      } else {
+          $sales_man = getContactNameFromId($slmn);
+      }
 ?>
+
+<div class="app-body">
   <!-- ############ PAGE START-->
   <div class="padding">
     <div class="row">
