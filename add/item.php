@@ -36,7 +36,7 @@
             <div class="form-group row">
               <label for="Quantity" class="col-sm-2 form-control-label">Item</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" name="items" id="value" placeholder="Item">
+                <input type="text" class="form-control" name="name" id="value" placeholder="Item">
               </div>
               </div>
               <div class="form-group row">

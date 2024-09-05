@@ -125,14 +125,38 @@ function getItemsList() {
     return $items;
 }
 
+function getItemDetails($item) {
+    global $conn;
+
+    $sql = "SELECT * FROM `items` WHERE `id` = $item";
+    checkAccountExist('items','id',$item);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_assoc($result);
+    if(!$row) {
+        throw new Exception();
+    }
+    return $row;
+}
+
 function insertItem($data) {
     global $conn;
 
-    $sql = "INSERT INTO `items` (`items`,`price`,`description`,`dimension`,`unit`) 
-            VALUES ('{$data["items"]}','{$data["price"]}','{$data["description"]}','{$data["dimension"]}','{$data["unit"]}')";
+    $sql = "INSERT INTO `items` (`name`,`price`,`description`,`dimension`,`unit`) 
+            VALUES ('{$data["name"]}','{$data["price"]}','{$data["description"]}','{$data["dimension"]}','{$data["unit"]}')";
     $conn->query($sql);
     $logQuery = mysqli_real_escape_string($conn,$sql);
     logActivity('add','ITM',$conn->insert_id,$logQuery);
+}
+
+function editItem($data) {
+    global $conn;
+
+    $sql = "UPDATE items SET name = '{$data["name"]}',price = '{$data["price"]}',`description` = '{$data["description"]}',dimension = '{$data["dimension"]}',
+            unit = '{$data["unit"]}' WHERE id = '{$data["id"]}'";
+    checkAccountExist('items','id',$data['id']);
+    $conn->query($sql);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('edit','ITM',$data['id'],$logQuery);
 }
 
 function deleteItem($data) {

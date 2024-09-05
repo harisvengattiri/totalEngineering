@@ -64,6 +64,16 @@ function handleItems() {
             exit();
         }
     }
+    if (isset($_REQUEST['submit_edit_item'])) {
+        try {
+            editItem($_REQUEST);
+            header('Location: '.BASEURL.'/items?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/items?status=failed');
+            exit();
+        }
+    }
     if (isset($_REQUEST['submit_delete_item'])) {
         try {
             deleteItem($_REQUEST);

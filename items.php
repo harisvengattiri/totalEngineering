@@ -6,7 +6,7 @@
 <div class="app-body">
     <div class="padding">
 
-	<?php if($status=="success") {?>
+	<?php if($status=="success") { ?>
 	<p><a class="list-group-item b-l-success">
           <span class="pull-right text-success"><i class="fa fa-circle text-xs"></i></span>
           <span class="label rounded label success pos-rlt m-r-xs">
@@ -78,7 +78,7 @@
                         ?>
                                 <tr>
                                     <td>PRD <?php echo sprintf("%04d", $row["id"]); ?></td>
-                                    <td><?php echo $row["items"]; ?></td>
+                                    <td><?php echo $row["name"]; ?></td>
                                     <td><?php echo $row["price"]; ?></td>
                                     <td><?php echo $row["weight"]; ?></td>
                                     <td><?php echo $row["dimension"]; ?></td>
