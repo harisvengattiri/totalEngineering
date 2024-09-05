@@ -73,9 +73,9 @@
                                     <td><?php echo $row["description"]; ?></td>
                                     <td><?php echo $row["unit"]; ?></td>
                                     <td>
-                                        <a href="<?php echo BASEURL; ?>/edit/items?id=<?php echo $row["id"]; ?>"><button class="btn btn-xs btn-icon info"><i class="fa fa-pencil"></i></button></a>
+                                        <a href="<?php echo BASEURL; ?>/edit/item?id=<?php echo $row["id"]; ?>"><button class="btn btn-xs btn-icon info"><i class="fa fa-pencil"></i></button></a>
                                         <?php if ($_SESSION['role'] == 'admin') { ?>
-                                            <a href="<?php echo BASEURL; ?>/delete/items?id=<?php echo $row["id"]; ?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
+                                            <a href="<?php echo BASEURL; ?>/delete/item?id=<?php echo $row["id"]; ?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
                                         <?php } ?>
                                     </td>
                                 </tr>
