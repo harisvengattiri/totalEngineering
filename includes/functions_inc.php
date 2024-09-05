@@ -39,3 +39,10 @@ function getStatusFromUrl() {
   $status = isset($_GET['status']) ? $_GET['status'] : '';
   return $status;
 }
+
+function custom_money_format($format, $number) {
+  $regex  = '/%((?:[\^!\-]|\+|\(|\=.)*)([0-9]+)?(?:#([0-9]+))?(?:\.([0-9]+))?([in%])/';
+  $number = floatval($number);
+  $value = number_format($number, 2, '.', ',');
+  return preg_replace($regex, $value, $format);
+}
