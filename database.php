@@ -134,6 +134,16 @@ function insertItem($data) {
     $logQuery = mysqli_real_escape_string($conn,$sql);
     logActivity('add','ITM',$conn->insert_id,$logQuery);
 }
+
+function deleteItem($data) {
+    global $conn;
+
+    $sql = "DELETE FROM `items` WHERE `id` = {$data["id"]}";
+    checkAccountExist('items','id',$data['id']);
+    $conn->query($sql);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('delete','ITM',$data['id'],$logQuery);
+}
 // ITEMS SECTION ENDS
 
 

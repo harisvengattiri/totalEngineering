@@ -1,8 +1,27 @@
 <?php require_once "includes/menu.php"; ?>
 <?php require_once "database.php"; ?>
-
+<?php 
+    $status = getStatusFromUrl();
+?>
 <div class="app-body">
     <div class="padding">
+
+	<?php if($status=="success") {?>
+	<p><a class="list-group-item b-l-success">
+          <span class="pull-right text-success"><i class="fa fa-circle text-xs"></i></span>
+          <span class="label rounded label success pos-rlt m-r-xs">
+		  <b class="arrow right b-success pull-in"></b><i class="ion-checkmark"></i></span>
+		  <span class="text-success">Your Submission was Successfull!</span>
+    </a></p>
+	<?php } else if($status=="failed") { ?>
+	<p><a class="list-group-item b-l-danger">
+          <span class="pull-right text-danger"><i class="fa fa-circle text-xs"></i></span>
+          <span class="label rounded label danger pos-rlt m-r-xs">
+		  <b class="arrow right b-danger pull-in"></b><i class="ion-checkmark"></i></span>
+		  <span class="text-danger">Your Submission was Failed!</span>
+    </a></p>
+	<?php } ?>
+
         <div class="box">
             <div class="box-header">
                 <span style="float: left;">
