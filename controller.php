@@ -19,6 +19,9 @@ switch ($controller) {
     case 'quotations':
         handleQuotations();
         break;
+    case 'vehicles':
+        handleVehicles();
+        break;       
 }
 
 // Customer Section here
@@ -84,6 +87,40 @@ function handleItems() {
             exit();
         } catch (Exception $e) {
             header('Location: '.BASEURL.'/items?status=failed');
+            exit();
+        }
+    }
+}
+
+// Vehicles Section here
+function handleVehicles() {
+    if (isset($_REQUEST['submit_add_vehicle'])) {
+        try {
+            addVehicle($_REQUEST);
+            header('Location: '.BASEURL.'/vehicles?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/vehicles?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_edit_vehicle'])) {
+        try {
+            editVehicle($_REQUEST);
+            header('Location: '.BASEURL.'/vehicles?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/vehicles?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_delete_vehicle'])) {
+        try {
+            deleteVehicle($_REQUEST);
+            header('Location: '.BASEURL.'/vehicles?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/vehicles?status=failed');
             exit();
         }
     }

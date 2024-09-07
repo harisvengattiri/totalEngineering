@@ -113,6 +113,15 @@ if (!isset($_SESSION['userid'])) {
               </li>
 
               <li>
+                <a href="<?php echo BASEURL; ?>/vehicles" class="b-warn">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-android-car"></i>
+                  </span>
+                  <span class="nav-text">Vehicles</span>
+                </a>
+              </li>
+
+              <li>
                 <a class="b-success">
                   <span class="nav-caret">
                     <i class="fa fa-caret-down"></i>
@@ -145,15 +154,7 @@ if (!isset($_SESSION['userid'])) {
                   </li>
                 </ul>
               </li>
-              <li>
-                <a href="<?php echo BASEURL; ?>/vehicle" class="b-warn">
-                  <span class="nav-icon text-white no-fade">
-                    <i class="ion-android-car"></i>
-                  </span>
-                  <span class="nav-text">Vehicles</span>
-                </a>
-              </li>
-
+              
               <li>
                 <a class="b-success">
                   <span class="nav-caret">

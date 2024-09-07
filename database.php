@@ -170,6 +170,64 @@ function deleteItem($data) {
 }
 // ITEMS SECTION ENDS
 
+// VEHICLE SECTION STARTS
+function getVehicles() {
+    global $conn;
+
+    $sql = "SELECT * FROM `vehicles` ORDER BY id DESC LIMIT 0,100";
+    $result = $conn->query($sql);
+    $vehicles = [];
+    while ($row = mysqli_fetch_array($result)) {
+        $vehicles[] = $row;
+    }
+    return $vehicles;
+}
+
+function getVehicleDetails($id) {
+    global $conn;
+
+    $sql = "SELECT * FROM `vehicles` WHERE `id` = $id";
+    checkAccountExist('vehicles','id',$id);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_assoc($result);
+    if(!$row) {
+        throw new Exception();
+    }
+    return $row;
+}
+
+function addVehicle($data) {
+    global $conn;
+
+    $sql = "INSERT INTO `vehicles` (`name`,`registration`) VALUES ('{$data["name"]}','{$data["registration"]}')";
+    $conn->query($sql);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('add','VEH',$conn->insert_id,$logQuery);
+}
+
+function editVehicle($data) {
+    global $conn;
+    $vehicle = $data['id'];
+
+    $sql = "UPDATE `vehicles` SET `name`='{$data["name"]}',`registration`='{$data["registration"]}' WHERE `id` = $vehicle";
+    checkAccountExist('vehicles','id',$vehicle);
+    $conn->query($sql);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('edit','ITM',$vehicle,$logQuery);
+}
+
+function deleteVehicle($data) {
+    global $conn;
+    $vehicle = $data["id"];
+
+    $sql = "DELETE FROM `vehicles` WHERE `id` = $vehicle";
+    checkAccountExist('vehicles','id',$vehicle);
+    $conn->query($sql);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('delete','VEH',$vehicle,$logQuery);
+}
+// VEHICLE SECTION ENDS
+
 // QUOTATION SECTION STARTS
 function getQuotationDetails($qn) {
     global $conn;
