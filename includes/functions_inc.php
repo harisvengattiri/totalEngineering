@@ -46,3 +46,33 @@ function custom_money_format($format, $number) {
   $value = number_format($number, 2, '.', ',');
   return preg_replace($regex, $value, $format);
 }
+
+function displaySubmissionStatus($status) {
+  $statusClass = "";
+  $iconClass = "ion-checkmark";
+  $message = "";
+
+  if ($status == "success") {
+      $statusClass = "success";
+      $message = "Your Submission was Successful!";
+  } else if ($status == "failed") {
+      $statusClass = "danger";
+      $message = "Your Submission Failed!";
+  }
+
+  ?>
+  <p>
+      <a class="list-group-item b-l-<?php echo $statusClass; ?>">
+          <span class="pull-right text-<?php echo $statusClass; ?>">
+              <i class="fa fa-circle text-xs"></i>
+          </span>
+          <span class="label rounded label <?php echo $statusClass; ?> pos-rlt m-r-xs">
+              <b class="arrow right b-<?php echo $statusClass; ?> pull-in"></b>
+              <i class="<?php echo $iconClass; ?>"></i>
+          </span>
+          <span class="text-<?php echo $statusClass; ?>">
+              <?php echo $message; ?>
+          </span>
+      </a>
+  </p>
+  <?php } ?>
