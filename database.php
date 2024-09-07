@@ -170,6 +170,115 @@ function deleteItem($data) {
 }
 // ITEMS SECTION ENDS
 
+// QUOTATION SECTION STARTS
+function getQuotationDetails($qn) {
+    global $conn;
+
+    $sql = "SELECT * FROM `quotation` WHERE `id` = $qn";
+    checkAccountExist('quotation','id',$qn);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_assoc($result);
+    if(!$row) {
+        throw new Exception();
+    }
+    return $row;
+}
+
+function getQuotationItemDetails($qn) {
+    global $conn;
+
+    $sql = "SELECT * FROM `quotation_item` WHERE `quotation_id` = $qn ORDER BY `id`";
+    checkAccountExist('quotation_item','quotation_id',$qn);
+    $result = $conn->query($sql);
+    $qtn_items = [];
+    while ($row = mysqli_fetch_array($result)) {
+        $qtn_items[] = $row;
+    }
+    return $qtn_items;
+}
+
+function addQuotation($data) {
+    global $conn;
+
+    $sql = "INSERT INTO `quotation` (`customer`, `date`,`attention`,`terms`,`transportation`) 
+      VALUES ('{$data["customer"]}','{$data["date"]}','{$data["attention"]}','{$data["terms"]}','{$data["transportation"]}')";
+    $conn->query($sql);
+    $quotation_id = $conn->insert_id;
+        $item = $data["item"];
+        $quantity = $data["quantity"];
+        $unit = $data["unit"];
+        $item_count = sizeof($item);
+        $sum = 0;
+        for ($i = 0; $i < $item_count; $i++) {
+        $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
+        $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
+        $total[$i] = $quantity[$i] * $unit[$i];
+        $sql1 = "INSERT INTO `quotation_item` (`quotation_id`, `item`, `quantity`, `price`, `total`) 
+                 VALUES ('$quotation_id','$item[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+        $conn->query($sql1);
+        $sum = $sum + $total[$i];
+        }
+        $vat = $sum*0.05;
+        $grand = $sum*1.05;
+        $sql2 = "UPDATE `quotation` SET `subtotal`='$sum',`vat`='$vat',`grand`='$grand' WHERE id='$quotation_id'";
+        $conn->query($sql2);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('add','QNO',$quotation_id,$logQuery);
+}
+
+function editQuotation($data) {
+    global $conn;
+
+    $quotation_id = $data["id"];
+    $sql = "UPDATE `quotation` SET `customer` =  '{$data["customer"]}', `date` =  '{$data["date"]}', `attention` =  '{$data["attention"]}', `terms` =  '{$data["terms"]}',
+            `transportation` =  '{$data["transportation"]}' WHERE `id` = $quotation_id";
+    checkAccountExist('quotation','id',$quotation_id);
+    $conn->query($sql);
+        deleteQuotationItems($quotation_id);
+        $item = $data["item"];
+        $quantity = $data["quantity"];
+        $unit = $data["unit"];
+
+        $count = sizeof($item);
+        $sum = 0;
+        for ($i = 0; $i < $count; $i++) {
+            $item[$i] = mysqli_real_escape_string($conn, $item[$i]);
+            $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
+            $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
+            $total[$i] = $quantity[$i] * $unit[$i];
+            $sql1 = "INSERT INTO `quotation_item`(`quotation_id`,`item`, `quantity`, `price`, `total`) 
+            VALUES ('$quotation_id','$item[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+            $conn->query($sql1);
+            $sum = $sum + $total[$i];
+        }
+        $vat = $sum*0.05;
+        $grand = $sum*1.05;
+        $sql2 = "UPDATE `quotation` SET `subtotal`='$sum',`vat`='$vat',`grand`='$grand' WHERE id='$quotation_id'";
+        $conn->query($sql2);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('edit','QNO',$quotation_id,$logQuery);
+}
+
+function deleteQuotation($data) {
+    global $conn;
+    $quotation_id = $data["id"];
+
+    $sql = "DELETE FROM `quotation` WHERE `id` = $quotation_id";
+    checkAccountExist('quotation','id',$quotation_id);
+    $conn->query($sql);
+    deleteQuotationItems($quotation_id);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('delete','QNO',$quotation_id,$logQuery); 
+}
+
+function deleteQuotationItems($qn) {
+    global $conn;
+
+    $sql = "DELETE FROM quotation_item WHERE `quotation_id` = $qn";
+    $conn->query($sql);
+}
+// QUOTATION SECTION ENDS
+
 
 // ACTIVITY LOG SECTION STARTS
 function logActivity($process,$code,$id,$logQuery) {
@@ -195,4 +304,31 @@ function checkAccountExist($table,$column,$id) {
     if(!$num_rows) {
         throw new Exception();
     }
+}
+
+// SEARCH FILTER SECTION
+function getSearchFilters() {
+    $period_sql = "";
+    $cust_sql = "";
+    $mode = 'Recent View';
+    $show_date = "";
+
+    if ($_POST) {
+        $fdate = $_POST['fdate'];
+        $tdate = $_POST['tdate'];
+        $customer = $_POST['customer'];
+
+        $period_sql = "WHERE STR_TO_DATE(`date`, '%d/%m/%Y') BETWEEN STR_TO_DATE('$fdate', '%d/%m/%Y') AND STR_TO_DATE('$tdate', '%d/%m/%Y')";
+        if (!empty($customer)) {
+            $cust_sql = "AND `customer` = '$customer'";
+        }
+        $mode = 'Search Mode';
+        $show_date = "[$fdate - $tdate]";
+    }
+    return [
+        'period_sql' => $period_sql,
+        'cust_sql' => $cust_sql,
+        'mode' => $mode,
+        'show_date' => $show_date
+    ];
 }

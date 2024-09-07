@@ -16,6 +16,9 @@ switch ($controller) {
     case 'items':
         handleItems();
         break;
+    case 'quotations':
+        handleQuotations();
+        break;
 }
 
 // Customer Section here
@@ -81,6 +84,40 @@ function handleItems() {
             exit();
         } catch (Exception $e) {
             header('Location: '.BASEURL.'/items?status=failed');
+            exit();
+        }
+    }
+}
+
+// Quotations Section here
+function handleQuotations() {
+    if (isset($_REQUEST['submit_add_quotation'])) {
+        try {
+            addQuotation($_REQUEST);
+            header('Location: '.BASEURL.'/quotation?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/quotation?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_edit_quotation'])) {
+        try {
+            editQuotation($_REQUEST);
+            header('Location: '.BASEURL.'/quotation?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/quotation?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_delete_quotation'])) {
+        try {
+            deleteQuotation($_REQUEST);
+            header('Location: '.BASEURL.'/quotation?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/quotation?status=failed');
             exit();
         }
     }
