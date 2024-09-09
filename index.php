@@ -10,7 +10,7 @@ if (mysqli_num_rows($result) > 0) {
 		$contacts_total = $row['contacts_total'];
 	}
 }
-$sql = "SELECT count(*) as staff_total from customers where type='staff'";
+$sql = "SELECT count(*) as staff_total from customers where type='Staff'";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
 	while ($row = mysqli_fetch_assoc($result)) {
@@ -18,13 +18,23 @@ if (mysqli_num_rows($result) > 0) {
 	}
 }
 
-$sql = "SELECT count(*) as vehicles_total from vehicle";
+$sql = "SELECT count(*) as vehicles_total from vehicles";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
 	while ($row = mysqli_fetch_assoc($result)) {
 		$vehicles_total = $row['vehicles_total'];
 	}
 }
+
+$sql = "SELECT count(*) as items_total from items";
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+	while ($row = mysqli_fetch_assoc($result)) {
+		$items_total = $row['items_total'];
+	}
+}
+
+
 $sql = "SELECT count(*) as recent_contacts from customers WHERE (`current_timestamp` > DATE_SUB(now(), INTERVAL 30 DAY))";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
@@ -136,7 +146,7 @@ if ($custcnt6 > $custcnt7) {
 							<span class="text-muted l-h-1x"><i class="ion-network text-muted"></i></span>
 						</div>
 						<div class="text-center">
-							<h2 class="text-center _600"><?php echo $contacts_total; ?></h2>
+							<h2 class="text-center _600"><?php echo $items_total; ?></h2>
 							<p class="text-muted m-b-md">Total Items</p>
 							<div>
 								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $prjcnt; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
@@ -151,7 +161,7 @@ if ($custcnt6 > $custcnt7) {
 							<span class="text-muted l-h-1x"><i class="ion-settings text-muted"></i></span>
 						</div>
 						<div class="text-center">
-							<h2 class="text-center _600"><?php echo $contacts_total; ?></h2>
+							<h2 class="text-center _600"><?php echo $staff_total; ?></h2>
 							<p class="text-muted m-b-md">Total Staff</p>
 							<div>
 								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $mntcnt; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
