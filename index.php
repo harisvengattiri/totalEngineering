@@ -1,7 +1,6 @@
 <?php require_once "includes/menu.php"; ?>
 
 <?php
-error_reporting(E_ERROR | E_PARSE);
 
 $sql = "SELECT count(*) as contacts_total from customers";
 $result = mysqli_query($conn, $sql);
@@ -35,61 +34,14 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 
-$sql = "SELECT count(*) as recent_contacts from customers WHERE (`current_timestamp` > DATE_SUB(now(), INTERVAL 30 DAY))";
+$sql = "SELECT * from customers ORDER BY id DESC LIMIT 6";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
 	while ($row = mysqli_fetch_assoc($result)) {
-		$recent_contacts = 0 + $row['recent_contacts'];
+		$recent_contacts[] = $row;
 	}
 }
-$sql = "SELECT name,id,type from customers ORDER BY id DESC LIMIT 6";
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
-	while ($row = mysqli_fetch_assoc($result)) {
-		$customer1 = $customer2;
-		$customer2 = $customer3;
-		$customer3 = $customer4;
-		$customer4 = $customer5;
-		$customer5 = $customer6;
-		$customer6 = $row['name'];
-		$customer1id = $customer2id;
-		$customer2id = $customer3id;
-		$customer3id = $customer4id;
-		$customer4id = $customer5id;
-		$customer5id = $customer6id;
-		$customer6id = $row['id'];
-		$customer1type = $customer2type;
-		$customer2type = $customer3type;
-		$customer3type = $customer4type;
-		$customer4type = $customer5type;
-		$customer5type = $customer6type;
-		$customer6type = $row['type'];
-	}
-}
-$sql = "SELECT count(*) as shops from customers WHERE type='Shop'";
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
-	while ($row = mysqli_fetch_assoc($result)) {
-		$totalshops = $row['shops'];
-	}
-}
-
-$sql = "SELECT COUNT(*) AS cnt FROM customers WHERE `current_timestamp` >= DATE_SUB(NOW(), INTERVAL 7 day) group by date(`current_timestamp`);";
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
-	$custcnt = "1";
-	while ($row = mysqli_fetch_assoc($result)) {
-		$custcnt = $custcnt . ", " . $row['cnt'];
-		$custcnt6 = $custcnt7;
-		$custcnt7 = $row['cnt'];
-	}
-}
-if ($custcnt6 > $custcnt7) {
-	$custcntarrow = "down";
-} else {
-	$custcntarrow = "up";
-}
-
+$custcntarrow = "up";
 ?>
 <style>
 	.mobile-content {
@@ -134,7 +86,7 @@ if ($custcnt6 > $custcnt7) {
 							<h2 class="text-center _600"><?php echo $contacts_total; ?></h2>
 							<p class="text-muted m-b-md">Total Contacts</p>
 							<div>
-								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $custcnt; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
+								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $contacts_total; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
 							</div>
 						</div>
 					</div>
@@ -142,14 +94,14 @@ if ($custcnt6 > $custcnt7) {
 				<div class="col-xs-6 col-sm-3 b-r b-b">
 					<div class="padding">
 						<div>
-							<span class="pull-right"><i class="fa fa-caret-<?php echo $prjcntarrow; ?> text-primary m-y-xs"></i></span>
+							<span class="pull-right"><i class="fa fa-caret-<?php echo $custcntarrow; ?> text-primary m-y-xs"></i></span>
 							<span class="text-muted l-h-1x"><i class="ion-network text-muted"></i></span>
 						</div>
 						<div class="text-center">
 							<h2 class="text-center _600"><?php echo $items_total; ?></h2>
 							<p class="text-muted m-b-md">Total Items</p>
 							<div>
-								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $prjcnt; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
+								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $items_total; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
 							</div>
 						</div>
 					</div>
@@ -157,14 +109,14 @@ if ($custcnt6 > $custcnt7) {
 				<div class="col-xs-6 col-sm-3 b-r b-b">
 					<div class="padding">
 						<div>
-							<span class="pull-right"><i class="fa fa-caret-<?php echo $mntcntarrow; ?> text-primary m-y-xs"></i></span>
+							<span class="pull-right"><i class="fa fa-caret-<?php echo $custcntarrow; ?> text-primary m-y-xs"></i></span>
 							<span class="text-muted l-h-1x"><i class="ion-settings text-muted"></i></span>
 						</div>
 						<div class="text-center">
 							<h2 class="text-center _600"><?php echo $staff_total; ?></h2>
 							<p class="text-muted m-b-md">Total Staff</p>
 							<div>
-								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $mntcnt; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
+								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $staff_total; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
 							</div>
 						</div>
 					</div>
@@ -172,14 +124,14 @@ if ($custcnt6 > $custcnt7) {
 				<div class="col-xs-6 col-sm-3 b-b">
 					<div class="padding">
 						<div>
-							<span class="pull-right"><i class="fa fa-caret-<?php echo $vhlcntarrow; ?> text-primary m-y-xs"></i></span>
+							<span class="pull-right"><i class="fa fa-caret-<?php echo $custcntarrow; ?> text-primary m-y-xs"></i></span>
 							<span class="text-muted l-h-1x"><i class="ion-android-car text-muted"></i></span>
 						</div>
 						<div class="text-center">
 							<h2 class="text-center _600"><?php echo $vehicles_total; ?></h2>
 							<p class="text-muted m-b-md">Total Vehicles</p>
 							<div>
-								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $vhlcnt; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
+								<span data-ui-jp="sparkline" data-ui-options="[<?php echo $vehicles_total; ?>], {type:'line', height:20, width: '60', lineWidth:1, valueSpots:{'0:':'#818a91'}, lineColor:'#818a91', spotColor:'#818a91', fillColor:'', highlightLineColor:'rgba(120,130,140,0.3)', spotRadius:0}" class="sparkline inline"></span>
 							</div>
 						</div>
 					</div>
@@ -197,78 +149,25 @@ if ($custcnt6 > $custcnt7) {
 					<div class="col-sm-6">
 						<div class="box">
 							<div class="box-header">
-								<span class="label white text-success pull-right">in Last 30 Days</span>
-								<span class="label success pull-right"><?php echo $recent_contacts; ?></span>
+								<span class="label white text-success pull-right">Latest 6 Contacts</span>
+								<span class="label success pull-right">6</span>
 								<h3>New Contacts</h3>
 							</div>
 							<div class="p-b-sm">
 								<ul class="list no-border m-a-0">
+									<?php foreach($recent_contacts as $recent) { ?>
 									<li class="list-item">
 										<a href="#" class="list-left">
 											<span class="w-40 avatar danger">
-												<span><?php echo ucfirst(substr("$customer1", 0, 1)); ?></span>
+												<span><?php echo ucfirst(substr($recent['name'], 0, 1)); ?></span>
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer1id; ?>"><?php echo $customer1; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $customer1type; ?></small>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $recent['id']; ?>"><?php echo $recent['name']; ?></a></div>
+											<small class="text-muted text-ellipsis"><?php echo $recent['type']; ?></small>
 										</div>
 									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar purple">
-												<span><?php echo ucfirst(substr("$customer2", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer2id; ?>"><?php echo $customer2; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $customer2type; ?></small>
-										</div>
-									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar info">
-												<span><?php echo ucfirst(substr("$customer3", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer3id; ?>"><?php echo $customer3; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $customer3type; ?></small>
-										</div>
-									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar warning">
-												<span><?php echo ucfirst(substr("$customer4", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer4id; ?>"><?php echo $customer4; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $customer4type; ?></small>
-										</div>
-									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar success">
-												<span><?php echo ucfirst(substr("$customer5", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer5id; ?>"><?php echo $customer5; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $customer5type; ?></small>
-										</div>
-									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar grey">
-												<span><?php echo ucfirst(substr("$customer6", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $customer6id; ?>"><?php echo $customer6; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $customer6type; ?></small>
-										</div>
-									</li>
+									<?php } ?>
 								</ul>
 							</div>
 						</div>
@@ -276,130 +175,56 @@ if ($custcnt6 > $custcnt7) {
 						<div class="box">
 							<div class="box-header">
 								<span class="label white text-success pull-right">Total Sellers</span>
-								<span class="label success pull-right"><?php echo $totalshops; ?></span>
+								<span class="label success pull-right">15</span>
 								<h3>Top Sellers</h3>
 							</div>
 							<div class="p-b-sm">
 								<ul class="list no-border m-a-0">
+									<?php foreach($recent_contacts as $recent) { ?>
 									<li class="list-item">
 										<a href="#" class="list-left">
 											<span class="w-40 avatar success">
-												<span><?php echo ucfirst(substr("$shop1", 0, 1)); ?></span>
+												<span><?php echo ucfirst(substr($recent['name'], 0, 1)); ?></span>
 											</span>
 										</a>
 										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop1id; ?>"><?php echo $shop1; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $shop1amount; ?> AED</small>
+											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $recent['id']; ?>"><?php echo $recent['name']; ?></a></div>
+											<small class="text-muted text-ellipsis"><?php echo $recent['type']; ?></small>
 										</div>
 									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar warning">
-												<span><?php echo ucfirst(substr("$shop2", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop2id; ?>"><?php echo $shop2; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $shop2amount; ?> AED</small>
-										</div>
-									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar primary">
-												<span><?php echo ucfirst(substr("$shop3", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop3id; ?>"><?php echo $shop3; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $shop3amount; ?> AED</small>
-										</div>
-									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar warn">
-												<span><?php echo ucfirst(substr("$shop4", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop4id; ?>"><?php echo $shop4; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $shop4amount; ?> AED</small>
-										</div>
-									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar brown">
-												<span><?php echo ucfirst(substr("$shop5", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop5id; ?>"><?php echo $shop5; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $shop5amount; ?> AED</small>
-										</div>
-									</li>
-									<li class="list-item">
-										<a href="#" class="list-left">
-											<span class="w-40 avatar danger">
-												<span><?php echo ucfirst(substr("$shop6", 0, 1)); ?></span>
-											</span>
-										</a>
-										<div class="list-body">
-											<div><a href="<?php echo BASEURL; ?>/customers?id=<?php echo $shop6id; ?>"><?php echo $shop6; ?></a></div>
-											<small class="text-muted text-ellipsis"><?php echo $shop6amount; ?> AED</small>
-										</div>
-									</li>
+									<?php } ?>
 								</ul>
 							</div>
 						</div>
-
-
 					</div>
 
-					<div class="col-sm-6">
-						<?php if ($_SESSION['role'] == 'admin' || $_SESSION['username'] == 'noushad') { ?>
-							<div class="box">
-								<div class="box-header">
-									<h3 style="color:red;"><b>Latest Salesorders to approve</b></h3>
-								</div>
-
-
-								<?php
-								//  $sql_po_appr = "SELECT * FROM `sales_order` WHERE approve != 1 ORDER BY id DESC LIMIT 10";
-								//  $query_po_appr = mysqli_query($conn,$sql_po_appr);
-								//  while($fetch_po_appr = mysqli_fetch_array($query_po_appr)){
-								?>
-								<!--<ul class="list no-border m-a-0">-->
-								<!--<li class="list-item">-->
-								<!--<div class="list-body"><a href="<?php echo BASEURL; ?>/edit/approve_po?id=<?php echo $fetch_po_appr['id']; ?>">PO|<?php echo $fetch_po_appr['order_referance']; ?><span class="pull-right text-danger">Approve</span></a></div>-->
-								<!--</li>-->
-								<!--</ul>-->
-								<?php // } 
-								?>
-
-
-
-								<form style="padding-bottom:10px;" role="form" action="<?php echo BASEURL; ?>/edit/po_approval" method="post">
-									<div class="form-group row">
-										<label for="type" align="right" class="col-sm-3 form-control-label">Sales Order</label>
-										<div class="col-sm-5">
-											<select name="order_refrence" class="form-control select2-multiple" data-ui-jp="select2" data-ui-options="{theme: 'bootstrap'}" required>
-												<option value="">Select Sales Order</option>
-												<?php
-												$sql_po_appr = "SELECT * FROM `sales_order` WHERE approve != 1 ORDER BY id DESC";
-												$query_po_appr = mysqli_query($conn, $sql_po_appr);
-												while ($fetch_po_appr = mysqli_fetch_array($query_po_appr)) {
-												?>
-													<option value="<?php echo $fetch_po_appr['order_referance']; ?>">PO|<?php echo $fetch_po_appr['order_referance']; ?></option>
-												<?php } ?>
-											</select>
-										</div>
-										<button name="submit_appr" type="submit" class="btn btn-sm btn-outline rounded b-success text-success">Approve</button>
-									</div>
-								</form>
-
-
+					<!-- <div class="col-sm-6">
+						<div class="box">
+							<div class="box-header">
+								<h3 style="color:red;"><b>Latest Salesorders to approve</b></h3>
 							</div>
-						<?php } ?>
-					</div>
+							<form style="padding-bottom:10px;" role="form" action="<?php // echo BASEURL; ?>/edit/po_approval" method="post">
+								<div class="form-group row">
+									<label for="type" align="right" class="col-sm-3 form-control-label">Sales Order</label>
+									<div class="col-sm-5">
+										<select name="order_refrence" class="form-control select2-multiple" data-ui-jp="select2" data-ui-options="{theme: 'bootstrap'}" required>
+											<option value="">Select Sales Order</option>
+											<?php
+											// $sql_po_appr = "SELECT * FROM `sales_order` WHERE approve != 1 ORDER BY id DESC";
+											// $query_po_appr = mysqli_query($conn, $sql_po_appr);
+											// while ($fetch_po_appr = mysqli_fetch_array($query_po_appr)) {
+											?>
+												<option value="<?php // echo $fetch_po_appr['order_referance']; ?>">PO|<?php // echo $fetch_po_appr['order_referance']; ?></option>
+											<?php // } ?>
+										</select>
+									</div>
+									<button name="submit_appr" type="submit" class="btn btn-sm btn-outline rounded b-success text-success">Approve</button>
+								</div>
+							</form>
+						</div>
+					</div> -->
+
+
 				</div>
 			</div>
 		</div>
@@ -451,7 +276,7 @@ if ($custcnt6 > $custcnt7) {
 				</div>
 				<div class="streamline streamline-theme m-b">
 					<?php
-					$sql = "select * from activity_log ORDER BY `id` DESC LIMIT 28";
+					$sql = "select * from activity_log ORDER BY `id` DESC LIMIT 12";
 
 					$result = mysqli_query($conn, $sql);
 					if (mysqli_num_rows($result) > 0) {
