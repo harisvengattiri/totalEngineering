@@ -259,7 +259,7 @@ function addQuotation($data) {
     global $conn;
 
     $sql = "INSERT INTO `quotation` (`customer`, `date`,`attention`,`terms`,`transportation`) 
-      VALUES ('{$data["customer"]}','{$data["date"]}','{$data["attention"]}','{$data["terms"]}','{$data["transportation"]}')";
+            VALUES ('{$data["customer"]}','{$data["date"]}','{$data["attention"]}','{$data["terms"]}','{$data["transportation"]}')";
     $conn->query($sql);
     $quotation_id = $conn->insert_id;
         $item = $data["item"];
@@ -336,6 +336,89 @@ function deleteQuotationItems($qn) {
     $conn->query($sql);
 }
 // QUOTATION SECTION ENDS
+
+
+
+
+
+
+
+
+
+
+// ORDER SECTION STARTS
+function getOrderDetails($ord) {
+    global $conn;
+
+    $sql = "SELECT * FROM `sales_order` WHERE `id` = $ord";
+    checkAccountExist('sales_order','id',$ord);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_assoc($result);
+    if(!$row) {
+        throw new Exception();
+    }
+    return $row;
+}
+
+function addOrder($data) {
+    global $conn;
+
+    $sql = "INSERT INTO `sales_order` (`customer`, `date`,`transportation`) 
+            VALUES ('{$data["customer"]}','{$data["date"]}','{$data["transportation"]}')";
+    $conn->query($sql);
+    $order_id = $conn->insert_id;
+        $item = $data["item"];
+        $quantity = $data["quantity"];
+        $unit = $data["unit"];
+        $item_count = sizeof($item);
+        $sum = 0;
+        for ($i = 0; $i < $item_count; $i++) {
+        $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
+        $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
+        $total[$i] = $quantity[$i] * $unit[$i];
+        $sql1 = "INSERT INTO `order_item` (`order_id`, `item`, `quantity`, `price`, `total`) 
+                 VALUES ('$order_id','$item[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+        $conn->query($sql1);
+        $sum = $sum + $total[$i];
+        }
+        $vat = $sum*0.05;
+        $grand = $sum*1.05;
+        $sql2 = "UPDATE `sales_order` SET `subtotal`='$sum',`vat`='$vat',`grand`='$grand' WHERE id='$order_id'";
+        $conn->query($sql2);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('add','DO',$order_id,$logQuery);
+}
+
+function editOrder() {
+
+}
+
+function deleteOrder($data) {
+    global $conn;
+    $order_id = $data["id"];
+
+    $sql = "DELETE FROM `sales_order` WHERE `id` = $order_id";
+    checkAccountExist('sales_order','id',$order_id);
+    $conn->query($sql);
+    deleteOrderItems($order_id);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('delete','DO',$order_id,$logQuery);
+}
+
+function deleteOrderItems($order_id) {
+    global $conn;
+
+    $sql = "DELETE FROM order_item WHERE `order_id` = $order_id";
+    $conn->query($sql);
+}
+// ORDER SECTION STARTS
+
+
+
+
+
+
+
 
 
 // ACTIVITY LOG SECTION STARTS

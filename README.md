@@ -4,6 +4,8 @@ ERP using functions
 
 REQUIRED TABLES ARE BELOW
 - users
+- login_log
+- activity_log
 
 - customers
 - items
@@ -11,3 +13,6 @@ REQUIRED TABLES ARE BELOW
 
 - quotation
 - quotation_item
+
+- sales_order
+- order_item

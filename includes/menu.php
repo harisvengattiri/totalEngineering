@@ -138,18 +138,13 @@ if (!isset($_SESSION['userid'])) {
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/sales_order_new">
-                      <span class="nav-text">Delivery Challan</span>
+                    <a href="<?php echo BASEURL; ?>/orders">
+                      <span class="nav-text">Delivery Order</span>
                     </a>
                   </li>
                   <li>
                     <a href="<?php echo BASEURL; ?>/delivery_note">
                       <span class="nav-text">Delivery Note</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo BASEURL; ?>/credits">
-                      <span class="nav-text">Credit Application</span>
                     </a>
                   </li>
                 </ul>

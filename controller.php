@@ -16,12 +16,15 @@ switch ($controller) {
     case 'items':
         handleItems();
         break;
+    case 'vehicles':
+        handleVehicles();
+        break;
     case 'quotations':
         handleQuotations();
         break;
-    case 'vehicles':
-        handleVehicles();
-        break;       
+    case 'salesOrders':
+        handleSalesOrders();
+        break;     
 }
 
 // Customer Section here
@@ -155,6 +158,40 @@ function handleQuotations() {
             exit();
         } catch (Exception $e) {
             header('Location: '.BASEURL.'/quotation?status=failed');
+            exit();
+        }
+    }
+}
+
+// SalesOrders Section here
+function handleSalesOrders() {
+    if (isset($_REQUEST['submit_add_order'])) {
+        try {
+            addOrder($_REQUEST);
+            header('Location: '.BASEURL.'/orders?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/orders?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_edit_order'])) {
+        try {
+            editOrder($_REQUEST);
+            header('Location: '.BASEURL.'/orders?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/orders?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_delete_order'])) {
+        try {
+            deleteOrder($_REQUEST);
+            header('Location: '.BASEURL.'/orders?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/orders?status=failed');
             exit();
         }
     }
