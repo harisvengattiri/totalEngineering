@@ -1,53 +1,9 @@
-<?php include "../config.php";?>
 <?php require_once "../database.php";?>
 
 <?php 
 $order = $_GET["id"]; 
 ?>
 <title>Delivery Order #<?php echo $order;?></title>
-
-<style>
-table
-{
-    page-break-inside:auto;
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid black;
-    padding: 2px;
-    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-}
-
-tr, th, td {
-    page-break-inside:avoid; page-break-after:auto ;
-    height: 20px;
-    border: 1px solid black;
-    padding: 5px;
-    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-}
-
-tr, th, td {
-    page-break-inside:avoid; page-break-after:auto ;
-    height: 20px;
-    border: 1px solid black;
-    padding: 5px;
-    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-}
-
-p,li {
-     word-spacing: 2px;
-     line-height: 140%;
-     font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-     font-size: 12px;
-}
-body, h1 {
-     font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-     font-size: 12px;
-}
-    .wrapper{position:relative; font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;}
-    .right,.left{width:50%; position:absolute;}
-    .right{right:0;}
-    .left{left:0;}
-</style>
 
 <body>
 <table style="width: 100%; border:0px">
@@ -62,32 +18,30 @@ body, h1 {
 <br/>
 
      <?php 
-             $sql="SELECT * FROM sales_order where id = '$order'";
-             
-             $query=mysqli_query($conn,$sql);
-             while($fetch=mysqli_fetch_array($query))
-             {
-                  $date=$fetch['date'];
-                  $customer=$fetch['customer'];
-                  
-                  $sub_total=$fetch['subtotal'];
-                  $sub_total = ($sub_total != NULL) ? $sub_total : 0;
+        $order_details = getOrderDetails($order);
+          $date = $order_details['date'];
+          $customer = $order_details['customer'];
+            $customer_details = getCustomerDetails($customer);
+              $customer_name = $customer_details['name'];
+              $customer_address = $customer_details['address'];
+              $customer_phone = $customer_details['phone'];
+              $customer_fax = $customer_details['fax'];
+              $customer_gst = $customer_details['gst'];
+          
+          $sub_total = $order_details['subtotal'];
+          $sub_total = ($sub_total != NULL) ? $sub_total : 0;
 
-                  $vat=$fetch['vat'];
-                  $vat = ($vat != NULL) ? $vat : 0;
+          $vat = $order_details['vat'];
+          $vat = ($vat != NULL) ? $vat : 0;
 
-                  $grand_total=$fetch['grand'];
-                  $grand_total = ($grand_total != NULL) ? $grand_total : 0;
+          $grand = $order_details['grand'];
+          $grand = ($grand != NULL) ? $grand : 0;
 
-                  $transportation=$fetch['transportation'];
-                  $transportation = ($transportation != NULL) ? $transportation : 0;
-             }
-             $customer_details = getCustomerDetails($customer);
-             $customer_name = $customer_details['name'];
-             $customer_address = $customer_details['address'];
-             $customer_phone = $customer_details['phone'];
-             $customer_fax = $customer_details['fax'];
-             $customer_gst = $customer_details['gst'];
+          $transportation = $order_details['transportation'];
+          $transportation = ($transportation != NULL) ? $transportation : 0;
+
+          $grand_total = $order_details['grand_total'];
+          $grand_total = ($grand_total != NULL) ? $grand_total : 0;
         ?>
 
 
@@ -131,7 +85,7 @@ body, h1 {
 <th style="width: 14%;">Item</th>
 <th style="width: 9%;">Qty</th>
 <th style="width: 8%;">Price</th>
-<th style="width: 10%;">Total AED</th>
+<th style="width: 10%;">Total</th>
 </tr>
 
         <?php
@@ -144,12 +98,13 @@ body, h1 {
                   $item = $fetch['item'];
                   $quantity = $fetch['quantity'];
                   $price = $fetch['price'];
-                  $total = $fetch['total'];  
+                  $total = $fetch['total'];
+                  $itemDetails = getItemDetails($item); 
         ?>
           <tr>
             <td align="center"><?php echo $sl;?></td>
             <td align="center">10012</td>
-            <td align="center"><?php echo $item;?></td>
+            <td align="center"><?php echo $itemDetails['name'];?></td>
             <td align="center"><?php echo $quantity;?></td>
             <td align="center"><?php echo $price;?></td>
             <td align="right"><?php echo custom_money_format('%!i', $total);?></td>
@@ -157,7 +112,7 @@ body, h1 {
         <?php $sl++;} ?>
           <tr>
             <td colspan="5" align="right"><b>Price before GST&nbsp;</b></td>
-            <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $total);?></b></td>
+            <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $sub_total);?></b></td>
           </tr>
           <tr>
             <td colspan="5" align="right"><b>GST&nbsp;5%&nbsp;</b></td>

@@ -109,6 +109,12 @@
                                 GST Amount
                             </th>
                             <th style="text-align: right;">
+                                Total Amount
+                            </th>
+                            <th style="text-align: right;">
+                                Transportation
+                            </th>
+                            <th style="text-align: right;">
                                 Grand Total
                             </th>
                             <th>
@@ -137,6 +143,8 @@
                                     <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['subtotal']); ?></td>
                                     <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['vat']); ?></td>
                                     <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['grand']); ?></td>
+                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['transportation']); ?></td>
+                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['grand_total']); ?></td>
                                     <td>
                                         <?php
                                         $company = $_SESSION["username"];

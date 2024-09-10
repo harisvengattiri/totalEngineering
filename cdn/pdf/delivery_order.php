@@ -12,6 +12,8 @@ $mpdf->setAutoTopMargin = 'stretch';
 $mpdf->showWatermarkImage = true;
 $mpdf->setAutoBottomMargin = 'stretch';
 $mpdf->SetDisplayMode('fullpage');
+$stylesheet = file_get_contents(BASEURL.'/prints/pdf_table.css');
+$mpdf->WriteHTML($stylesheet, 1);
 $mpdf->WriteHTML($html);
 $mpdf->Output('Delivery Order #'.$order.'.pdf', 'I');
 exit;
