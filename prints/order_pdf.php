@@ -1,4 +1,5 @@
 <?php include "../config.php";?>
+<?php require_once "../database.php";?>
 
 <?php 
 $order = $_GET["id"]; 
@@ -46,7 +47,6 @@ body, h1 {
     .right,.left{width:50%; position:absolute;}
     .right{right:0;}
     .left{left:0;}
-
 </style>
 
 <body>
@@ -67,11 +67,10 @@ body, h1 {
              $query=mysqli_query($conn,$sql);
              while($fetch=mysqli_fetch_array($query))
              {
-                  $id=$fetch['id'];
                   $date=$fetch['date'];
                   $customer=$fetch['customer'];
                   
-                  $sub_total=$fetch['total'];
+                  $sub_total=$fetch['subtotal'];
                   $sub_total = ($sub_total != NULL) ? $sub_total : 0;
 
                   $vat=$fetch['vat'];
@@ -80,9 +79,15 @@ body, h1 {
                   $grand_total=$fetch['grand'];
                   $grand_total = ($grand_total != NULL) ? $grand_total : 0;
 
-                  $transportation=$fetch['transport'];
+                  $transportation=$fetch['transportation'];
                   $transportation = ($transportation != NULL) ? $transportation : 0;
              }
+             $customer_details = getCustomerDetails($customer);
+             $customer_name = $customer_details['name'];
+             $customer_address = $customer_details['address'];
+             $customer_phone = $customer_details['phone'];
+             $customer_fax = $customer_details['fax'];
+             $customer_gst = $customer_details['gst'];
         ?>
 
 
@@ -90,43 +95,34 @@ body, h1 {
 <table style="width: 100%;" cellspacing="0" cellpadding="0">
 <tr>
 <td style="width: 15%;">Customer No:</td>
-<td><b>CST <?php echo sprintf('%04d',$id1);?></b></td>
-<td style="width: 15%;">Invoice No:</td>
-<td><b>AR|<?php echo sprintf('%06d',$inv);?></b></td>
+<td><b>CST <?php echo sprintf('%04d',$customer);?></b></td>
+<td style="width: 15%;">Order No:</td>
+<td><b>DO|<?php echo sprintf('%06d',$order);?></b></td>
 </tr>
 <tr>
 <td style="width: 15%;">Customer Name:</td>
-<td><b><?php echo $cust;?></b></td>
+<td><b><?php echo $customer_name;?></b></td>
 <td style="width: 15%;">Invoice Date:</td>
 <td><b><?php echo $date;?></b></td>
 </tr>
+
 <tr>
 <td style="width: 15%;">Address:</td>
-<td><b><?php echo $address;?></b></td>
-<td style="width: 15%;">LPO No:</td>
-<td><b><?php echo $lpo;?></b></td>
+<td><b><?php echo $customer_address;?></b></td>
+<td style="width: 15%;">TRN:</td>
+<td><b><?php echo $customer_gst;?></b></td>
 </tr>
+
 <tr>
 <td style="width: 15%;">Phone:</td>
-<td><b><?php echo $phone;?></b></td>
-<td style="width: 15%;">Site:</td>
-<td><b><?php echo $site1;?></b></td>
-</tr>
-<tr>
+<td><b><?php echo $customer_phone;?></b></td>
 <td style="width: 15%;">FAX:</td>
-<td><b><?php echo $fax;?></b></td>
-<td style="width: 16%;">Purchase Order#</td>
-<td><b><?php echo $or;?></b></td>
+<td><b><?php echo $customer_fax;?></b></td>
 </tr>
-<tr>
-<td style="width: 15%;">TRN:</td>
-<td><b><?php echo $trn;?></b></td>
-<td style="width: 15%;"></td>
-<td><b></b></td>
-</tr>
+
 </table>
 <br/>
-<h3>Invoice Details</h3>
+<h3>Order Details</h3>
 <br/>
 <table style="width: 100%;" border="0" cellspacing="0" cellpadding="2">
 <tr>
@@ -160,28 +156,28 @@ body, h1 {
           </tr>
         <?php $sl++;} ?>
           <tr>
-            <td colspan="8" align="right"><b>Price before VAT&nbsp;</b></td>
+            <td colspan="5" align="right"><b>Price before GST&nbsp;</b></td>
             <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $total);?></b></td>
           </tr>
           <tr>
-            <td colspan="8" align="right"><b>VAT&nbsp;5%&nbsp;</b></td>
+            <td colspan="5" align="right"><b>GST&nbsp;5%&nbsp;</b></td>
             <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $vat);?></b></td>
           </tr>
          
           <tr>
-            <td colspan="8" align="right"><b>Transportation&nbsp;</b></td>
+            <td colspan="5" align="right"><b>Transportation&nbsp;</b></td>
             <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $transportation);?></b></td>
           </tr>
           
           <tr>
             <td colspan="2" align="center"><b>Grand total</b></td>
-            <td colspan="6" align="center"><b>
+            <td colspan="3" align="center"><b>
             <?php
-            $inwords=ucwords(convert_number_to_words($grand_total));
+              $inwords=ucwords(convert_number_to_words($grand_total));
 
                if(fmod($grand_total,1)==0)
                {
-                 echo 'AED '. $inwords." Only";
+                 echo 'Rupees '. $inwords." Only";
                }
                else
                {
@@ -190,21 +186,22 @@ body, h1 {
                 $filsmod = number_format((float)$filsmod1, 2, '.', '');
                 $fils = str_replace('0.', '', $filsmod);
                 
-                echo 'AED '. $dirham.' And '.$fils.'/100';
+                echo 'Rupees '. $dirham.' And '.$fils.'/100';
                }
             ?>
             </b></td>
             <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $grand_total);?></b></td>
           </tr>
+
 </table>
 <?php
-$brv=13-$sl;
+$brv = 16-$sl;
 for($i=0;$i<$brv;$i++)
 {
 echo "<br/>";
 }
 ?>
-<p align="justify"><?php echo $bank_details;?></p>
+<p align="justify">Bank Details Here ...</p>
 <table style="width: 100%; border:0px" cellspacing="0" cellpadding="0">
 
 <tr style="border:0px" >    
@@ -212,7 +209,7 @@ echo "<br/>";
 <td style="border:0px" ><br/><br/><b>....................</b><br/><br/></td>         
 <td style="width: 40%; border:0px"><br/><br/><br/><br/></td>
 <td style="width: 13%; border:0px"><br/><br/>Prepared By:<br/><br/></td>
-<td style="border:0px" ><br/><br/><b><?php echo $_GET['open'];?></b><br/><br/></td>
+<td style="border:0px" ><br/><br/><b>Admin</b><br/><br/></td>
 </tr>    
 
 <tr style="border:0px" > 
