@@ -10,7 +10,7 @@ $password = getenv('DB_PASSWORD');
 $dbname = getenv('DB_DATABASE');
 
 define('BASEURL', getenv('BASEURL'));
-define('CDNURL', BASEURL.'/cdn/mancon');
+define('CDNURL', BASEURL.'/cdn/pdf');
 
 $title = "CERP | TOTAL ENGINEERING - "
 .ucwords(str_ireplace(array(BASEURL,'.php', '_', 'index', '/'), array('', '', ' ', 'dashboard', ' '), 'https://'.$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]));
