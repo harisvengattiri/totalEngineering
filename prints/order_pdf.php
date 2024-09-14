@@ -56,7 +56,7 @@ $order = $_GET["id"];
 <tr>
 <td style="width: 15%;">Customer Name:</td>
 <td><b><?php echo $customer_name;?></b></td>
-<td style="width: 15%;">Invoice Date:</td>
+<td style="width: 15%;">Order Date:</td>
 <td><b><?php echo $date;?></b></td>
 </tr>
 
@@ -81,7 +81,7 @@ $order = $_GET["id"];
 <table style="width: 100%;" border="0" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 3%;">#</th>
-<th style="width: 14%;">Delivery No.</th>
+<th style="width: 14%;">Order No.</th>
 <th style="width: 14%;">Item</th>
 <th style="width: 9%;">Qty</th>
 <th style="width: 8%;">Price</th>

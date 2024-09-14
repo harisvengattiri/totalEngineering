@@ -51,12 +51,12 @@ $delivery = $_GET["id"];
 <td style="width: 15%;">Customer No:</td>
 <td><b>CST <?php echo sprintf('%04d',$customer);?></b></td>
 <td style="width: 15%;">Delivery No:</td>
-<td><b>DO|<?php echo sprintf('%06d',$delivery);?></b></td>
+<td><b>DN|<?php echo sprintf('%06d',$delivery);?></b></td>
 </tr>
 <tr>
 <td style="width: 15%;">Customer Name:</td>
 <td><b><?php echo $customer_name;?></b></td>
-<td style="width: 15%;">Invoice Date:</td>
+<td style="width: 15%;">Delivery Date:</td>
 <td><b><?php echo $date;?></b></td>
 </tr>
 
@@ -83,15 +83,15 @@ $delivery = $_GET["id"];
 <th style="width: 3%;">#</th>
 <th style="width: 14%;">Order No.</th>
 <th style="width: 14%;">Item</th>
-<th style="width: 9%;">Qty</th>
 <th style="width: 8%;">Price</th>
-<th style="width: 10%;">Total</th>
+<th style="width: 9%;">Quantity</th>
 </tr>
 
         <?php
              $sql="SELECT * FROM delivery_item where delivery_id = '$delivery'";
              $query=mysqli_query($conn,$sql);
              $sl=1;
+             $total_quantity = 0;
              $subtotal=0;
              while($fetch=mysqli_fetch_array($query))
              {
@@ -99,59 +99,26 @@ $delivery = $_GET["id"];
                   $order = $fetch['order_id'];
                   $quantity = $fetch['quantity'];
                   $price = $fetch['price'];
-                  $total = $fetch['total'];
                   $itemDetails = getItemDetails($item); 
         ?>
           <tr>
             <td align="center"><?php echo $sl;?></td>
             <td align="center"><?php echo $order;?></td>
             <td align="center"><?php echo $itemDetails['name'];?></td>
-            <td align="center"><?php echo $quantity;?></td>
             <td align="center"><?php echo $price;?></td>
-            <td align="right"><?php echo custom_money_format('%!i', $total);?></td>
+            <td align="center"><?php echo $quantity;?></td>
           </tr>
-        <?php $sl++;} ?>
+          <?php
+            $total_quantity = $total_quantity + $quantity;
+            $sl++;}
+          ?>
           <tr>
-            <td colspan="5" align="right"><b>Price before GST&nbsp;</b></td>
-            <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $sub_total);?></b></td>
+            <td colspan="4" align="right"><b>Total Quantity&nbsp;</b></td>
+            <td colspan="1" align="center"><b><?php echo $total_quantity;?></b></td>
           </tr>
-          <tr>
-            <td colspan="5" align="right"><b>GST&nbsp;5%&nbsp;</b></td>
-            <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $vat);?></b></td>
-          </tr>
-         
-          <tr>
-            <td colspan="5" align="right"><b>Transportation&nbsp;</b></td>
-            <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $transportation);?></b></td>
-          </tr>
-          
-          <tr>
-            <td colspan="2" align="center"><b>Grand total</b></td>
-            <td colspan="3" align="center"><b>
-            <?php
-              $inwords=ucwords(convert_number_to_words($grand_total));
-
-               if(fmod($grand_total,1)==0)
-               {
-                 echo 'Rupees '. $inwords." Only";
-               }
-               else
-               {
-                $dirham = preg_replace('/ Point.*/', '', $inwords);
-                $filsmod1 = fmod($grand_total,1);
-                $filsmod = number_format((float)$filsmod1, 2, '.', '');
-                $fils = str_replace('0.', '', $filsmod);
-                
-                echo 'Rupees '. $dirham.' And '.$fils.'/100';
-               }
-            ?>
-            </b></td>
-            <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $grand_total);?></b></td>
-          </tr>
-
 </table>
 <?php
-$brv = 16-$sl;
+$brv = 25-$sl;
 for($i=0;$i<$brv;$i++)
 {
 echo "<br/>";
