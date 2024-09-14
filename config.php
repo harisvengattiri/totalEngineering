@@ -1,5 +1,5 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'].'totalEngineering/includes/functions_inc.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/totalEngineering/includes/functions_inc.php');
 // require_once ('includes/functions_inc.php');
 
 loadEnv(__DIR__.'/.env');

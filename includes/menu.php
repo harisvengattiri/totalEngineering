@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'].'totalEngineering/config.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/totalEngineering/config.php');
 // require_once "config.php";
 
 session_start();
