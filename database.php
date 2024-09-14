@@ -451,11 +451,6 @@ function deleteOrderItems($order_id) {
 }
 // ORDER SECTION ENDS
 
-
-
-
-
-
 // DELIVERY NOTE SECTION STARTS
 function getDeliveryDetails($delivery) {
     global $conn;
@@ -476,8 +471,8 @@ function addDeliveryNote($data) {
     $trans = $data["transportation"];
     $orders = $data["orders"];
 
-    $sql = "INSERT INTO `delivery_note` (`customer`,`token`,`date`,`attn`,`lpo`,`transportation`,`vehicle`)
-            VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}','{$data["attention"]}','{$data["lpo"]}','{$data["transportation"]}','{$data["vehicle"]}')";
+    $sql = "INSERT INTO `delivery_note` (`customer`,`token`,`date`,`attn`,`transportation`,`vehicle`)
+            VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}','{$data["attention"]}','{$data["transportation"]}','{$data["vehicle"]}')";
     $conn->query($sql);
     $delivery_id = $conn->insert_id;
         $order = $data["order"];
@@ -568,7 +563,6 @@ function checkOrderFlag($orders) {
         }
     }
 
-    $keysWithZeroValue = [];
     foreach ($groupedOrders as $key => $value) {
         if ($value === 0) {
             updateOrderflag($key);
@@ -583,14 +577,6 @@ function updateOrderflag($order) {
     $conn->query($sql);
 }
 // DELIVERY NOTE SECTION ENDS
-
-
-
-
-
-
-
-
 
 // ACTIVITY LOG SECTION STARTS
 function logActivity($process,$code,$id,$logQuery) {

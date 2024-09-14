@@ -108,12 +108,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                       <label align="left" for="type" class="col-sm-2 form-control-label">LPO No</label>
                         <div class="col-sm-5">
                             <input class="form-control" type="text" name="lpo">
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group row">
                       <label for="type" class="col-sm-2 form-control-label">Transportation</label>
