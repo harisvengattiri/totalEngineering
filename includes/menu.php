@@ -151,6 +151,45 @@ if (!isset($_SESSION['userid'])) {
               </li>
               
               <li>
+                <a class="b-primary">
+                  <span class="nav-caret">
+                    <i class="fa fa-caret-down"></i>
+                  </span>
+                  <span class="nav-icon text-white no-fade">
+                    <i class="fa fa-file-text-o"></i>
+                  </span>
+                  <span class="nav-text">Invoicing</span>
+                </a>
+                <ul class="nav-sub">
+                  <li>
+                    <a href="<?php echo BASEURL; ?>/invoice">
+                      <span class="nav-text">Invoices</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?php echo BASEURL; ?>/crdt_note">
+                      <span class="nav-text">Credit Note</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?php echo BASEURL; ?>/advance">
+                      <span class="nav-text">Receipts</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?php echo BASEURL; ?>/refund">
+                      <span class="nav-text">Refund</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?php echo BASEURL; ?>/ac_stmnt">
+                      <span class="nav-text">Account Statement</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li>
                 <a class="b-success">
                   <span class="nav-caret">
                     <i class="fa fa-caret-down"></i>
@@ -194,40 +233,46 @@ if (!isset($_SESSION['userid'])) {
                   </li>
                 </ul>
               </li>
+
               <li>
-                <a class="b-primary">
+                <a class="b-warn">
                   <span class="nav-caret">
                     <i class="fa fa-caret-down"></i>
                   </span>
                   <span class="nav-icon text-white no-fade">
-                    <i class="fa fa-file-text-o"></i>
+                    <i class="ion-ios-pulse-strong"></i>
                   </span>
-                  <span class="nav-text">Invoicing</span>
+                  <span class="nav-text">Reports</span>
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo BASEURL; ?>/invoice">
-                      <span class="nav-text">Invoices</span>
+                    <a href="<?php echo BASEURL; ?>/report_qtn">
+                      <span class="nav-text">Quotation</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/crdt_note">
-                      <span class="nav-text">Credit Note</span>
+                    <a href="<?php echo BASEURL; ?>/report_order">
+                      <span class="nav-text">Order</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/advance">
-                      <span class="nav-text">Receipts</span>
+                    <a href="<?php echo BASEURL; ?>/report_delivery">
+                      <span class="nav-text">Sales</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/refund">
-                      <span class="nav-text">Refund</span>
+                    <a href="<?php echo BASEURL; ?>/report_transportation">
+                      <span class="nav-text">Transportation</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/ac_stmnt">
-                      <span class="nav-text">Account Statement</span>
+                    <a href="<?php echo BASEURL; ?>/receive_rpt">
+                      <span class="nav-text">Receivable Report</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?php echo BASEURL; ?>/vat_rpt">
+                      <span class="nav-text">GST Report</span>
                     </a>
                   </li>
                 </ul>
@@ -290,51 +335,6 @@ if (!isset($_SESSION['userid'])) {
                 </ul>
               </li>
 
-
-              <li>
-                <a class="b-warn">
-                  <span class="nav-caret">
-                    <i class="fa fa-caret-down"></i>
-                  </span>
-                  <span class="nav-icon text-white no-fade">
-                    <i class="ion-ios-pulse-strong"></i>
-                  </span>
-                  <span class="nav-text">Reports</span>
-                </a>
-                <ul class="nav-sub">
-                  <li>
-                    <a href="<?php echo BASEURL; ?>/report_qtn">
-                      <span class="nav-text">Quotation</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo BASEURL; ?>/report_order">
-                      <span class="nav-text">Order</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo BASEURL; ?>/report_delivery">
-                      <span class="nav-text">Sales</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo BASEURL; ?>/report_transportation">
-                      <span class="nav-text">Transportation</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo BASEURL; ?>/receive_rpt">
-                      <span class="nav-text">Receivable Report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="<?php echo BASEURL; ?>/vat_rpt">
-                      <span class="nav-text">GST Report</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
               <!-- <li>
                 <a href="<?php // echo BASEURL; ?>/backup" class="b-danger">
                   <span class="nav-icon text-white no-fade">
@@ -358,7 +358,7 @@ if (!isset($_SESSION['userid'])) {
                   <span class="nav-icon text-white no-fade">
                     <i class="fa fa-bars"></i>
                   </span>
-                  <span class="nav-text">Activity Log</span>
+                  <span class="nav-text">Activities</span>
                 </a>
               </li>
 
@@ -413,7 +413,7 @@ if (!isset($_SESSION['userid'])) {
           <a data-toggle="modal" data-target="#aside" class="navbar-item pull-left hidden-lg-up p-r m-a-0">
             <i class="ion-navicon"></i>
           </a>
-          <div class="navbar-item pull-left h5" id="pageTitle"> Mancon Block Factory</div>
+          <div class="navbar-item pull-left h5" id="pageTitle"> Total Engineering ERP</div>
           <!-- nabar right -->
           <ul class="nav navbar-nav pull-right">
             <style>
