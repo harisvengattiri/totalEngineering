@@ -139,16 +139,13 @@
                                     <td style="text-align: right;"><?php echo custom_money_format('%!i', $row["vat"]); ?></td>
                                     <td style="text-align: right;"><?php echo custom_money_format('%!i', $row["grand"]); ?></td>
                                     <td>
-                                        <a target="_blank" href="<?php echo CDNURL; ?>/prints/quotation?qno=<?php echo $row["id"]; ?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>
+                                        <a target="_blank" href="<?php echo CDNURL; ?>/quotation?id=<?php echo $row["id"]; ?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>
                                         <a href="<?php echo BASEURL; ?>/edit/quotation?id=<?php echo $row["id"]; ?>"><button class="btn btn-xs btn-icon info">
                                             <i class="fa fa-pencil"></i></button></a>
                                         <a href="<?php echo BASEURL; ?>/controller?controller=quotations&submit_delete_quotation=delete&id=<?php echo $row["id"]; ?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
                                     </td>
                                 </tr>
-                        <?php
-                            }
-                        }
-                        ?>
+                        <?php } } ?>
                     </tbody>
                     <tfoot class="hide-if-no-paging">
                         <tr>
