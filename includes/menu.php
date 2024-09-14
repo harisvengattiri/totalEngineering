@@ -143,7 +143,7 @@ if (!isset($_SESSION['userid'])) {
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/delivery_note">
+                    <a href="<?php echo BASEURL; ?>/delivery_notes">
                       <span class="nav-text">Delivery Note</span>
                     </a>
                   </li>
