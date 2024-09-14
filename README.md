@@ -16,3 +16,6 @@ REQUIRED TABLES ARE BELOW
 
 - sales_order
 - order_item
+
+- delivery_note
+- delivery_item

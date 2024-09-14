@@ -24,7 +24,10 @@ switch ($controller) {
         break;
     case 'salesOrders':
         handleSalesOrders();
-        break;     
+        break;
+    case 'deliveryNotes':
+        handleDeliveryNotes();
+        break;       
 }
 
 // Customer Section here
@@ -192,6 +195,40 @@ function handleSalesOrders() {
             exit();
         } catch (Exception $e) {
             header('Location: '.BASEURL.'/orders?status=failed');
+            exit();
+        }
+    }
+}
+
+// deliveryNotes Section here
+function handleDeliveryNotes() {
+    if (isset($_REQUEST['submit_add_deliveryNote'])) {
+        try {
+            addDeliveryNote($_REQUEST);
+            header('Location: '.BASEURL.'/delivery_notes?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/delivery_notes?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_edit_deliveryNote'])) {
+        try {
+            editDeliveryNote($_REQUEST);
+            header('Location: '.BASEURL.'/delivery_notes?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/delivery_notes?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_delete_deliveryNote'])) {
+        try {
+            deleteDeliveryNote($_REQUEST);
+            header('Location: '.BASEURL.'/delivery_notes?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/delivery_notes?status=failed');
             exit();
         }
     }

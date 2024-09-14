@@ -337,15 +337,6 @@ function deleteQuotationItems($qn) {
 }
 // QUOTATION SECTION ENDS
 
-
-
-
-
-
-
-
-
-
 // ORDER SECTION STARTS
 function getOrderDetails($ord) {
     global $conn;
@@ -458,7 +449,140 @@ function deleteOrderItems($order_id) {
     $sql = "DELETE FROM order_item WHERE `order_id` = $order_id";
     $conn->query($sql);
 }
-// ORDER SECTION STARTS
+// ORDER SECTION ENDS
+
+
+
+
+
+
+// DELIVERY NOTE SECTION STARTS
+function getDeliveryDetails($delivery) {
+    global $conn;
+
+    $sql = "SELECT * FROM `delivery_note` WHERE `id` = $delivery";
+    checkAccountExist('delivery_note','id',$delivery);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_assoc($result);
+    if(!$row) {
+        throw new Exception();
+    }
+    return $row;
+}
+
+function addDeliveryNote($data) {
+    global $conn;
+
+    $trans = $data["transportation"];
+    $orders = $data["orders"];
+
+    $sql = "INSERT INTO `delivery_note` (`customer`,`token`,`date`,`attn`,`lpo`,`transportation`,`vehicle`)
+            VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}','{$data["attention"]}','{$data["lpo"]}','{$data["transportation"]}','{$data["vehicle"]}')";
+    $conn->query($sql);
+    $delivery_id = $conn->insert_id;
+        $order = $data["order"];
+        $item = $data["item"];
+        $quantity = $data["quantity"];
+        $unit = $data["unit"];
+        $item_count = sizeof($item);
+        $sum = 0;
+        for ($i = 0; $i < $item_count; $i++) {
+        $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
+            if ($quantity[$i] != 0) {
+                $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
+                $total[$i] = $quantity[$i] * $unit[$i];
+                $sql1 = "INSERT INTO `delivery_item` (`delivery_id`, `order_id`, `item`, `quantity`, `price`, `total`) 
+                         VALUES ('$delivery_id', '$order[$i]', '$item[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+                $conn->query($sql1);
+                $sum = $sum + $total[$i];
+            }
+        }
+        $vat = $sum*0.05;
+        $grand = $sum*1.05;
+        $grand_total = $trans+$grand;
+        $sql2 = "UPDATE `delivery_note` SET `subtotal`='$sum', `vat`='$vat', `grand`='$grand', `grand_total`='$grand_total' WHERE id='$delivery_id'";
+        $conn->query($sql2);
+        checkOrderFlag($orders);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('add','DN',$delivery_id,$logQuery);
+}
+
+function editDeliveryNote($data) {
+
+}
+
+function deleteDeliveryNote($data) {
+    global $conn;
+    $delivery_id = $data["id"];
+
+    $sql = "DELETE FROM `delivery_note` WHERE `id` = $delivery_id";
+    checkAccountExist('delivery_note','id',$delivery_id);
+    $conn->query($sql);
+    deleteDeliveryItems($delivery_id);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('delete','DN',$delivery_id,$logQuery);
+}
+
+function deleteDeliveryItems($delivery_id) {
+    global $conn;
+
+    $sql = "DELETE FROM delivery_item WHERE `delivery_id` = $delivery_id";
+    $conn->query($sql);
+}
+
+function getItemDeliveryBalance($order,$item) {
+    global $conn;
+
+    $sql = "SELECT o.quantity - COALESCE(SUM(d.quantity), 0) AS balance
+        FROM `order_item` o LEFT JOIN `delivery_item` d ON o.order_id = d.order_id AND o.item = d.item
+        WHERE o.order_id = '$order' AND o.item = '$item'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+
+    return $row['balance'];
+}
+
+function checkOrderFlag($orders) {
+    global $conn;
+
+    $orders = explode(',', $orders);
+
+    $order_balance_list = [];
+    foreach ($orders as $order) {
+        $sql = "SELECT item FROM `order_item` WHERE `order_id`='$order'";
+        $result = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_assoc($result)) {
+            $item = $row['item'];
+            $balance = getItemDeliveryBalance($order,$item);
+            $order_balance_list[] = [$order,$balance];
+        }
+    }
+    $groupedOrders = [];
+    foreach ($order_balance_list as $entry) {
+        $order_id = $entry[0];
+        $balance = (int) $entry[1];
+        if (isset($groupedOrders[$order_id])) {
+            $groupedOrders[$order_id] += $balance;
+        } else {
+            $groupedOrders[$order_id] = $balance;
+        }
+    }
+
+    $keysWithZeroValue = [];
+    foreach ($groupedOrders as $key => $value) {
+        if ($value === 0) {
+            updateOrderflag($key);
+        }
+    }
+}
+
+function updateOrderflag($order) {
+    global $conn;
+
+    $sql = "UPDATE `sales_order` SET `flag` = '1' WHERE `id` = '$order'";
+    $conn->query($sql);
+}
+// DELIVERY NOTE SECTION ENDS
 
 
 
