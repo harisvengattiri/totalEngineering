@@ -449,6 +449,26 @@ function deleteOrderItems($order_id) {
     $sql = "DELETE FROM order_item WHERE `order_id` = $order_id";
     $conn->query($sql);
 }
+
+function getTotalOrderQuantity($order_id) {
+    global $conn;
+
+    $sql = "SELECT SUM(quantity) as TotalOrderQuantity FROM `order_item` WHERE `order_id`='$order_id'";
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_array($result);
+    return $row['TotalOrderQuantity'];
+}
+
+function getTotaldeliverQuantity($id, $type) {
+    global $conn;
+
+    $column = ($type === 'order') ? 'order_id' : 'delivery_id';
+
+    $sql = "SELECT SUM(quantity) as TotalDeliverQuantity FROM `delivery_item` WHERE `$column`='$id'";
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_array($result);
+    return $row['TotalDeliverQuantity'];
+}
 // ORDER SECTION ENDS
 
 // DELIVERY NOTE SECTION STARTS
@@ -575,6 +595,19 @@ function updateOrderflag($order) {
 
     $sql = "UPDATE `sales_order` SET `flag` = '1' WHERE `id` = '$order'";
     $conn->query($sql);
+}
+
+function checkInvoiced($delivery_id) {
+    global $conn;
+
+    $sql = "SELECT `invoiced` FROM `delivery_note` WHERE `id`='$delivery_id'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    if($row['invoiced'] == 0) {
+        return 'No';
+    } else {
+        return 'Yes';
+    }
 }
 // DELIVERY NOTE SECTION ENDS
 

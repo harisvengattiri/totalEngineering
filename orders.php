@@ -97,25 +97,28 @@
                     <thead>
                         <tr>
                             <th data-toggle="true">
+                                Order Id
+                            </th>
+                            <th>
+                                LPO Number
+                            </th>
+                            <th>
                                 Date
                             </th>
                             <th>
                                 Customer
                             </th>
-                            <th style="text-align: right;">
-                                Sub Total
+                            <th style="text-align: center;">
+                                Total Quantity
+                            </th>
+                            <th style="text-align: center;">
+                                Delivered Quantity
                             </th>
                             <th style="text-align: right;">
-                                GST Amount
+                                Transportation Amount
                             </th>
                             <th style="text-align: right;">
                                 Total Amount
-                            </th>
-                            <th style="text-align: right;">
-                                Transportation
-                            </th>
-                            <th style="text-align: right;">
-                                Grand Total
                             </th>
                             <th>
                                 Actions
@@ -134,26 +137,28 @@
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
 
+                                $orderId = $row["id"];
                                 $custId = $row["customer"];
                                 $customer = getContactNameFromId($custId);
                             ?>
                                 <tr>
+                                    <td>DO|<?php echo sprintf("%06d",$orderId);?></td>
+                                    <td><?php echo $row["lpo"]; ?></td>
                                     <td><?php echo $row["date"]; ?></td>
                                     <td><?php echo $customer; ?></td>
-                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['subtotal']); ?></td>
-                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['vat']); ?></td>
-                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['grand']); ?></td>
+                                    <td style="text-align: center;"><?php echo getTotalOrderQuantity($orderId);?></td>
+                                    <td style="text-align: center;"><?php echo getTotaldeliverQuantity($orderId,'order');?></td>
                                     <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['transportation']); ?></td>
                                     <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['grand_total']); ?></td>
                                     <td>
                                         <?php
                                         $company = $_SESSION["username"];
                                         ?>
-                                        <a target="_blank" href="<?php echo CDNURL;?>/delivery_order?id=<?php echo $row["id"];?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>
+                                        <a target="_blank" href="<?php echo CDNURL;?>/delivery_order?id=<?php echo $orderId;?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>
                                         
-                                        <a href="<?php echo BASEURL;?>/edit/delivery_order?id=<?php echo $row["id"];?>"><button class="btn btn-xs btn-icon info"><i class="fa fa-pencil"></i></button></a>
+                                        <a href="<?php echo BASEURL;?>/edit/delivery_order?id=<?php echo $orderId;?>"><button class="btn btn-xs btn-icon info"><i class="fa fa-pencil"></i></button></a>
 
-                                        <a href="<?php echo BASEURL;?>/controller?controller=salesOrders&submit_delete_order=delete&id=<?php echo $row["id"];?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
+                                        <a href="<?php echo BASEURL;?>/controller?controller=salesOrders&submit_delete_order=delete&id=<?php echo $orderId;?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
                                     </td>
                                 </tr>
 

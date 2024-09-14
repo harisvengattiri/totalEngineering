@@ -104,11 +104,14 @@
                             <th>
                                 Date
                             </th>
-                            <th style="text-align:right;">
-                                Sub Total
+                            <th>
+                                Invoiced
+                            </th>
+                            <th>
+                                Quantity Delivered
                             </th>
                             <th style="text-align:right;">
-                                GST Amount
+                                Teansportation Amount
                             </th>
                             <th style="text-align:right;">
                                 Grand Total
@@ -128,21 +131,23 @@
                         $result = mysqli_query($conn, $sql);
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
+                                $deliveryId = $row["id"];
                                 $custId = $row["customer"];
                                 $customer = getContactNameFromId($custId);
                         ?>
                                 <tr>
-                                    <td>DN|<?php echo sprintf("%06d", $row["id"]); ?></td>
+                                    <td>DN|<?php echo sprintf("%06d", $deliveryId); ?></td>
                                     <td><?php echo $customer; ?></td>
                                     <td><?php echo $row["date"]; ?></td>
-                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row["subtotal"]); ?></td>
-                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row["vat"]); ?></td>
+                                    <td><?php echo checkInvoiced($deliveryId); ?></td>
+                                    <td><?php echo getTotaldeliverQuantity($deliveryId,'delivery'); ?></td>
+                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row["transportation"]); ?></td>
                                     <td style="text-align: right;"><?php echo custom_money_format('%!i', $row["grand"]); ?></td>
                                     <td>
-                                        <a target="_blank" href="<?php echo CDNURL; ?>/delivery_note?id=<?php echo $row["id"]; ?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>
+                                        <a target="_blank" href="<?php echo CDNURL; ?>/delivery_note?id=<?php echo $deliveryId;?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>
                                         <!-- <a href="<?php // echo BASEURL; ?>/edit/delivery_note?id=<?php // echo $row["id"]; ?>"><button class="btn btn-xs btn-icon info">
                                             <i class="fa fa-pencil"></i></button></a> -->
-                                        <a href="<?php echo BASEURL; ?>/controller?controller=deliveryNotes&submit_delete_deliveryNote=delete&id=<?php echo $row["id"]; ?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
+                                        <a href="<?php echo BASEURL; ?>/controller?controller=deliveryNotes&submit_delete_deliveryNote=delete&id=<?php echo $deliveryId;?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
                                     </td>
                                 </tr>
                         <?php } } ?>
