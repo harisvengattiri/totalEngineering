@@ -162,27 +162,27 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo BASEURL; ?>/invoice">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Invoices</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/crdt_note">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Credit Note</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/advance">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Receipts</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/refund">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Refund</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/ac_stmnt">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Account Statement</span>
                     </a>
                   </li>
@@ -202,32 +202,32 @@ if (!isset($_SESSION['userid'])) {
                 <ul class="nav-sub">
 
                   <li>
-                    <a href="<?php echo BASEURL; ?>/acc_dashboard_new">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Dashboard</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/add/receipt">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Receipt Voucher</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/add/jv">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Journal Voucher</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/add/pv">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Payment Voucher</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/crdt_note">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Credit Note</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/add/debitnote_new">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Debit Note</span>
                     </a>
                   </li>
@@ -246,32 +246,32 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo BASEURL; ?>/report_qtn">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Quotation</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/report_order">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Order</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/report_delivery">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Sales</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/report_transportation">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Transportation</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/receive_rpt">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Receivable Report</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/vat_rpt">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">GST Report</span>
                     </a>
                   </li>
@@ -290,44 +290,44 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo BASEURL; ?>/pdc_rec">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">PDC Receivable</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/pdc_pay">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">PDC Payable</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/inv_pay">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Receivable Report</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/chart_of_accounts">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Chart of Accounts</span>
                     </a>
                   </li>
 
                   <li>
-                    <a href="<?php echo BASEURL; ?>/trial_balance_new">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Trial Balance</span>
                     </a>
                   </li>
 
                   <li>
-                    <a href="<?php echo BASEURL; ?>/accounts/statements">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Acc Statement</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/accounts/pro_loss">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Profit & Loss</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo BASEURL; ?>/accounts/bal_sheet">
+                    <a href="<?php echo BASEURL; ?>/404">
                       <span class="nav-text">Balance Sheet</span>
                     </a>
                   </li>
@@ -345,7 +345,7 @@ if (!isset($_SESSION['userid'])) {
               </li> -->
 
               <li>
-                <a href="<?php echo BASEURL; ?>/settings" class="b-primary">
+                <a href="<?php echo BASEURL; ?>/404" class="b-primary">
                   <span class="nav-icon text-white no-fade">
                     <i class="ion-gear-b"></i>
                   </span>
@@ -354,7 +354,7 @@ if (!isset($_SESSION['userid'])) {
               </li>
 
               <li>
-                <a href="<?php echo BASEURL; ?>/activity_log" class="b-danger">
+                <a href="<?php echo BASEURL; ?>/404" class="b-danger">
                   <span class="nav-icon text-white no-fade">
                     <i class="fa fa-bars"></i>
                   </span>
@@ -389,10 +389,10 @@ if (!isset($_SESSION['userid'])) {
               </div>
             </a>
             <div class="dropdown-menu w dropdown-menu-scale ">
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="<?php echo BASEURL; ?>/404">
                 <span>Profile</span>
               </a>
-              <a class="dropdown-item" href="<?php echo BASEURL; ?>/settings">
+              <a class="dropdown-item" href="<?php echo BASEURL; ?>/404">
                 <span>Settings</span>
               </a>
               <div class="dropdown-divider"></div>
@@ -433,17 +433,17 @@ if (!isset($_SESSION['userid'])) {
                   <span>Hello, <b><?php echo ucwords($_SESSION['username']); ?></b></span>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="<?php echo BASEURL; ?>/404">
                   <span>Profile</span>
                 </a>
-                <a class="dropdown-item" href="<?php echo BASEURL; ?>/settings">
+                <a class="dropdown-item" href="<?php echo BASEURL; ?>/404">
                   <span>Settings</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" target="_blank" href="http://cyboz.co.in/contact/">
                   Need help?
                 </a>
-                <a class="dropdown-item" href="<?php echo BASEURL; ?>/reset_pass">Reset Password</a>
+                <a class="dropdown-item" href="<?php echo BASEURL; ?>/404">Reset Password</a>
                 <a class="dropdown-item" href="<?php echo BASEURL; ?>/logout">Sign out</a>
               </div>
             </li>
