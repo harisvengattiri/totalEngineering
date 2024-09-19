@@ -61,7 +61,7 @@
                                 Rough Cast Weight
                             </th>
                             <th>
-                                Scarp Weight
+                                Scrap Weight
                             </th>
                             <th>
                                 Finished Good Weight
@@ -81,7 +81,7 @@
                                     <td><?php echo $row["name"]; ?></td>
                                     <td><?php echo $row["approx_price"]; ?></td>
                                     <td><?php echo $row["cast_weight"]; ?></td>
-                                    <td><?php echo $row["scarp_weight"]; ?></td>
+                                    <td><?php echo $row["scrap_weight"]; ?></td>
                                     <td><?php echo $row["good_weight"]; ?></td>
                                     <td>
                                         <a href="<?php echo BASEURL; ?>/edit/item?id=<?php echo $row["id"]; ?>"><button class="btn btn-xs btn-icon info"><i class="fa fa-pencil"></i></button></a>

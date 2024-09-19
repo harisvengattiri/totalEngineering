@@ -56,9 +56,9 @@
               </div>    
             </div>
             <div class="form-group row">
-              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Scarp Weight</label>
+              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Scrap Weight</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" name="scarp_weight" value="<?php echo $item_details['scarp_weight'];?>" placeholder="Scarp Weight">
+                <input type="text" class="form-control" name="scrap_weight" value="<?php echo $item_details['scrap_weight'];?>" placeholder="Scarp Weight">
               </div>    
             </div>
             <div class="form-group row">
