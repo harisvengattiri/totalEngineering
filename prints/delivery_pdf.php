@@ -48,31 +48,33 @@ $delivery = $_GET["id"];
 
 <table style="width: 100%;" cellspacing="0" cellpadding="0">
 <tr>
-<td style="width: 15%;">Customer No:</td>
+<td style="width: 18%;">Customer No:</td>
 <td><b>CST <?php echo sprintf('%04d',$customer);?></b></td>
-<td style="width: 15%;">Delivery No:</td>
-<td><b>DN|<?php echo sprintf('%06d',$delivery);?></b></td>
-</tr>
-<tr>
-<td style="width: 15%;">Customer Name:</td>
-<td><b><?php echo $customer_name;?></b></td>
-<td style="width: 15%;">Delivery Date:</td>
-<td><b><?php echo $date;?></b></td>
-</tr>
-
-<tr>
-<td style="width: 15%;">Address:</td>
-<td><b><?php echo $customer_address;?></b></td>
 <td style="width: 15%;">TRN:</td>
 <td><b><?php echo $customer_gst;?></b></td>
 </tr>
-
 <tr>
-<td style="width: 15%;">Phone:</td>
+<td style="width: 18%;">Customer Name:</td>
+<td colspan="3"><b><?php echo $customer_name;?></b></td>
+</tr>
+<tr>
+<td style="width: 18%;">Address:</td>
+<td colspan="3"><b><?php echo $customer_address;?></b></td>
+</tr>
+<tr>
+<td style="width: 18%;">Phone:</td>
 <td><b><?php echo $customer_phone;?></b></td>
 <td style="width: 15%;">FAX:</td>
 <td><b><?php echo $customer_fax;?></b></td>
 </tr>
+
+<tr>
+<td style="width: 18%;">Delivery No:</td>
+<td><b>DN|<?php echo sprintf('%06d',$delivery);?></b></td>
+<td style="width: 15%;">Delivery Date:</td>
+<td><b><?php echo $date;?></b></td>
+</tr>
+
 
 </table>
 <br/>
@@ -81,9 +83,9 @@ $delivery = $_GET["id"];
 <table style="width: 100%;" border="0" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 3%;">#</th>
-<th style="width: 14%;">Order No.</th>
+<th style="width: 14%;">JW Number.</th>
 <th style="width: 14%;">Item</th>
-<th style="width: 8%;">Price</th>
+<th style="width: 14%;">Scrap Weight</th>
 <th style="width: 9%;">Quantity</th>
 </tr>
 
@@ -96,16 +98,16 @@ $delivery = $_GET["id"];
              while($fetch=mysqli_fetch_array($query))
              {
                   $item = $fetch['item'];
-                  $order = $fetch['order_id'];
+                  $jw = $fetch['jw'];
                   $quantity = $fetch['quantity'];
                   $price = $fetch['price'];
                   $itemDetails = getItemDetails($item); 
         ?>
           <tr>
             <td align="center"><?php echo $sl;?></td>
-            <td align="center"><?php echo $order;?></td>
+            <td align="center"><?php echo $jw;?></td>
             <td align="center"><?php echo $itemDetails['name'];?></td>
-            <td align="center"><?php echo $price;?></td>
+            <td align="center"><?php echo $itemDetails['scrap_weight'];?></td>
             <td align="center"><?php echo $quantity;?></td>
           </tr>
           <?php

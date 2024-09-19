@@ -110,12 +110,6 @@
                             <th>
                                 Quantity Delivered
                             </th>
-                            <th style="text-align:right;">
-                                Teansportation Amount
-                            </th>
-                            <th style="text-align:right;">
-                                Grand Total
-                            </th>
                             <th>
                                 Actions
                             </th>
@@ -141,8 +135,6 @@
                                     <td><?php echo $row["date"]; ?></td>
                                     <td><?php echo checkInvoiced($deliveryId); ?></td>
                                     <td><?php echo getTotaldeliverQuantity($deliveryId,'delivery'); ?></td>
-                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row["transportation"]); ?></td>
-                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row["grand"]); ?></td>
                                     <td>
                                         <a target="_blank" href="<?php echo CDNURL; ?>/delivery_note?id=<?php echo $deliveryId;?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>
                                         <!-- <a href="<?php // echo BASEURL; ?>/edit/delivery_note?id=<?php // echo $row["id"]; ?>"><button class="btn btn-xs btn-icon info">

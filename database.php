@@ -141,8 +141,8 @@ function getItemDetails($item) {
 function insertItem($data) {
     global $conn;
 
-    $sql = "INSERT INTO `items` (`name`,`approx_price`,`cast_weight`,`scarp_weight`,`good_weight`) 
-            VALUES ('{$data["name"]}','{$data["approx_price"]}','{$data["cast_weight"]}','{$data["scarp_weight"]}','{$data["good_weight"]}')";
+    $sql = "INSERT INTO `items` (`name`,`approx_price`,`cast_weight`,`scrap_weight`,`good_weight`) 
+            VALUES ('{$data["name"]}','{$data["approx_price"]}','{$data["cast_weight"]}','{$data["scrap_weight"]}','{$data["good_weight"]}')";
     $conn->query($sql);
     $logQuery = mysqli_real_escape_string($conn,$sql);
     logActivity('add','ITM',$conn->insert_id,$logQuery);
@@ -151,7 +151,7 @@ function insertItem($data) {
 function editItem($data) {
     global $conn;
 
-    $sql = "UPDATE items SET name = '{$data["name"]}',approx_price = '{$data["approx_price"]}',`cast_weight` = '{$data["cast_weight"]}',scarp_weight = '{$data["scarp_weight"]}',
+    $sql = "UPDATE items SET name = '{$data["name"]}',approx_price = '{$data["approx_price"]}',`cast_weight` = '{$data["cast_weight"]}',scrap_weight = '{$data["scrap_weight"]}',
             good_weight = '{$data["good_weight"]}' WHERE id = '{$data["id"]}'";
     checkAccountExist('items','id',$data['id']);
     $conn->query($sql);
@@ -364,6 +364,16 @@ function getOrderItemDetails($ord) {
     return $order_items;
 }
 
+function getOrderFromJW($jw) {
+    global $conn;
+
+    $sql = "SELECT id FROM `sales_order` WHERE `jw` = $jw";
+    checkAccountExist('sales_order','jw',$jw);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_array($result);
+    return $row['id'];
+}
+
 function addOrder($data) {
     global $conn;
 
@@ -481,29 +491,45 @@ function getDeliveryDetails($delivery) {
     return $row;
 }
 
+function getDeliveryItemDetails($delivery) {
+    global $conn;
+
+    $sql = "SELECT * FROM `delivery_item` WHERE `delivery_id` = $delivery ORDER BY `id`";
+    checkAccountExist('delivery_item','delivery_id',$delivery);
+    $result = $conn->query($sql);
+    $delivery_items = [];
+    while ($row = mysqli_fetch_array($result)) {
+        $delivery_items[] = $row;
+    }
+    return $delivery_items;
+}
+
 function addDeliveryNote($data) {
     global $conn;
 
     $trans = $data["transportation"];
-    $orders = $data["orders"];
+    $jws = $data["jws"];
 
     $sql = "INSERT INTO `delivery_note` (`customer`,`token`,`date`,`attn`,`transportation`,`vehicle`)
             VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}','{$data["attention"]}','{$data["transportation"]}','{$data["vehicle"]}')";
     $conn->query($sql);
     $delivery_id = $conn->insert_id;
         $order = $data["order"];
+        $jw = $data["jw"];
         $item = $data["item"];
         $quantity = $data["quantity"];
-        $unit = $data["unit"];
         $item_count = sizeof($item);
         $sum = 0;
         for ($i = 0; $i < $item_count; $i++) {
         $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
             if ($quantity[$i] != 0) {
+                $item[$i] = mysqli_real_escape_string($conn, $item[$i]);
+                    $item_details = getItemDetails($item[$i]);
+                    $unit[$i] = $item_details['approx_price'];
                 $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
                 $total[$i] = $quantity[$i] * $unit[$i];
-                $sql1 = "INSERT INTO `delivery_item` (`delivery_id`, `order_id`, `item`, `quantity`, `price`, `total`) 
-                         VALUES ('$delivery_id', '$order[$i]', '$item[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+                $sql1 = "INSERT INTO `delivery_item` (`delivery_id`, `order_id`, `jw`, `item`, `quantity`, `price`, `total`) 
+                         VALUES ('$delivery_id', '$order[$i]', '$jw[$i]', '$item[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
                 $conn->query($sql1);
                 $sum = $sum + $total[$i];
             }
@@ -513,7 +539,7 @@ function addDeliveryNote($data) {
         $grand_total = $trans+$grand;
         $sql2 = "UPDATE `delivery_note` SET `subtotal`='$sum', `vat`='$vat', `grand`='$grand', `grand_total`='$grand_total' WHERE id='$delivery_id'";
         $conn->query($sql2);
-        checkOrderFlag($orders);
+        checkOrderFlag($jws);
     $logQuery = mysqli_real_escape_string($conn,$sql);
     logActivity('add','DN',$delivery_id,$logQuery);
 }
@@ -537,6 +563,11 @@ function deleteDeliveryNote($data) {
 function deleteDeliveryItems($delivery_id) {
     global $conn;
 
+    $delivery_item_details = getDeliveryItemDetails($delivery_id);
+    foreach ($delivery_item_details as $delivery_item) {
+        $order = $delivery_item['order_id'];
+        removeOrderflag($order);
+    }
     $sql = "DELETE FROM delivery_item WHERE `delivery_id` = $delivery_id";
     $conn->query($sql);
 }
@@ -553,13 +584,14 @@ function getItemDeliveryBalance($order,$item) {
     return $row['balance'];
 }
 
-function checkOrderFlag($orders) {
+function checkOrderFlag($jws) {
     global $conn;
 
-    $orders = explode(',', $orders);
+    $jws = explode(',', $jws);
 
     $order_balance_list = [];
-    foreach ($orders as $order) {
+    foreach ($jws as $jw) {
+        $order = getOrderFromJW($jw);
         $sql = "SELECT item FROM `order_item` WHERE `order_id`='$order'";
         $result = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_assoc($result)) {
@@ -590,6 +622,13 @@ function updateOrderflag($order) {
     global $conn;
 
     $sql = "UPDATE `sales_order` SET `flag` = '1' WHERE `id` = '$order'";
+    $conn->query($sql);
+}
+
+function removeOrderflag($order) {
+    global $conn;
+
+    $sql = "UPDATE `sales_order` SET `flag` = '0' WHERE `id` = '$order'";
     $conn->query($sql);
 }
 

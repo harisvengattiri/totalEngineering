@@ -43,7 +43,7 @@
                 <div class="form-group row">
                     <label for="type" align="" class="col-sm-2 form-control-label">Undelivered Orders</label>
                     <div class="col-sm-5">
-                        <select name="order[]" id="undeliveredOrders" class="form-control select2-multiple" multiple data-ui-jp="select2"
+                        <select name="jw[]" id="undeliveredOrders" class="form-control select2-multiple" multiple data-ui-jp="select2"
                         data-ui-options="{theme: 'bootstrap'}"></select>
                     </div>
                 </div>
@@ -57,8 +57,8 @@
             } if (isset($_POST['submit_orders'])) {
               $customer = $_POST['customer'];
               $customer_name = getContactNameFromId($customer);
-              $orders = $_POST['order'];
-              $orders_string = implode(",",$orders);
+              $jws = $_POST['jw'];
+              $jws_string = implode(",",$jws);
             ?>
             <form role="form" action="<?php echo BASEURL; ?>/controller" method="post">
                 <input type="hidden" name="controller" value="deliveryNotes">
@@ -74,7 +74,7 @@
                 <div class="form-group row">
                     <label for="type" align="" class="col-sm-2 form-control-label">Undelivered Orders</label>
                     <div class="col-sm-5">
-                      <input class="form-control" type="text" name="orders" value="<?php echo $orders_string;?>" readonly>
+                      <input class="form-control" type="text" name="jws" value="<?php echo $jws_string;?>" readonly>
                     </div>
                 </div>
 
@@ -140,15 +140,15 @@
                     </div>
 
                     <div class="form-group row">
-                      <label align="center" class="col-sm-2 form-control-label"><b>Order</b></label>
+                      <label align="center" class="col-sm-2 form-control-label"><b>JW Number</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>Item</b></label>
                       <label align="center" class="col-sm-1 form-control-label"><b>Order</b></label>
                       <label align="center" class="col-sm-1 form-control-label"><b>Balance</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>Quantity</b></label>
-                      <label align="center" class="col-sm-2 form-control-label"><b>Price</b></label>
                     </div>
                     <?php
-                      foreach($orders as $order) {
+                      foreach($jws as $jw) {
+                        $order = getOrderFromJW($jw);
                         $order_items = getOrderItemDetails($order);
                         foreach($order_items as $order_item) {
                           $item = $order_item['item'];
@@ -157,7 +157,8 @@
                     ?>
                     <div class="form-group row">
                         <div class="col-sm-2">
-                          <input type="text" class="form-control" name="order[]" value="<?php echo $order;?>" readonly>
+                          <input type="hidden" name="order[]" value="<?php echo $order;?>">
+                          <input type="text" class="form-control" name="jw[]" value="<?php echo $jw;?>" readonly>
                         </div>
                         <div class="col-sm-2">
                           <input type="text" class="form-control" value="<?php echo $item_details['name'];?>" readonly>
@@ -171,9 +172,6 @@
                         </div>
                         <div class="col-sm-2">
                           <input type="text" min="1" step="any" class="form-control quantity-input" name="quantity[]" value="0">
-                        </div>
-                        <div class="col-sm-2">
-                          <input type="number" min="1" step="any" class="form-control" name="unit[]" value="<?php echo $order_item['price'];?>">
                         </div>
                     </div>
                     <?php } } ?>
