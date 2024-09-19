@@ -97,7 +97,10 @@
                     <thead>
                         <tr>
                             <th data-toggle="true">
-                                JW NO
+                                Order ID
+                            </th>
+                            <th>
+                                JW Number
                             </th>
                             <th>
                                 Date
@@ -136,7 +139,8 @@
                                 $customer = getContactNameFromId($custId);
                             ?>
                                 <tr>
-                                    <td>JW|<?php echo sprintf("%06d",$orderId);?></td>
+                                    <td>DO|<?php echo sprintf("%06d",$orderId);?></td>
+                                    <td><?php echo $row["jw"]; ?></td>
                                     <td><?php echo $row["date"]; ?></td>
                                     <td><?php echo $customer; ?></td>
                                     <td style="text-align: center;"><?php echo getTotalOrderQuantity($orderId);?></td>

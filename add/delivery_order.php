@@ -68,6 +68,13 @@
                     </div>
 
                     <div class="form-group row">
+                      <label align="left" for="type" class="col-sm-2 form-control-label">JW Number</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" name="jw" placeholder="JW Number">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                       <input type="hidden" id="itemWeight_0">
                       <div class="col-sm-4">
                         <select name="item[]" id="item_0" class="form-control" placeholder="Item" required>

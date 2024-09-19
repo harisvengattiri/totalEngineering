@@ -367,8 +367,8 @@ function getOrderItemDetails($ord) {
 function addOrder($data) {
     global $conn;
 
-    $sql = "INSERT INTO `sales_order` (`customer`,`token`,`date`)
-            VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}')";
+    $sql = "INSERT INTO `sales_order` (`customer`,`token`,`date`,`jw`)
+            VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}','{$data["jw"]}')";
     $conn->query($sql);
     $order_id = $conn->insert_id;
         $item = $data["item"];
@@ -391,7 +391,7 @@ function addOrder($data) {
         $sql2 = "UPDATE `sales_order` SET `subtotal`='$sum',`vat`='$vat',`grand`='$grand' WHERE id='$order_id'";
         $conn->query($sql2);
     $logQuery = mysqli_real_escape_string($conn,$sql);
-    logActivity('add','JW',$order_id,$logQuery);
+    logActivity('add','DO',$order_id,$logQuery);
 }
 
 function editOrder($data) {
@@ -399,7 +399,7 @@ function editOrder($data) {
 
     $order_id = $data["id"];
     
-    $sql = "UPDATE `sales_order` SET `customer` =  '{$data["customer"]}', `date` =  '{$data["date"]}' WHERE `id` = $order_id";
+    $sql = "UPDATE `sales_order` SET `customer` =  '{$data["customer"]}', `date` =  '{$data["date"]}', `jw` =  '{$data["jw"]}' WHERE `id` = $order_id";
     checkAccountExist('sales_order','id',$order_id);
     $conn->query($sql);
         deleteOrderItems($order_id);
@@ -424,7 +424,7 @@ function editOrder($data) {
         $sql2 = "UPDATE `sales_order` SET `subtotal`='$sum',`vat`='$vat',`grand`='$grand' WHERE id='$order_id'";
         $conn->query($sql2);
     $logQuery = mysqli_real_escape_string($conn,$sql);
-    logActivity('edit','JW',$order_id,$logQuery);
+    logActivity('edit','DO',$order_id,$logQuery);
 }
 
 function deleteOrder($data) {
@@ -436,7 +436,7 @@ function deleteOrder($data) {
     $conn->query($sql);
     deleteOrderItems($order_id);
     $logQuery = mysqli_real_escape_string($conn,$sql);
-    logActivity('delete','JW',$order_id,$logQuery);
+    logActivity('delete','DO',$order_id,$logQuery);
 }
 
 function deleteOrderItems($order_id) {

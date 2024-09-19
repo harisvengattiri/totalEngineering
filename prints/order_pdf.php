@@ -27,6 +27,8 @@ $order = $_GET["id"];
               $customer_phone = $customer_details['phone'];
               $customer_fax = $customer_details['fax'];
               $customer_gst = $customer_details['gst'];
+
+          $jw = $order_details['jw'];
           
           $sub_total = $order_details['subtotal'];
           $sub_total = ($sub_total != NULL) ? $sub_total : 0;
@@ -44,30 +46,35 @@ $order = $_GET["id"];
 
 <table style="width: 100%;" cellspacing="0" cellpadding="0">
 <tr>
-<td style="width: 15%;">Customer No:</td>
+<td style="width: 18%;">Customer No:</td>
 <td><b>CST <?php echo sprintf('%04d',$customer);?></b></td>
 <td style="width: 15%;">Order No:</td>
-<td><b>JW|<?php echo sprintf('%06d',$order);?></b></td>
+<td><b>DO|<?php echo sprintf('%06d',$order);?></b></td>
 </tr>
 <tr>
-<td style="width: 15%;">Customer Name:</td>
-<td><b><?php echo $customer_name;?></b></td>
-<td style="width: 15%;">Order Date:</td>
-<td><b><?php echo $date;?></b></td>
+<td style="width: 18%;">Customer Name:</td>
+<td colspan="3"><b><?php echo $customer_name;?></b></td>
 </tr>
 
 <tr>
-<td style="width: 15%;">Address:</td>
+<td style="width: 18%;">Address:</td>
 <td><b><?php echo $customer_address;?></b></td>
 <td style="width: 15%;">TRN:</td>
 <td><b><?php echo $customer_gst;?></b></td>
 </tr>
 
 <tr>
-<td style="width: 15%;">Phone:</td>
+<td style="width: 18%;">Phone:</td>
 <td><b><?php echo $customer_phone;?></b></td>
 <td style="width: 15%;">FAX:</td>
 <td><b><?php echo $customer_fax;?></b></td>
+</tr>
+
+<tr>
+<td style="width: 18%;">Order Date:</td>
+<td><b><?php echo $date;?></b></td>
+<td style="width: 15%;">JW Number:</td>
+<td><b><?php echo $jw;?></b></td>
 </tr>
 
 </table>

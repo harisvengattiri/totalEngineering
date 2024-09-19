@@ -71,6 +71,13 @@
                       </div>
                     </div>
 
+                    <div class="form-group row">
+                      <label align="left" for="type" class="col-sm-2 form-control-label">JW Number</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" name="jw" value="<?php echo $order_details['jw']; ?>" placeholder="JW Number">
+                        </div>
+                    </div>
+
                     <?php
                         $order_items = getOrderItemDetails($order);
                         $count = 0;
