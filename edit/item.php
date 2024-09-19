@@ -38,35 +38,36 @@
             <input type="text" name="id" value="<?php echo $item_details['id'];?>" hidden="hidden">
 
             <div class="form-group row">
-              <label for="Quantity" class="col-sm-2 form-control-label">Item</label>
+              <label for="Quantity" class="col-sm-3 form-control-label">Item</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" name="name" value="<?php echo $item_details['name'];?>" id="value" placeholder="Item">
+                <input type="text" class="form-control" name="name" value="<?php echo $item_details['name'];?>" placeholder="Item">
               </div>
             </div>
             <div class="form-group row">
-              <label for="Quantity" align="left" class="col-sm-2 form-control-label">Price</label>
+              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Approx Value</label>
               <div class="col-sm-8">
-                <input type="number" min="1" class="form-control" name="price" value="<?php echo $item_details['price'];?>" id="value" placeholder="Price">
-              </div>
-            </div>
-               <div class="form-group row">
-              <label for="Quantity" class="col-sm-2 form-control-label">Dimension</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" name="dimension" value="<?php echo $item_details['dimension'];?>" id="value" placeholder="Dimension">
-              </div>
-               </div>
-            <div class="form-group row">
-              <label for="Quantity" align="left" class="col-sm-2 form-control-label">Description</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" name="description" value="<?php echo $item_details['description'];?>" id="value" placeholder="Description">
-              </div>
+                <input type="text" class="form-control" name="approx_price" value="<?php echo $item_details['approx_price'];?>" placeholder="Approx Value">
+              </div>    
             </div>
             <div class="form-group row">
-              <label for="Quantity" align="left" class="col-sm-2 form-control-label">Unit</label>
+              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Rough Cast Weight</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" name="unit" value="<?php echo $item_details['unit'];?>" id="value" placeholder="Unit">
-              </div>   
+                <input type="text" class="form-control" name="cast_weight" value="<?php echo $item_details['cast_weight'];?>" placeholder="Rough Cast Weight">
+              </div>    
             </div>
+            <div class="form-group row">
+              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Scarp Weight</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="scarp_weight" value="<?php echo $item_details['scarp_weight'];?>" placeholder="Scarp Weight">
+              </div>    
+            </div>
+            <div class="form-group row">
+              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Finished Good Weight</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="good_weight" value="<?php echo $item_details['good_weight'];?>" placeholder="Finished Good Weight">
+              </div>    
+            </div>
+
             
             <div class="form-group row m-t-md">
               <div align="right" class="col-sm-offset-2 col-sm-12">

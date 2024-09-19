@@ -52,22 +52,22 @@
                                 Product Code
                             </th>
                             <th>
-                                Item
+                                Item Name
                             </th>
                             <th>
-                                Price
+                                Approx Value
                             </th>
                             <th>
-                                Weight
-                            </th>
-                            <th data-hide="all">
-                                Dimension
-                            </th>
-                            <th data-hide="all">
-                                Description
+                                Rough Cast Weight
                             </th>
                             <th>
-                                Unit
+                                Scarp Weight
+                            </th>
+                            <th>
+                                Finished Good Weight
+                            </th>
+                            <th>
+                                Actions
                             </th>
                         </tr>
                     </thead>
@@ -79,11 +79,10 @@
                                 <tr>
                                     <td>PRD <?php echo sprintf("%04d", $row["id"]); ?></td>
                                     <td><?php echo $row["name"]; ?></td>
-                                    <td><?php echo $row["price"]; ?></td>
-                                    <td><?php echo $row["weight"]; ?></td>
-                                    <td><?php echo $row["dimension"]; ?></td>
-                                    <td><?php echo $row["description"]; ?></td>
-                                    <td><?php echo $row["unit"]; ?></td>
+                                    <td><?php echo $row["approx_price"]; ?></td>
+                                    <td><?php echo $row["cast_weight"]; ?></td>
+                                    <td><?php echo $row["scarp_weight"]; ?></td>
+                                    <td><?php echo $row["good_weight"]; ?></td>
                                     <td>
                                         <a href="<?php echo BASEURL; ?>/edit/item?id=<?php echo $row["id"]; ?>"><button class="btn btn-xs btn-icon info"><i class="fa fa-pencil"></i></button></a>
                                         <?php if ($_SESSION['role'] == 'admin') { ?>

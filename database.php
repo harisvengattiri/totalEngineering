@@ -141,8 +141,8 @@ function getItemDetails($item) {
 function insertItem($data) {
     global $conn;
 
-    $sql = "INSERT INTO `items` (`name`,`price`,`description`,`dimension`,`unit`) 
-            VALUES ('{$data["name"]}','{$data["price"]}','{$data["description"]}','{$data["dimension"]}','{$data["unit"]}')";
+    $sql = "INSERT INTO `items` (`name`,`approx_price`,`cast_weight`,`scarp_weight`,`good_weight`) 
+            VALUES ('{$data["name"]}','{$data["approx_price"]}','{$data["cast_weight"]}','{$data["scarp_weight"]}','{$data["good_weight"]}')";
     $conn->query($sql);
     $logQuery = mysqli_real_escape_string($conn,$sql);
     logActivity('add','ITM',$conn->insert_id,$logQuery);
@@ -151,8 +151,8 @@ function insertItem($data) {
 function editItem($data) {
     global $conn;
 
-    $sql = "UPDATE items SET name = '{$data["name"]}',price = '{$data["price"]}',`description` = '{$data["description"]}',dimension = '{$data["dimension"]}',
-            unit = '{$data["unit"]}' WHERE id = '{$data["id"]}'";
+    $sql = "UPDATE items SET name = '{$data["name"]}',approx_price = '{$data["approx_price"]}',`cast_weight` = '{$data["cast_weight"]}',scarp_weight = '{$data["scarp_weight"]}',
+            good_weight = '{$data["good_weight"]}' WHERE id = '{$data["id"]}'";
     checkAccountExist('items','id',$data['id']);
     $conn->query($sql);
     $logQuery = mysqli_real_escape_string($conn,$sql);

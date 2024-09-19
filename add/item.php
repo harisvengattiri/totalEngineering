@@ -34,33 +34,33 @@
           <form role="form" action="<?php echo BASEURL;?>/controller" method="post">
             <input type="hidden" name="controller" value="items">
             <div class="form-group row">
-              <label for="Quantity" class="col-sm-2 form-control-label">Item</label>
+              <label for="Quantity" class="col-sm-3 form-control-label">Item</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" name="name" id="value" placeholder="Item">
               </div>
-              </div>
-              <div class="form-group row">
-              <label for="Quantity" align="left" class="col-sm-2 form-control-label">Price</label>
-              <div class="col-sm-8">
-                <input type="number" min="1" class="form-control" name="price" id="value" placeholder="Price">
-              </div>
-            </div>
-               <div class="form-group row">
-              <label for="Quantity" class="col-sm-2 form-control-label">Dimension</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" name="dimension" id="value" placeholder="Dimension">
-              </div>
-              </div>
-              <div class="form-group row">
-              <label for="Quantity" align="left" class="col-sm-2 form-control-label">Description</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" name="description" id="value" placeholder="Description">
-              </div>
             </div>
             <div class="form-group row">
-              <label for="Quantity" align="left" class="col-sm-2 form-control-label">Unit</label>
+              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Approx Value</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" name="unit" id="value" placeholder="Unit">
+                <input type="text" class="form-control" name="approx_price" id="value" placeholder="Approx Value">
+              </div>    
+            </div>
+            <div class="form-group row">
+              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Rough Cast Weight</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="cast_weight" id="value" placeholder="Rough Cast Weight">
+              </div>    
+            </div>
+            <div class="form-group row">
+              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Scarp Weight</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="scarp_weight" id="value" placeholder="Scarp Weight">
+              </div>    
+            </div>
+            <div class="form-group row">
+              <label for="Quantity" align="left" class="col-sm-3 form-control-label">Finished Good Weight</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="good_weight" id="value" placeholder="Finished Good Weight">
               </div>    
             </div>
                
