@@ -71,27 +71,6 @@
                       </div>
                     </div>
 
-                    <div class="form-group row">
-                      <label align="left" for="type" class="col-sm-2 form-control-label">Attention</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" type="text" name="attention" value="<?php echo $order_details['attn'];?>">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label align="left" for="type" class="col-sm-2 form-control-label">LPO No</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" type="text" name="lpo" value="<?php echo $order_details['lpo'];?>">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label for="type" class="col-sm-2 form-control-label">Transportation</label>
-                      <div class="col-sm-5">
-                        <input class="form-control" type="number" name="transportation" step="any" value="<?php echo $order_details['transportation'];?>">
-                      </div>
-                    </div>
-
                     <?php
                         $order_items = getOrderItemDetails($order);
                         $count = 0;
@@ -125,9 +104,6 @@
                       </div>
                       <div class="col-sm-2">
                         <input type="number" min="1" step="any" class="form-control" name="quantity[]" id="qnt_0" value="<?php echo $quantity;?>" placeholder="Quantity">
-                      </div>
-                      <div class="col-sm-2">
-                        <input type="number" min="1" step="any" class="form-control" name="unit[]" value="<?php echo $unit;?>" placeholder="Unit Price">
                       </div>
 
                         <?php if ($count == 1) { ?>
@@ -199,7 +175,6 @@
                 } ?></select>
                 </div>
                 <div class="col-sm-2"><input type="number" min="1" step="any" class="form-control" name="quantity[]" id="qnt_${orderItemRow}" placeholder="Quantity"><input type="hidden" id="itemWeight_${orderItemRow}"></div>
-                <div class="col-sm-2"><input type="number" min="1" step="any" class="form-control" name="unit[]" placeholder="Unit Price"></div>
 		            <div class="box-tools">
                   <a href="javascript:void(0);"  class="btn btn-danger btn-sm btnRemoveItems" data-original-title="Remove One">
                   <i class="fa fa-times"></i></a>

@@ -367,19 +367,18 @@ function getOrderItemDetails($ord) {
 function addOrder($data) {
     global $conn;
 
-    $trans = $data["transportation"];
-
-    $sql = "INSERT INTO `sales_order` (`customer`,`token`,`date`,`attn`,`lpo`,`transportation`)
-            VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}','{$data["attention"]}','{$data["lpo"]}','{$data["transportation"]}')";
+    $sql = "INSERT INTO `sales_order` (`customer`,`token`,`date`)
+            VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}')";
     $conn->query($sql);
     $order_id = $conn->insert_id;
         $item = $data["item"];
         $quantity = $data["quantity"];
-        $unit = $data["unit"];
         $item_count = sizeof($item);
         $sum = 0;
         for ($i = 0; $i < $item_count; $i++) {
         $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
+            $item_details = getItemDetails($item[$i]);
+            $unit[$i] = $item_details['approx_price'];
         $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
         $total[$i] = $quantity[$i] * $unit[$i];
         $sql1 = "INSERT INTO `order_item` (`order_id`, `item`, `quantity`, `price`, `total`) 
@@ -389,32 +388,30 @@ function addOrder($data) {
         }
         $vat = $sum*0.05;
         $grand = $sum*1.05;
-        $grand_total = $trans+$grand;
-        $sql2 = "UPDATE `sales_order` SET `subtotal`='$sum',`vat`='$vat',`grand`='$grand',`grand_total`='$grand_total' WHERE id='$order_id'";
+        $sql2 = "UPDATE `sales_order` SET `subtotal`='$sum',`vat`='$vat',`grand`='$grand' WHERE id='$order_id'";
         $conn->query($sql2);
     $logQuery = mysqli_real_escape_string($conn,$sql);
-    logActivity('add','DO',$order_id,$logQuery);
+    logActivity('add','JW',$order_id,$logQuery);
 }
 
 function editOrder($data) {
     global $conn;
 
     $order_id = $data["id"];
-    $trans = $data["transportation"];
     
-    $sql = "UPDATE `sales_order` SET `customer` =  '{$data["customer"]}', `date` =  '{$data["date"]}', `attn` =  '{$data["attention"]}', `lpo` =  '{$data["lpo"]}',
-            `transportation` =  '{$data["transportation"]}' WHERE `id` = $order_id";
+    $sql = "UPDATE `sales_order` SET `customer` =  '{$data["customer"]}', `date` =  '{$data["date"]}' WHERE `id` = $order_id";
     checkAccountExist('sales_order','id',$order_id);
     $conn->query($sql);
         deleteOrderItems($order_id);
         $item = $data["item"];
         $quantity = $data["quantity"];
-        $unit = $data["unit"];
         $count = sizeof($item);
         $sum = 0;
         for ($i = 0; $i < $count; $i++) {
             $item[$i] = mysqli_real_escape_string($conn, $item[$i]);
             $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
+                $item_details = getItemDetails($item[$i]);
+                $unit[$i] = $item_details['approx_price'];
             $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
             $total[$i] = $quantity[$i] * $unit[$i];
             $sql1 = "INSERT INTO `order_item`(`order_id`,`item`, `quantity`, `price`, `total`) 
@@ -424,11 +421,10 @@ function editOrder($data) {
         }
         $vat = $sum*0.05;
         $grand = $sum*1.05;
-        $grand_total = $trans+$grand;
-        $sql2 = "UPDATE `sales_order` SET `subtotal`='$sum',`vat`='$vat',`grand`='$grand',`grand_total`='$grand_total' WHERE id='$order_id'";
+        $sql2 = "UPDATE `sales_order` SET `subtotal`='$sum',`vat`='$vat',`grand`='$grand' WHERE id='$order_id'";
         $conn->query($sql2);
     $logQuery = mysqli_real_escape_string($conn,$sql);
-    logActivity('edit','DO',$order_id,$logQuery);
+    logActivity('edit','JW',$order_id,$logQuery);
 }
 
 function deleteOrder($data) {
@@ -440,7 +436,7 @@ function deleteOrder($data) {
     $conn->query($sql);
     deleteOrderItems($order_id);
     $logQuery = mysqli_real_escape_string($conn,$sql);
-    logActivity('delete','DO',$order_id,$logQuery);
+    logActivity('delete','JW',$order_id,$logQuery);
 }
 
 function deleteOrderItems($order_id) {

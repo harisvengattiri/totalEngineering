@@ -97,10 +97,7 @@
                     <thead>
                         <tr>
                             <th data-toggle="true">
-                                Order Id
-                            </th>
-                            <th>
-                                LPO Number
+                                JW NO
                             </th>
                             <th>
                                 Date
@@ -113,9 +110,6 @@
                             </th>
                             <th style="text-align: center;">
                                 Delivered Quantity
-                            </th>
-                            <th style="text-align: right;">
-                                Transportation Amount
                             </th>
                             <th style="text-align: right;">
                                 Total Amount
@@ -142,14 +136,12 @@
                                 $customer = getContactNameFromId($custId);
                             ?>
                                 <tr>
-                                    <td>DO|<?php echo sprintf("%06d",$orderId);?></td>
-                                    <td><?php echo $row["lpo"]; ?></td>
+                                    <td>JW|<?php echo sprintf("%06d",$orderId);?></td>
                                     <td><?php echo $row["date"]; ?></td>
                                     <td><?php echo $customer; ?></td>
                                     <td style="text-align: center;"><?php echo getTotalOrderQuantity($orderId);?></td>
                                     <td style="text-align: center;"><?php echo getTotaldeliverQuantity($orderId,'order');?></td>
-                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['transportation']); ?></td>
-                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['grand_total']); ?></td>
+                                    <td style="text-align: right;"><?php echo custom_money_format('%!i', $row['grand']); ?></td>
                                     <td>
                                         <?php
                                         $company = $_SESSION["username"];

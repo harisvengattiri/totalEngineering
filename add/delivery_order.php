@@ -68,27 +68,6 @@
                     </div>
 
                     <div class="form-group row">
-                      <label align="left" for="type" class="col-sm-2 form-control-label">Attention</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" type="text" name="attention">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label align="left" for="type" class="col-sm-2 form-control-label">LPO No</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" type="text" name="lpo">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label for="type" class="col-sm-2 form-control-label">Transportation</label>
-                      <div class="col-sm-5">
-                        <input class="form-control" type="number" name="transportation" step="any" value="0">
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
                       <input type="hidden" id="itemWeight_0">
                       <div class="col-sm-4">
                         <select name="item[]" id="item_0" class="form-control" placeholder="Item" required>
@@ -108,9 +87,6 @@
                       </div>
                       <div class="col-sm-2">
                         <input type="number" min="1" step="any" class="form-control" name="quantity[]" id="qnt_0" placeholder="Quantity">
-                      </div>
-                      <div class="col-sm-2">
-                        <input type="number" min="1" step="any" class="form-control" name="unit[]" placeholder="Unit Price">
                       </div>
                       <div class="box-tools">
                         <a href="javascript:void(0);" class="btn btn-info btn-sm" id="btnAddMoreSpecification" data-original-title="Add More">
@@ -167,7 +143,6 @@
                 } ?></select>
                 </div>
                 <div class="col-sm-2"><input type="number" min="1" step="any" class="form-control" name="quantity[]" id="qnt_${orderItemRow}" placeholder="Quantity"><input type="hidden" id="itemWeight_${orderItemRow}"></div>
-                <div class="col-sm-2"><input type="number" min="1" step="any" class="form-control" name="unit[]" placeholder="Unit Price"></div>
 		            <div class="box-tools">
                   <a href="javascript:void(0);"  class="btn btn-danger btn-sm btnRemoveItems" data-original-title="Remove One">
                   <i class="fa fa-times"></i></a>

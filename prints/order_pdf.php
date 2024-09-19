@@ -37,11 +37,7 @@ $order = $_GET["id"];
           $grand = $order_details['grand'];
           $grand = ($grand != NULL) ? $grand : 0;
 
-          $transportation = $order_details['transportation'];
-          $transportation = ($transportation != NULL) ? $transportation : 0;
-
-          $grand_total = $order_details['grand_total'];
-          $grand_total = ($grand_total != NULL) ? $grand_total : 0;
+          $grand_total = $grand;
         ?>
 
 
@@ -51,7 +47,7 @@ $order = $_GET["id"];
 <td style="width: 15%;">Customer No:</td>
 <td><b>CST <?php echo sprintf('%04d',$customer);?></b></td>
 <td style="width: 15%;">Order No:</td>
-<td><b>DO|<?php echo sprintf('%06d',$order);?></b></td>
+<td><b>JW|<?php echo sprintf('%06d',$order);?></b></td>
 </tr>
 <tr>
 <td style="width: 15%;">Customer Name:</td>
@@ -117,11 +113,6 @@ $order = $_GET["id"];
           <tr>
             <td colspan="5" align="right"><b>GST&nbsp;5%&nbsp;</b></td>
             <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $vat);?></b></td>
-          </tr>
-         
-          <tr>
-            <td colspan="5" align="right"><b>Transportation&nbsp;</b></td>
-            <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $transportation);?></b></td>
           </tr>
           
           <tr>
