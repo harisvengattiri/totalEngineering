@@ -30,18 +30,6 @@ $delivery = $_GET["id"];
           
           $sub_total = $delivery_details['subtotal'];
           $sub_total = ($sub_total != NULL) ? $sub_total : 0;
-
-          $vat = $delivery_details['vat'];
-          $vat = ($vat != NULL) ? $vat : 0;
-
-          $grand = $delivery_details['grand'];
-          $grand = ($grand != NULL) ? $grand : 0;
-
-          $transportation = $delivery_details['transportation'];
-          $transportation = ($transportation != NULL) ? $transportation : 0;
-
-          $grand_total = $delivery_details['grand_total'];
-          $grand_total = ($grand_total != NULL) ? $grand_total : 0;
         ?>
 
 
@@ -85,7 +73,7 @@ $delivery = $_GET["id"];
 <th style="width: 3%;">#</th>
 <th style="width: 14%;">JW Number.</th>
 <th style="width: 14%;">Item</th>
-<th style="width: 14%;">Scrap Weight</th>
+<th style="width: 14%;">Good Weight</th>
 <th style="width: 9%;">Quantity</th>
 </tr>
 
@@ -94,24 +82,27 @@ $delivery = $_GET["id"];
              $query=mysqli_query($conn,$sql);
              $sl=1;
              $total_quantity = 0;
-             $subtotal=0;
+             $total_itemGoodWeight = 0;
              while($fetch=mysqli_fetch_array($query))
              {
                   $item = $fetch['item'];
                   $jw = $fetch['jw'];
                   $quantity = $fetch['quantity'];
-                  $price = $fetch['price'];
-                  $itemDetails = getItemDetails($item); 
+                  $itemDetails = getItemDetails($item);
+                    $good_weight = $itemDetails['good_weight'];
+                    $itemGoodWeight = $good_weight * $quantity;
         ?>
           <tr>
             <td align="center"><?php echo $sl;?></td>
             <td align="center"><?php echo $jw;?></td>
             <td align="center"><?php echo $itemDetails['name'];?></td>
-            <td align="center"><?php echo $itemDetails['scrap_weight'];?></td>
+            <td align="center"><?php echo $good_weight;?></td>
             <td align="center"><?php echo $quantity;?></td>
+            <?php $itemDetails['good_weight']?>
           </tr>
           <?php
             $total_quantity = $total_quantity + $quantity;
+            $total_itemGoodWeight = $total_itemGoodWeight+$itemGoodWeight;
             $sl++;}
           ?>
           <tr>
@@ -119,6 +110,18 @@ $delivery = $_GET["id"];
             <td colspan="1" align="center"><b><?php echo $total_quantity;?></b></td>
           </tr>
 </table>
+<br/>
+<table style="width:50%;margin-left:auto;" border="0" cellspacing="0" cellpadding="2">
+  <tr>
+    <th style="width: 60%;">Total Weight in Kg</th>
+    <td align="center"><?php echo $total_itemGoodWeight;?></td>
+  </tr>
+  <tr>
+    <th style="width: 60%;">Approx Value in Rs</th>
+    <td align="center"><?php echo $sub_total;?></td>
+  </tr>
+</table>
+
 <?php
 $brv = 25-$sl;
 for($i=0;$i<$brv;$i++)
