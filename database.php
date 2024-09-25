@@ -367,7 +367,7 @@ function getOrderItemDetails($ord) {
 function getOrderFromJW($jw) {
     global $conn;
 
-    $sql = "SELECT id FROM `sales_order` WHERE `jw` = $jw";
+    $sql = "SELECT id FROM `sales_order` WHERE `jw` = '$jw'";
     checkAccountExist('sales_order','jw',$jw);
     $result = $conn->query($sql);
     $row = mysqli_fetch_array($result);
@@ -632,10 +632,10 @@ function removeOrderflag($order) {
     $conn->query($sql);
 }
 
-function checkInvoiced($delivery_id) {
+function checkInvoiced($id, $table) {
     global $conn;
 
-    $sql = "SELECT `invoiced` FROM `delivery_note` WHERE `id`='$delivery_id'";
+    $sql = "SELECT `invoiced` FROM `$table` WHERE `id`='$id'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     if($row['invoiced'] == 0) {
@@ -645,6 +645,64 @@ function checkInvoiced($delivery_id) {
     }
 }
 // DELIVERY NOTE SECTION ENDS
+
+// RETURN NOTE SECTION STARTS
+function addReturnNote($data) {
+    global $conn;
+
+    $trans = $data["transportation"];
+    $dn = $data["delivery"];
+
+    $sql = "INSERT INTO `goods_return_note` (`customer`,`token`,`delivery`,`date`,`attn`,`transportation`)
+            VALUES ('{$data["customer"]}','{$data["token"]}','{$dn}','{$data["date"]}','{$data["attention"]}','{$data["transportation"]}')";
+    $conn->query($sql);
+    $return_id = $conn->insert_id;
+        $itemDetails = $data["item"];
+        $quantity = $data["quantity"];
+        $status = $data["delivery_item_status"];
+        $item_count = sizeof($itemDetails);
+        $sum = 0;
+        for ($i = 0; $i < $item_count; $i++) {
+        $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
+            if ($quantity[$i] != 0) {
+                list($item[$i], $jw[$i]) = explode(',', $itemDetails[$i]);
+                    $item_details = getItemDetails($item[$i]);
+                    $unit[$i] = $item_details['approx_price'];
+                    $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
+                    $order[$i] = getOrderFromJW($jw[$i]);
+                $total[$i] = $quantity[$i] * $unit[$i];
+
+                $sql1 = "INSERT INTO `goods_return_item` (`return_id`, `order_id`, `jw`, `dn`, `item`, `status`, `quantity`, `price`, `total`) 
+                         VALUES ('$return_id', '$jw[$i]', '$jw[$i]', '$dn', '$item[$i]', '$status[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+                $conn->query($sql1);
+                $sum = $sum + $total[$i];
+            }
+        }
+        $vat = $sum*0.05;
+        $grand = $sum*1.05;
+        $grand_total = $trans+$grand;
+        $sql2 = "UPDATE `goods_return_note` SET `subtotal`='$sum', `vat`='$vat', `grand`='$grand', `grand_total`='$grand_total' WHERE id='$return_id'";
+        $conn->query($sql2);
+        updateGoodsReturnInDelivery($dn);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('add','GR',$return_id,$logQuery);
+}
+
+function editReturnNote() {
+
+}
+
+function deleteReturnNote() {
+
+}
+
+function updateGoodsReturnInDelivery($dn) {
+    global $conn;
+
+    $sql = "UPDATE `delivery_note` SET `GRN`= '1' WHERE `id` = '$dn'";
+    $conn->query($sql);
+}
+// RETURN NOTE SECTION ENDS
 
 // ACTIVITY LOG SECTION STARTS
 function logActivity($process,$code,$id,$logQuery) {

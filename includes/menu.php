@@ -147,6 +147,11 @@ if (!isset($_SESSION['userid'])) {
                       <span class="nav-text">Delivery Note</span>
                     </a>
                   </li>
+                  <li>
+                    <a href="<?php echo BASEURL; ?>/goods_retun_notes">
+                      <span class="nav-text">GR Notes</span>
+                    </a>
+                  </li>
                 </ul>
               </li>
               

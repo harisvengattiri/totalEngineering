@@ -27,7 +27,10 @@ switch ($controller) {
         break;
     case 'deliveryNotes':
         handleDeliveryNotes();
-        break;       
+        break;
+    case 'returnNotes':
+        handleReturnNotes();
+        break;
 }
 
 // Customer Section here
@@ -229,6 +232,40 @@ function handleDeliveryNotes() {
             exit();
         } catch (Exception $e) {
             header('Location: '.BASEURL.'/delivery_notes?status=failed');
+            exit();
+        }
+    }
+}
+
+// ReturnNotes Section here
+function handleReturnNotes() {
+    if (isset($_REQUEST['submit_add_returnNote'])) {
+        try {
+            addReturnNote($_REQUEST);
+            header('Location: '.BASEURL.'/goods_retun_notes?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/goods_retun_notes?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_edit_returnNote'])) {
+        try {
+            editReturnNote($_REQUEST);
+            header('Location: '.BASEURL.'/goods_retun_notes?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/goods_retun_notes?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_delete_returnNote'])) {
+        try {
+            deleteReturnNote($_REQUEST);
+            header('Location: '.BASEURL.'/goods_retun_notes?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/goods_retun_notes?status=failed');
             exit();
         }
     }
