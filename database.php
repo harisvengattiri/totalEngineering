@@ -632,8 +632,14 @@ function removeOrderflag($order) {
     $conn->query($sql);
 }
 
-function checkInvoiced($id, $table) {
+function checkInvoiced($id, $section) {
     global $conn;
+
+    if($section == 'deliveryNotes') {
+        $table = 'delivery_note';
+    } else if($section == 'goodsReturn') {
+        $table = 'goods_return_note';
+    }
 
     $sql = "SELECT `invoiced` FROM `$table` WHERE `id`='$id'";
     $result = mysqli_query($conn, $sql);
@@ -683,7 +689,7 @@ function addReturnNote($data) {
         $grand_total = $trans+$grand;
         $sql2 = "UPDATE `goods_return_note` SET `subtotal`='$sum', `vat`='$vat', `grand`='$grand', `grand_total`='$grand_total' WHERE id='$return_id'";
         $conn->query($sql2);
-        updateGoodsReturnInDelivery($dn);
+        updateGoodsReturnInDelivery($dn,'Add');
     $logQuery = mysqli_real_escape_string($conn,$sql);
     logActivity('add','GR',$return_id,$logQuery);
 }
@@ -692,15 +698,48 @@ function editReturnNote() {
 
 }
 
-function deleteReturnNote() {
+function deleteReturnNote($data) {
+    global $conn;
+    $return_id = $data["id"];
+    $dn = getDeliveryFromReturn($return_id);
 
+    $sql = "DELETE FROM `goods_return_note` WHERE `id` = $return_id";
+    checkAccountExist('goods_return_note','id',$return_id);
+    $conn->query($sql);
+    deleteReturnItems($return_id);
+    updateGoodsReturnInDelivery($dn,'Remove');
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('delete','GR',$return_id,$logQuery);
 }
 
-function updateGoodsReturnInDelivery($dn) {
+function deleteReturnItems($return_id) {
     global $conn;
 
-    $sql = "UPDATE `delivery_note` SET `GRN`= '1' WHERE `id` = '$dn'";
+    $sql = "DELETE FROM goods_return_item WHERE `return_id` = '$return_id'";
     $conn->query($sql);
+}
+
+function updateGoodsReturnInDelivery($dn,$process) {
+    global $conn;
+
+    if($process == 'Add') {
+        $grn = '1';
+    } else {
+        $grn = '0';
+    }
+
+    $sql = "UPDATE `delivery_note` SET `GRN`= '$grn' WHERE `id` = '$dn'";
+    $conn->query($sql);
+}
+
+function getDeliveryFromReturn($return_id) {
+    global $conn;
+
+    $sql = "SELECT delivery FROM `goods_return_note` WHERE `id` = '$return_id'";
+    checkAccountExist('goods_return_note','id',$return_id);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_array($result);
+    return $row['delivery'];
 }
 // RETURN NOTE SECTION ENDS
 
