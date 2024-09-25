@@ -133,7 +133,7 @@
                                     <td>GR|<?php echo sprintf("%06d", $returnId); ?></td>
                                     <td><?php echo $customer; ?></td>
                                     <td><?php echo $row["date"]; ?></td>
-                                    <td><?php echo checkInvoiced($returnId,'goods_return_note'); ?></td>
+                                    <td><?php echo checkInvoiced($returnId,'goodsReturn'); ?></td>
                                     <!-- <td><?php // echo getTotaldeliverQuantity($deliveryId,'delivery'); ?></td> -->
                                     <td>
                                         <a target="_blank" href="<?php echo CDNURL; ?>/goods_return_note?id=<?php echo $returnId;?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>

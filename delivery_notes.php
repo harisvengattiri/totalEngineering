@@ -133,7 +133,7 @@
                                     <td>DN|<?php echo sprintf("%06d", $deliveryId); ?></td>
                                     <td><?php echo $customer; ?></td>
                                     <td><?php echo $row["date"]; ?></td>
-                                    <td><?php echo checkInvoiced($deliveryId); ?></td>
+                                    <td><?php echo checkInvoiced($deliveryId,'deliveryNotes'); ?></td>
                                     <td><?php echo getTotaldeliverQuantity($deliveryId,'delivery'); ?></td>
                                     <td>
                                         <a target="_blank" href="<?php echo CDNURL; ?>/delivery_note?id=<?php echo $deliveryId;?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>
