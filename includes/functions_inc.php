@@ -75,9 +75,8 @@ function displaySubmissionStatus($status) {
           </span>
       </a>
   </p>
-  <?php } ?>
+<?php } ?>
 
-<!-- Function for showing number in words starts from here -->
 <?php
 function convert_number_to_words($num)
   {
@@ -225,5 +224,3 @@ function convertDigit($digit)
     case "9": return "nine";
   }
 }
-?>
-<!-- Function for showing number in words ends here -->
