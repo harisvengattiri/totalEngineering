@@ -653,6 +653,32 @@ function checkInvoiced($id, $section) {
 // DELIVERY NOTE SECTION ENDS
 
 // RETURN NOTE SECTION STARTS
+function getReturnDetails($returnId) {
+    global $conn;
+
+    $sql = "SELECT * FROM `goods_return_note` WHERE `id` = $returnId";
+    checkAccountExist('goods_return_note','id',$returnId);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_assoc($result);
+    if(!$row) {
+        throw new Exception();
+    }
+    return $row;
+}
+
+function getReturnItemDetails($returnId) {
+    global $conn;
+
+    $sql = "SELECT * FROM `goods_return_item` WHERE `return_id` = $returnId ORDER BY `id`";
+    checkAccountExist('goods_return_item','return_id',$returnId);
+    $result = $conn->query($sql);
+    $return_items = [];
+    while ($row = mysqli_fetch_array($result)) {
+        $return_items[] = $row;
+    }
+    return $return_items;
+}
+
 function addReturnNote($data) {
     global $conn;
 
@@ -771,6 +797,24 @@ function validateDeliveryReturns($groupedData) {
             throw new Exception();
         }
     }  
+}
+
+function getGoodStatusName($status) {
+    switch ($status) {
+        case '1':
+            $stausName = 'ROUGH CAST';
+            break;
+        case '2':
+            $stausName = '10-20-30 OK';
+            break;
+        case '3':
+            $stausName = '10-20-30 CD';
+            break;
+        case '4':
+            $stausName = 'REWORK';
+            break;
+    }
+    return $stausName;
 }
 // RETURN NOTE SECTION ENDS
 
