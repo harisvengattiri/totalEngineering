@@ -99,6 +99,9 @@
                                 Goods Return No
                             </th>
                             <th>
+                                Delivery
+                            </th>
+                            <th>
                                 Customer
                             </th>
                             <th>
@@ -107,9 +110,6 @@
                             <th>
                                 Invoiced
                             </th>
-                            <!-- <th>
-                                Quantity Delivered
-                            </th> -->
                             <th>
                                 Actions
                             </th>
@@ -128,13 +128,14 @@
                                 $returnId = $row["id"];
                                 $custId = $row["customer"];
                                 $customer = getContactNameFromId($custId);
+                                $delivery = getDeliveryFromReturn($returnId);
                         ?>
                                 <tr>
                                     <td>GR|<?php echo sprintf("%06d", $returnId); ?></td>
+                                    <td>DN|<?php echo sprintf("%05d", $delivery); ?></td>
                                     <td><?php echo $customer; ?></td>
                                     <td><?php echo $row["date"]; ?></td>
                                     <td><?php echo checkInvoiced($returnId,'goodsReturn'); ?></td>
-                                    <!-- <td><?php // echo getTotaldeliverQuantity($deliveryId,'delivery'); ?></td> -->
                                     <td>
                                         <a target="_blank" href="<?php echo CDNURL; ?>/goods_return_note?id=<?php echo $returnId;?>"><button class="btn btn-xs btn-icon success"><i class="fa fa-folder-open"></i></button></a>
                                         <!-- <a href="<?php // echo BASEURL; ?>/edit/delivery_note?id=<?php // echo $row["id"]; ?>"><button class="btn btn-xs btn-icon info">
