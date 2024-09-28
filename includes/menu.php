@@ -167,7 +167,7 @@ if (!isset($_SESSION['userid'])) {
                 </a>
                 <ul class="nav-sub">
                   <li>
-                    <a href="<?php echo BASEURL; ?>/404">
+                    <a href="<?php echo BASEURL; ?>/invoices">
                       <span class="nav-text">Invoices</span>
                     </a>
                   </li>

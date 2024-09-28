@@ -31,6 +31,9 @@ switch ($controller) {
     case 'returnNotes':
         handleReturnNotes();
         break;
+    case 'invoice':
+        handleInvoices();
+        break;
 }
 
 // Customer Section here
@@ -266,6 +269,40 @@ function handleReturnNotes() {
             exit();
         } catch (Exception $e) {
             header('Location: '.BASEURL.'/goods_retun_notes?status=failed');
+            exit();
+        }
+    }
+}
+
+// Invoice Section here
+function handleInvoices() {
+    if (isset($_REQUEST['submit_add_invoice'])) {
+        try {
+            addInvoice($_REQUEST);
+            header('Location: '.BASEURL.'/invoices?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/invoices?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_edit_invoice'])) {
+        try {
+            editInvoice($_REQUEST);
+            header('Location: '.BASEURL.'/invoices?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/invoices?status=failed');
+            exit();
+        }
+    }
+    if (isset($_REQUEST['submit_delete_invoice'])) {
+        try {
+            deleteInvoice($_REQUEST);
+            header('Location: '.BASEURL.'/invoices?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/invoices?status=failed');
             exit();
         }
     }

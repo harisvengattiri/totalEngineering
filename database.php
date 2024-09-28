@@ -650,6 +650,18 @@ function checkInvoiced($id, $section) {
         return 'Yes';
     }
 }
+
+function updateInvoicedInDelivery($delivery,$process) {
+    global $conn;
+
+    if($process == 'Add') {
+        $invoiced = 1;
+    } else if($process == 'Delete') {
+        $invoiced = 0;
+    }
+    $sql = "UPDATE `delivery_note` SET `invoiced` = $invoiced WHERE `id`=$delivery";
+    $conn->query($sql);
+}
 // DELIVERY NOTE SECTION ENDS
 
 // RETURN NOTE SECTION STARTS
@@ -816,7 +828,125 @@ function getGoodStatusName($status) {
     }
     return $stausName;
 }
+
+function updateInvoicedInGRN($return,$process) {
+    global $conn;
+
+    if($process == 'Add') {
+        $invoiced = 1;
+    } else if($process == 'Delete') {
+        $invoiced = 0;
+    }
+    $sql = "UPDATE `goods_return_note` SET `invoiced` = $invoiced WHERE `id`=$return";
+    $conn->query($sql);
+}
 // RETURN NOTE SECTION ENDS
+
+// INVOICE SECTION STARTS
+function getInvoiceDetails($invoice) {
+    global $conn;
+    
+    $sql = "SELECT * FROM `invoice` WHERE `id` = $invoice";
+    checkAccountExist('invoice','id',$invoice);
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_assoc($result);
+    if(!$row) {
+        throw new Exception();
+    }
+    return $row;
+}
+
+function getInvoiceItemDetails($invoice) {
+    global $conn;
+    
+    $sql = "SELECT * FROM `invoice_item` WHERE `invoice_id` = $invoice ORDER BY `id`";
+    checkAccountExist('invoice_item','invoice_id',$invoice);
+    $result = $conn->query($sql);
+    $invoice_items = [];
+    while ($row = mysqli_fetch_array($result)) {
+        $invoice_items[] = $row;
+    }
+    return $invoice_items;
+}
+
+function addInvoice($data) {
+    global $conn;
+
+    $item = $data["item"];
+    $gr = $data["gr"];
+    $jw = $data["jw"];
+    $dq = $data["delivered_quantity"];
+    $price = $data["price"];
+    $item_count = sizeof($item);
+    // $groupedData = [];
+    // for ($i = 0; $i < $item_count; $i++) {
+    //     list($item[$i], $jw[$i]) = explode(',', $itemDetails[$i]);
+    //     groupDeliveryReturns($groupedData,$item[$i],$jw[$i],$delivered_quantity[$i],$quantity[$i]);
+    // }
+    // validateDeliveryReturns($groupedData);
+
+    $sql = "INSERT INTO `invoice` (`customer`,`token`,`date`,`attn`)
+            VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}','{$data["attention"]}')";
+    $conn->query($sql);
+    $invoice_id = $conn->insert_id;
+
+        $sum = 0;
+        for ($i = 0; $i < $item_count; $i++) {
+        $dq[$i] = ($dq[$i] != NULL) ? $dq[$i] : 0;
+            if ($dq[$i] != 0) {
+
+                $order[$i] = getOrderFromJW($jw[$i]);
+                $dn[$i] = getDeliveryFromReturn($gr[$i]);
+                $total[$i] = $dq[$i] * $price[$i];
+
+                $sql1 = "INSERT INTO `invoice_item` (`invoice_id`, `order_id`, `jw`, `dn`, `gr`, `item`, `quantity`, `price`, `total`) 
+                         VALUES ('$invoice_id', '$order[$i]', '$jw[$i]', '$dn[$i]', '$gr[$i]', '$item[$i]', '$dq[$i]', '$price[$i]', '$total[$i]')";
+                $conn->query($sql1);
+                $sum = $sum + $total[$i];
+                updateInvoicedInDelivery($dn[$i],'Add');
+                updateInvoicedInGRN($gr[$i],'Add');
+            }
+        }
+        
+        $vat = $sum*0.05;
+        $grand = $sum*1.05;
+        $sql2 = "UPDATE `invoice` SET `subtotal`='$sum', `vat`='$vat', `grand`='$grand' WHERE id='$invoice_id'";
+        $conn->query($sql2);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('add','INV',$invoice_id,$logQuery);
+}
+
+function editInvoice() {
+
+}
+
+function deleteInvoice($data) {
+    global $conn;
+    $invoice_id = $data["id"];
+
+    $sql = "DELETE FROM `invoice` WHERE `id` = $invoice_id";
+    checkAccountExist('invoice','id',$invoice_id);
+    $conn->query($sql);
+    deleteInvoiceItems($invoice_id);
+    $logQuery = mysqli_real_escape_string($conn,$sql);
+    logActivity('delete','INV',$invoice_id,$logQuery);
+}
+
+function deleteInvoiceItems($invoice_id) {
+    global $conn;
+
+    $invoice_itemDetails = getInvoiceItemDetails($invoice_id);
+    foreach($invoice_itemDetails as $invoice_item) {
+        $dn = $invoice_item['dn'];
+        $gr = $invoice_item['gr'];
+
+        updateInvoicedInDelivery($dn,'Delete');
+        updateInvoicedInGRN($gr,'Delete');
+    }
+    $sql = "DELETE FROM invoice_item WHERE `invoice_id` = '$invoice_id'";
+    $conn->query($sql);
+}
+// INVOICE SECTION ENDS
 
 // ACTIVITY LOG SECTION STARTS
 function logActivity($process,$code,$id,$logQuery) {
