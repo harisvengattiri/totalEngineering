@@ -86,6 +86,7 @@ $order = $_GET["id"];
 <th style="width: 3%;">#</th>
 <th style="width: 14%;">Order No.</th>
 <th style="width: 14%;">Item</th>
+<th style="width: 14%;">Remark</th>
 <th style="width: 9%;">Qty</th>
 <th style="width: 8%;">Price</th>
 <th style="width: 10%;">Total</th>
@@ -99,32 +100,35 @@ $order = $_GET["id"];
              while($fetch=mysqli_fetch_array($query))
              {
                   $item = $fetch['item'];
+                  $remarkId = $fetch['remark'];
                   $quantity = $fetch['quantity'];
                   $price = $fetch['price'];
                   $total = $fetch['total'];
-                  $itemDetails = getItemDetails($item); 
+                  $itemDetails = getItemDetails($item);
+                  $remark = getRemarkOfOrderItem($remarkId); 
         ?>
           <tr>
             <td align="center"><?php echo $sl;?></td>
             <td align="center">10012</td>
             <td align="center"><?php echo $itemDetails['name'];?></td>
+            <td align="center"><?php echo $remark;?></td>
             <td align="center"><?php echo $quantity;?></td>
             <td align="center"><?php echo $price;?></td>
             <td align="right"><?php echo custom_money_format('%!i', $total);?></td>
           </tr>
         <?php $sl++;} ?>
           <tr>
-            <td colspan="5" align="right"><b>Price before GST&nbsp;</b></td>
+            <td colspan="6" align="right"><b>Price before GST&nbsp;</b></td>
             <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $sub_total);?></b></td>
           </tr>
           <tr>
-            <td colspan="5" align="right"><b>GST&nbsp;5%&nbsp;</b></td>
+            <td colspan="6" align="right"><b>GST&nbsp;5%&nbsp;</b></td>
             <td colspan="1" align="right"><b><?php echo custom_money_format('%!i', $vat);?></b></td>
           </tr>
           
           <tr>
             <td colspan="2" align="center"><b>Grand total</b></td>
-            <td colspan="3" align="center"><b>
+            <td colspan="4" align="center"><b>
             <?php
               $inwords=ucwords(convert_number_to_words($grand_total));
 

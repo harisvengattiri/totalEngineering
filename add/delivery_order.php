@@ -95,6 +95,13 @@
                       <div class="col-sm-2">
                         <input type="number" min="1" step="any" class="form-control" name="quantity[]" id="qnt_0" placeholder="Quantity">
                       </div>
+                      <div class="col-sm-2">
+                        <select name="remark[]" class="form-control">
+                          <option value="1">ROUGH CAST</option>
+                          <option value="2">SAMPLE</option>
+                          <option value="3">REWORK</option>
+                        </select>
+                      </div>
                       <div class="box-tools">
                         <a href="javascript:void(0);" class="btn btn-info btn-sm" id="btnAddMoreSpecification" data-original-title="Add More">
                           <i class="fa fa-plus"></i>
@@ -150,6 +157,13 @@
                 } ?></select>
                 </div>
                 <div class="col-sm-2"><input type="number" min="1" step="any" class="form-control" name="quantity[]" id="qnt_${orderItemRow}" placeholder="Quantity"><input type="hidden" id="itemWeight_${orderItemRow}"></div>
+                <div class="col-sm-2">
+                  <select name="remark[]" class="form-control">
+                    <option value="1">ROUGH CAST</option>
+                    <option value="2">SAMPLE</option>
+                    <option value="3">REWORK</option>
+                  </select>
+                </div>
 		            <div class="box-tools">
                   <a href="javascript:void(0);"  class="btn btn-danger btn-sm btnRemoveItems" data-original-title="Remove One">
                   <i class="fa fa-times"></i></a>

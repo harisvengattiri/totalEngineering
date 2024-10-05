@@ -86,6 +86,8 @@
                             $item = $fetch['item'];
                                 $item_details = getItemDetails($item);
                                 $item_name = $item_details['name'];
+                            $remarkId = $fetch['remark'];
+                              $remark = getRemarkOfOrderItem($remarkId);
                             $quantity = $fetch['quantity'];
                             $quantity = ($quantity != NULL) ? $quantity : 0;
                             $unit = $fetch['price'];
@@ -111,6 +113,14 @@
                       </div>
                       <div class="col-sm-2">
                         <input type="number" min="1" step="any" class="form-control" name="quantity[]" id="qnt_0" value="<?php echo $quantity;?>" placeholder="Quantity">
+                      </div>
+                      <div class="col-sm-2">
+                        <select name="remark[]" class="form-control">
+                          <option value="<?php echo $remarkId;?>"><?php echo $remark;?></option>
+                          <option value="1">ROUGH CAST</option>
+                          <option value="2">SAMPLE</option>
+                          <option value="3">REWORK</option>
+                        </select>
                       </div>
 
                         <?php if ($count == 1) { ?>
@@ -182,6 +192,13 @@
                 } ?></select>
                 </div>
                 <div class="col-sm-2"><input type="number" min="1" step="any" class="form-control" name="quantity[]" id="qnt_${orderItemRow}" placeholder="Quantity"><input type="hidden" id="itemWeight_${orderItemRow}"></div>
+                <div class="col-sm-2">
+                  <select name="remark[]" class="form-control">
+                    <option value="1">ROUGH CAST</option>
+                    <option value="2">SAMPLE</option>
+                    <option value="3">REWORK</option>
+                  </select>
+                </div>
 		            <div class="box-tools">
                   <a href="javascript:void(0);"  class="btn btn-danger btn-sm btnRemoveItems" data-original-title="Remove One">
                   <i class="fa fa-times"></i></a>

@@ -383,6 +383,7 @@ function addOrder($data) {
     $order_id = $conn->insert_id;
         $item = $data["item"];
         $quantity = $data["quantity"];
+        $remark = $data["remark"];
         $item_count = sizeof($item);
         $sum = 0;
         for ($i = 0; $i < $item_count; $i++) {
@@ -391,8 +392,8 @@ function addOrder($data) {
             $unit[$i] = $item_details['approx_price'];
         $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
         $total[$i] = $quantity[$i] * $unit[$i];
-        $sql1 = "INSERT INTO `order_item` (`order_id`, `item`, `quantity`, `price`, `total`) 
-                 VALUES ('$order_id','$item[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+        $sql1 = "INSERT INTO `order_item` (`order_id`, `item`, `remark`, `quantity`, `price`, `total`) 
+                 VALUES ('$order_id', '$item[$i]', '$remark[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
         $conn->query($sql1);
         $sum = $sum + $total[$i];
         }
@@ -415,6 +416,7 @@ function editOrder($data) {
         deleteOrderItems($order_id);
         $item = $data["item"];
         $quantity = $data["quantity"];
+        $remark = $data["remark"];
         $count = sizeof($item);
         $sum = 0;
         for ($i = 0; $i < $count; $i++) {
@@ -424,8 +426,8 @@ function editOrder($data) {
                 $unit[$i] = $item_details['approx_price'];
             $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
             $total[$i] = $quantity[$i] * $unit[$i];
-            $sql1 = "INSERT INTO `order_item`(`order_id`,`item`, `quantity`, `price`, `total`) 
-            VALUES ('$order_id','$item[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+            $sql1 = "INSERT INTO `order_item`(`order_id`, `item`, `remark`, `quantity`, `price`, `total`) 
+            VALUES ('$order_id', '$item[$i]', '$remark[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
             $conn->query($sql1);
             $sum = $sum + $total[$i];
         }
@@ -474,6 +476,21 @@ function getTotaldeliverQuantity($id, $type) {
     $result = $conn->query($sql);
     $row = mysqli_fetch_array($result);
     return $row['TotalDeliverQuantity'];
+}
+
+function getRemarkOfOrderItem($remark) {
+    switch ($remark) {
+        case '1':
+            $remarkName = 'ROUGH CAST';
+            break;
+        case '2':
+            $remarkName = 'SAMPLE';
+            break;
+        case '3':
+            $remarkName = 'REWORK';
+            break;
+    }
+    return $remarkName;
 }
 // ORDER SECTION ENDS
 
