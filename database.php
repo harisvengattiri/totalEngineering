@@ -831,16 +831,28 @@ function validateDeliveryReturns($groupedData) {
 function getGoodStatusName($status) {
     switch ($status) {
         case '1':
-            $stausName = 'ROUGH CAST';
+            $stausName = 'ACCEPTED';
             break;
         case '2':
-            $stausName = '10-20-30 OK';
+            $stausName = 'REWORK';
             break;
         case '3':
-            $stausName = '10-20-30 CD';
+            $stausName = '10ᵗʰ OK';
             break;
         case '4':
+            $stausName = '20ᵗʰ OK';
+            break;
+        case '5':
+            $stausName = '30ᵗʰ OK';
+            break;
+        case '6':
+            $stausName = '40ᵗʰ OK';
+            break;
+        case '7':
             $stausName = 'REWORK';
+            break;
+        case '8':
+            $stausName = 'REJECTION';
             break;
     }
     return $stausName;

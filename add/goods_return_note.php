@@ -145,10 +145,14 @@
                         </div>
                         <div class="col-sm-2">
                             <select name="delivery_item_status[]" class="form-control">
-                              <option value="1">ROUGH CAST</option>
-                              <option value="2">10-20-30 OK</option>
-                              <option value="3">10-20-30 CD</option>
-                              <option value="4">REWORK</option>
+                              <option value="1">ACCEPTED</option>
+                              <option value="2">REWORK</option>
+                              <option value="3">10ᵗʰ OK</option>
+                              <option value="4">20ᵗʰ OK</option>
+                              <option value="5">30ᵗʰ OK</option>
+                              <option value="6">40ᵗʰ OK</option>
+                              <option value="7">REWORK</option>
+                              <option value="8">REJECTION</option>
                             </select>
                         </div>
                         <div class="col-sm-2">
@@ -282,10 +286,14 @@ $(document).ready(function() {
         </div>
         <div class="col-sm-2">
             <select name="delivery_item_status[]" class="form-control">
-                <option value="1">ROUGH CAST</option>
-                <option value="2">10-20-30 OK</option>
-                <option value="3">10-20-30 CD</option>
-                <option value="4">REWORK</option>
+              <option value="1">ACCEPTED</option>
+              <option value="2">REWORK</option>
+              <option value="3">10ᵗʰ OK</option>
+              <option value="4">20ᵗʰ OK</option>
+              <option value="5">30ᵗʰ OK</option>
+              <option value="6">40ᵗʰ OK</option>
+              <option value="7">REWORK</option>
+              <option value="8">REJECTION</option>
             </select>
         </div>
         <div class="col-sm-2">
