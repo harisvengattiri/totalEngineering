@@ -527,26 +527,36 @@ function addDeliveryNote($data) {
     $trans = $data["transportation"];
     $jws = $data["jws"];
 
+    $itemDetails = $data["item"];
+    $order_quantity = $data["order_quantity"];
+    $quantity = $data["quantity"];
+    $delivery_remark = $data["delivery_item_status"];
+    $item_count = sizeof($itemDetails);
+
+    $groupedData = [];
+    for ($i = 0; $i < $item_count; $i++) {
+        list($item[$i], $jw[$i], $remark[$i]) = explode(',', $itemDetails[$i]);
+        groupDelivery($groupedData,$item[$i],$jw[$i],$remark[$i],$order_quantity[$i],$quantity[$i]);
+    }
+    validateDelivery($groupedData);
+
     $sql = "INSERT INTO `delivery_note` (`customer`,`token`,`date`,`attn`,`transportation`,`vehicle`)
             VALUES ('{$data["customer"]}','{$data["token"]}','{$data["date"]}','{$data["attention"]}','{$data["transportation"]}','{$data["vehicle"]}')";
     $conn->query($sql);
     $delivery_id = $conn->insert_id;
-        $order = $data["order"];
-        $jw = $data["jw"];
-        $item = $data["item"];
-        $quantity = $data["quantity"];
-        $item_count = sizeof($item);
         $sum = 0;
         for ($i = 0; $i < $item_count; $i++) {
         $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
             if ($quantity[$i] != 0) {
+                list($item[$i], $jw[$i], $remark[$i]) = explode(',', $itemDetails[$i]);
                 $item[$i] = mysqli_real_escape_string($conn, $item[$i]);
                     $item_details = getItemDetails($item[$i]);
                     $unit[$i] = $item_details['approx_price'];
+                $order[$i] = getOrderFromJW($jw[$i]);
                 $unit[$i] = ($unit[$i] != NULL) ? $unit[$i] : 0;
                 $total[$i] = $quantity[$i] * $unit[$i];
-                $sql1 = "INSERT INTO `delivery_item` (`delivery_id`, `order_id`, `jw`, `item`, `quantity`, `price`, `total`) 
-                         VALUES ('$delivery_id', '$order[$i]', '$jw[$i]', '$item[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+                $sql1 = "INSERT INTO `delivery_item` (`delivery_id`, `order_id`, `jw`, `item`, `order_remark`, `delivery_remark`, `quantity`, `price`, `total`) 
+                         VALUES ('$delivery_id', '$order[$i]', '$jw[$i]', '$item[$i]', '$remark[$i]', '$delivery_remark[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
                 $conn->query($sql1);
                 $sum = $sum + $total[$i];
             }
@@ -589,12 +599,12 @@ function deleteDeliveryItems($delivery_id) {
     $conn->query($sql);
 }
 
-function getItemDeliveryBalance($order,$item) {
+function getItemDeliveryBalance($order,$item,$status) {
     global $conn;
 
     $sql = "SELECT o.quantity - COALESCE(SUM(d.quantity), 0) AS balance
-        FROM `order_item` o LEFT JOIN `delivery_item` d ON o.order_id = d.order_id AND o.item = d.item
-        WHERE o.order_id = '$order' AND o.item = '$item'";
+        FROM `order_item` o LEFT JOIN `delivery_item` d ON o.order_id = d.order_id AND o.item = d.item AND o.remark = d.order_remark
+        WHERE o.order_id = '$order' AND o.item = '$item' AND o.remark = '$status'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 
@@ -609,11 +619,12 @@ function checkOrderFlag($jws) {
     $order_balance_list = [];
     foreach ($jws as $jw) {
         $order = getOrderFromJW($jw);
-        $sql = "SELECT item FROM `order_item` WHERE `order_id`='$order'";
+        $sql = "SELECT item,remark FROM `order_item` WHERE `order_id`='$order'";
         $result = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_assoc($result)) {
             $item = $row['item'];
-            $balance = getItemDeliveryBalance($order,$item);
+            $status = $row['remark'];
+            $balance = getItemDeliveryBalance($order,$item,$status);
             $order_balance_list[] = [$order,$balance];
         }
     }
@@ -678,6 +689,27 @@ function updateInvoicedInDelivery($delivery,$process) {
     }
     $sql = "UPDATE `delivery_note` SET `invoiced` = $invoiced WHERE `id`=$delivery";
     $conn->query($sql);
+}
+
+function groupDelivery(&$groupedData,$item,$order,$remark,$order_quantity,$quantity) {
+    $key = $item . '_' . $order. '_' . $remark;
+    if (!isset($groupedData[$key])) {
+        $groupedData[$key] = [
+            'item' => $item,
+            'order' => $order,
+            'order_quantity' => $order_quantity,
+            'total_delivered_quantity' => 0,
+        ];
+    }
+    $groupedData[$key]['total_delivered_quantity'] += $quantity;
+}
+
+function validateDelivery($groupedData) {
+    foreach ($groupedData as $group) {
+        if ($group['total_delivered_quantity'] > $group['order_quantity']) {
+            throw new Exception();
+        }
+    }  
 }
 // DELIVERY NOTE SECTION ENDS
 

@@ -54,6 +54,7 @@
                   </div>
             </form>
             <?php
+            $jws_string = 0;
             } if (isset($_POST['submit_orders'])) {
               $customer = $_POST['customer'];
               $customer_name = getContactNameFromId($customer);
@@ -140,41 +141,65 @@
                     </div>
 
                     <div class="form-group row">
-                      <label align="center" class="col-sm-2 form-control-label"><b>JW Number</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>Item</b></label>
+                      <label align="center" class="col-sm-2 form-control-label"><b>JW Number</b></label>
                       <label align="center" class="col-sm-1 form-control-label"><b>Order</b></label>
                       <label align="center" class="col-sm-1 form-control-label"><b>Balance</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>Quantity</b></label>
+                      <label align="center" class="col-sm-2 form-control-label"><b>Remarks</b></label>
                     </div>
-                    <?php
-                      foreach($jws as $jw) {
-                        $order = getOrderFromJW($jw);
-                        $order_items = getOrderItemDetails($order);
-                        foreach($order_items as $order_item) {
-                          $item = $order_item['item'];
-                          $item_details = getItemDetails($item);
-                          $order_balance = getItemDeliveryBalance($order,$item);
-                    ?>
+
                     <div class="form-group row">
                         <div class="col-sm-2">
-                          <input type="hidden" name="order[]" value="<?php echo $order;?>">
-                          <input type="text" class="form-control" name="jw[]" value="<?php echo $jw;?>" readonly>
+                            <select class="form-control" name="item[]" id="delItem_0">
+                            <?php                                
+                                $sqlItem1="SELECT oi.item AS itemId,itm.name AS itemName,so.jw AS jwNumber,oi.remark
+                                           FROM order_item oi
+                                           INNER JOIN sales_order so ON oi.order_id=so.id
+                                           INNER JOIN items itm ON oi.item=itm.id
+                                           WHERE so.jw IN ($jws_string)";
+                                $resultItem1=$conn->query($sqlItem1);
+                                ?> <option value="">Select Item</option> <?php
+                                if($resultItem1->num_rows > 0) {
+                                while($rowItem1=$resultItem1->fetch_assoc()) {
+                                  $remarkId = $rowItem1['remark'];
+                                  $remark = getRemarkOfOrderItem($remarkId);
+                                ?>
+                                <option value="<?php echo $rowItem1['itemId'];?>,<?php echo $rowItem1['jwNumber'];?>,<?php echo $remarkId;?>">
+                                   <?php echo $rowItem1['itemName'];?> [<?php echo $remark;?>]
+                                </option>
+                            <?php  } } ?>                      
+                            </select>
                         </div>
                         <div class="col-sm-2">
-                          <input type="text" class="form-control" value="<?php echo $item_details['name'];?>" readonly>
-                          <input type="hidden" name="item[]" value="<?php echo $order_item['item'];?>" readonly>
+                          <input type="text" class="form-control" name="jw[]" id="ItemJW_0" readonly>
                         </div>
                         <div class="col-sm-1">
-                          <input type="text" class="form-control" value="<?php echo $order_item['quantity'];?>" readonly>
+                          <input type="text" class="form-control" name="order_quantity[]" id="orderQuantity_0" readonly>
                         </div>
                         <div class="col-sm-1">
-                          <input type="text" class="form-control order-balance" value="<?php echo $order_balance;?>" readonly>
+                          <input type="text" class="form-control order-balance" id="orderBalance_0" readonly>
                         </div>
                         <div class="col-sm-2">
                           <input type="text" min="1" step="any" class="form-control quantity-input" name="quantity[]" value="0">
                         </div>
+                        <div class="col-sm-2">
+                            <select name="delivery_item_status[]" class="form-control">
+                              <option value="1">10ᵗʰ 20ᵗʰ 30ᵗʰ OK</option>
+                              <option value="2">10ᵗʰ 20ᵗʰ 30ᵗʰ OK CD</option>
+                              <option value="3">REWORK OK</option>
+                              <option value="4">ROUGH CAST</option>
+                              <option value="5">REJECTION</option>
+                            </select>
+                        </div>
+                        <div class="box-tools">
+                            <a href="javascript:void(0);" 
+                                class="btn btn-info btn-sm" id="btnAddMore" data-original-title="Add More">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
                     </div>
-                    <?php } } ?>
+                    <div id="divAttach"></div>
 
                     <div class="form-group row m-t-md">
                       <div align="center" class="col-sm-offset-2 col-sm-12">
@@ -229,6 +254,114 @@
       });
     }
   });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+  $('#delItem_0').on('change', function () {
+    var goodsItemRow = this.id.split('_')[1];
+    var itemDetails = $(this).val();
+    getDeliveredQuantity(goodsItemRow, itemDetails);
+  });
+});
+
+function getDeliveredQuantity(goodsItemRow, itemDetails) {
+  if (itemDetails != "") {
+    $.ajax({
+    url: '<?php echo BASEURL;?>/loads/get_item_orderDetails',
+    data: {itemDetails: itemDetails},
+    type: 'POST',
+    dataType: 'json',
+    success: function(response) {
+      var JwNumber = response.JwNumber;
+      var orderQuantity = response.orderQuantity;
+      var orderBalance = response.orderBalance;
+      $("#ItemJW_" + goodsItemRow).val(JwNumber);
+      $("#orderQuantity_" + goodsItemRow).val(orderQuantity);
+      $("#orderBalance_" + goodsItemRow).val(orderBalance);
+    },
+    error: function(xhr, status, error) {
+      console.error("Error: " + error);
+    }
+    });
+  }
+}
+
+$(document).ready(function() {
+    let goodsItemRow = 1;
+    const MAX_GOODS_RETURN_ROWS = 5;
+
+    $('#btnAddMore').click(function () {
+        const goodsRow = document.createElement('div');
+        goodsRow.setAttribute('class', 'form-group row');
+
+        var goodsReturnInnerDiv = `
+        
+          <div class="col-sm-2">
+            <select class="form-control" name="item[]" id="delItem_${goodsItemRow}">
+              <?php                                
+                $sqlItem1="SELECT oi.item AS itemId,itm.name AS itemName,so.jw AS jwNumber,oi.remark
+                          FROM order_item oi
+                          INNER JOIN sales_order so ON oi.order_id=so.id
+                          INNER JOIN items itm ON oi.item=itm.id
+                          WHERE so.jw IN ($jws_string)";
+                $resultItem1=$conn->query($sqlItem1);
+                ?> <option value="">Select Item</option> <?php
+                if($resultItem1->num_rows > 0) {
+                while($rowItem1=$resultItem1->fetch_assoc()) {
+                  $remarkId = $rowItem1['remark'];
+                  $remark = getRemarkOfOrderItem($remarkId);
+                ?>
+                <option value="<?php echo $rowItem1['itemId'];?>,<?php echo $rowItem1['jwNumber'];?>,<?php echo $remarkId;?>">
+                               <?php echo $rowItem1['itemName'];?> [<?php echo $remark;?>]
+                </option>
+              <?php  } } ?>                      
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" name="jw[]" id="ItemJW_${goodsItemRow}" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" name="order_quantity[]" id="orderQuantity_${goodsItemRow}" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control order-balance" id="orderBalance_${goodsItemRow}" readonly>
+          </div>
+          <div class="col-sm-2">
+            <input type="text" min="1" step="any" class="form-control quantity-input" name="quantity[]" value="0">
+          </div>
+          <div class="col-sm-2">
+              <select name="delivery_item_status[]" class="form-control">
+                <option value="1">10ᵗʰ 20ᵗʰ 30ᵗʰ OK</option>
+                <option value="2">10ᵗʰ 20ᵗʰ 30ᵗʰ OK CD</option>
+                <option value="3">REWORK OK</option>
+                <option value="4">ROUGH CAST</option>
+                <option value="5">REJECTION</option>
+              </select>
+          </div>
+          <div class="box-tools">
+            <a href="javascript:void(0);" class="btn btn-danger btn-sm btnRemoveDebits" data-original-title="Remove"><i class="fa fa-times"></i></a>
+          </div>
+        `;
+        if(goodsItemRow <= MAX_GOODS_RETURN_ROWS) {
+
+            $(goodsRow).append(goodsReturnInnerDiv);
+            $('#divAttach').append(goodsRow);
+
+            $(goodsRow).on('change', '[id^="delItem_"]', function() {
+              var goodsItemRow = this.id.split('_')[1];
+              var itemDetails = $(this).val();
+                getDeliveredQuantity(goodsItemRow, itemDetails);
+            }); 
+
+            goodsItemRow++;
+            $(goodsRow).on('click', '.btnRemoveDebits', function () {
+              $(goodsRow).remove();
+            });
+        }
+
+    });
 });
 </script>
 
