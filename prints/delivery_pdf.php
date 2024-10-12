@@ -73,6 +73,7 @@ $delivery = $_GET["id"];
 <th style="width: 3%;">#</th>
 <th style="width: 14%;">JW Number.</th>
 <th style="width: 14%;">Item</th>
+<th style="width: 14%;">Remark</th>
 <th style="width: 14%;">Good Weight</th>
 <th style="width: 9%;">Quantity</th>
 </tr>
@@ -88,6 +89,8 @@ $delivery = $_GET["id"];
                   $item = $fetch['item'];
                   $jw = $fetch['jw'];
                   $quantity = $fetch['quantity'];
+                  $remarkId = $fetch['delivery_remark'];
+                  $remark = getRemarkOfdeliveryItem($remarkId);
                   $itemDetails = getItemDetails($item);
                     $good_weight = $itemDetails['good_weight'];
                     $itemGoodWeight = $good_weight * $quantity;
@@ -96,6 +99,7 @@ $delivery = $_GET["id"];
             <td align="center"><?php echo $sl;?></td>
             <td align="center"><?php echo $jw;?></td>
             <td align="center"><?php echo $itemDetails['name'];?></td>
+            <td align="center"><?php echo $remark;?></td>
             <td align="center"><?php echo $good_weight;?></td>
             <td align="center"><?php echo $quantity;?></td>
             <?php $itemDetails['good_weight']?>
@@ -106,7 +110,7 @@ $delivery = $_GET["id"];
             $sl++;}
           ?>
           <tr>
-            <td colspan="4" align="right"><b>Total Quantity&nbsp;</b></td>
+            <td colspan="5" align="right"><b>Total Quantity&nbsp;</b></td>
             <td colspan="1" align="center"><b><?php echo $total_quantity;?></b></td>
           </tr>
 </table>
