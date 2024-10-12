@@ -711,6 +711,27 @@ function validateDelivery($groupedData) {
         }
     }  
 }
+
+function getRemarkOfdeliveryItem($remark) {
+    switch ($remark) {
+        case '1':
+            $remarkName = '10ᵗʰ 20ᵗʰ 30ᵗʰ OK';
+            break;
+        case '2':
+            $remarkName = '10ᵗʰ 20ᵗʰ 30ᵗʰ OK CD';
+            break;
+        case '3':
+            $remarkName = 'REWORK OK';
+            break;
+        case '4':
+            $remarkName = 'ROUGH CAST';
+            break;
+        case '5':
+            $remarkName = 'REJECTION';
+            break;
+    }
+    return $remarkName;
+}
 // DELIVERY NOTE SECTION ENDS
 
 // RETURN NOTE SECTION STARTS
