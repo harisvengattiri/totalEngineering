@@ -134,7 +134,7 @@
                               $order_remark = getRemarkOfOrderItem($ord_remarkId);
                               $delivery_remark = getRemarkOfdeliveryItem($del_remarkId);
                             ?>
-                            <option value="<?php echo $rowItem1['giId'];?>">
+                            <option value="<?php echo $rowItem1['giId'];?>" title="Order Remark: <?php echo $order_remark; ?> | Delivery Remark: <?php echo $delivery_remark; ?>">
                               <?php echo $rowItem1['itemName'];?> [<?php echo $order_remark;?> --> <?php echo $delivery_remark;?>]
                             </option>
                             <?php  } } ?>                    
@@ -261,7 +261,7 @@ $(document).ready(function() {
                       $order_remark = getRemarkOfOrderItem($ord_remarkId);
                       $delivery_remark = getRemarkOfdeliveryItem($del_remarkId);
                     ?>
-                    <option value="<?php echo $rowItem1['giId'];?>">
+                    <option value="<?php echo $rowItem1['giId'];?>" title="Order Remark: <?php echo $order_remark; ?> | Delivery Remark: <?php echo $delivery_remark; ?>">
                      <?php echo $rowItem1['itemName'];?> [<?php echo $order_remark;?> --> <?php echo $delivery_remark;?>]
                     </option>
                 <?php  } } ?>                      
