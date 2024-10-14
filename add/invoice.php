@@ -110,7 +110,7 @@
                     </div>
 
                     <div class="form-group row">
-                      <label align="center" class="col-sm-2 form-control-label"><b>Item</b></label>
+                      <label align="center" class="col-sm-3 form-control-label"><b>Item</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>GR Number</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>JW Numbar</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>Delivered OK Quantity</b></label>
@@ -118,18 +118,25 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <select class="form-control" id="rtnItemID_0">
                             <?php                                
-                            $sqlItem1="SELECT gi.id AS giId,itm.name AS itemName,gi.return_id AS returnID FROM goods_return_item gi
+                            $sqlItem1="SELECT gi.id AS giId,itm.name AS itemName,gi.return_id AS returnID,gi.order_remark,gi.delivery_remark
+                                    FROM goods_return_item gi
                                     INNER JOIN items itm ON gi.item=itm.id
-                                    WHERE gi.status=2 AND gi.return_id IN ($returnsList)";
+                                    WHERE gi.status=1 AND gi.return_id IN ($returnsList)";
                             $resultItem1=$conn->query($sqlItem1);
                             ?> <option value="">Select Item</option> <?php
                             if($resultItem1->num_rows > 0) {
                             while($rowItem1=$resultItem1->fetch_assoc()) {
+                              $ord_remarkId = $rowItem1['order_remark'];
+                              $del_remarkId = $rowItem1['delivery_remark'];
+                              $order_remark = getRemarkOfOrderItem($ord_remarkId);
+                              $delivery_remark = getRemarkOfdeliveryItem($del_remarkId);
                             ?>
-                            <option value="<?php echo $rowItem1['giId'];?>"> <?php echo $rowItem1['itemName'];?> [GR|<?php echo sprintf("%04d",$rowItem1['returnID']);?>]</option>
+                            <option value="<?php echo $rowItem1['giId'];?>">
+                              <?php echo $rowItem1['itemName'];?> [<?php echo $order_remark;?> --> <?php echo $delivery_remark;?>]
+                            </option>
                             <?php  } } ?>                    
                             </select>
                         </div>
@@ -238,18 +245,25 @@ $(document).ready(function() {
         goodsRow.setAttribute('class', 'form-group row');
 
         var goodsReturnInnerDiv = `
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <select class="form-control" id="rtnItemID_${goodsItemRow}">
                 <?php                                
-                    $sqlItem1="SELECT gi.id AS giId,itm.name AS itemName,gi.return_id AS returnID FROM goods_return_item gi
+                    $sqlItem1="SELECT gi.id AS giId,itm.name AS itemName,gi.return_id AS returnID,gi.order_remark,gi.delivery_remark
+                            FROM goods_return_item gi
                             INNER JOIN items itm ON gi.item=itm.id
-                            WHERE gi.status=2 AND gi.return_id IN ($returnsList)";
+                            WHERE gi.status=1 AND gi.return_id IN ($returnsList)";
                     $resultItem1=$conn->query($sqlItem1);
                     ?> <option value="">Select Item</option> <?php
                     if($resultItem1->num_rows > 0) {
                     while($rowItem1=$resultItem1->fetch_assoc()) {
+                      $ord_remarkId = $rowItem1['order_remark'];
+                      $del_remarkId = $rowItem1['delivery_remark'];
+                      $order_remark = getRemarkOfOrderItem($ord_remarkId);
+                      $delivery_remark = getRemarkOfdeliveryItem($del_remarkId);
                     ?>
-                    <option value="<?php echo $rowItem1['giId'];?>"> <?php echo $rowItem1['itemName'];?> [GR|<?php echo sprintf("%05d",$rowItem1['returnID']);?>]</option>
+                    <option value="<?php echo $rowItem1['giId'];?>">
+                     <?php echo $rowItem1['itemName'];?> [<?php echo $order_remark;?> --> <?php echo $delivery_remark;?>]
+                    </option>
                 <?php  } } ?>                      
                 </select>
             </div>
