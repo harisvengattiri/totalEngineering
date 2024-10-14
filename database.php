@@ -768,14 +768,17 @@ function addReturnNote($data) {
     $dn = $data["delivery"];
 
     $itemDetails = $data["item"];
+    $jw = $data["jw"];
+    $delivery_remark = $data["delivery_remark"];
+    $order_remark = $data["order_remark"];
     $delivered_quantity = $data["delivered_quantity"];
     $quantity = $data["quantity"];
     $status = $data["delivery_item_status"];
     $item_count = sizeof($itemDetails);
     $groupedData = [];
     for ($i = 0; $i < $item_count; $i++) {
-        list($item[$i], $jw[$i]) = explode(',', $itemDetails[$i]);
-        groupDeliveryReturns($groupedData,$item[$i],$jw[$i],$delivered_quantity[$i],$quantity[$i]);
+        list($item[$i], $dID[$i]) = explode(',', $itemDetails[$i]);
+        groupDeliveryReturns($groupedData,$item[$i],$jw[$i],$delivery_remark[$i],$order_remark[$i],$delivered_quantity[$i],$quantity[$i]);
     }
     validateDeliveryReturns($groupedData);
 
@@ -788,7 +791,7 @@ function addReturnNote($data) {
         for ($i = 0; $i < $item_count; $i++) {
         $quantity[$i] = ($quantity[$i] != NULL) ? $quantity[$i] : 0;
             if ($quantity[$i] != 0) {
-                list($item[$i], $jw[$i]) = explode(',', $itemDetails[$i]); 
+                list($item[$i], $dID[$i]) = explode(',', $itemDetails[$i]); 
 
                     $item_details = getItemDetails($item[$i]);
                     $unit[$i] = $item_details['approx_price'];
@@ -796,8 +799,8 @@ function addReturnNote($data) {
                     $order[$i] = getOrderFromJW($jw[$i]);
                 $total[$i] = $quantity[$i] * $unit[$i];
 
-                $sql1 = "INSERT INTO `goods_return_item` (`return_id`, `order_id`, `jw`, `dn`, `item`, `status`, `quantity`, `price`, `total`) 
-                         VALUES ('$return_id', '$order[$i]', '$jw[$i]', '$dn', '$item[$i]', '$status[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
+                $sql1 = "INSERT INTO `goods_return_item` (`return_id`, `order_id`, `jw`, `dn`, `item`, `order_remark`, `delivery_remark`, `status`, `quantity`, `price`, `total`) 
+                         VALUES ('$return_id', '$order[$i]', '$jw[$i]', '$dn', '$item[$i]', '$order_remark[$i]', '$delivery_remark[$i]', '$status[$i]', '$quantity[$i]', '$unit[$i]', '$total[$i]')";
                 $conn->query($sql1);
                 $sum = $sum + $total[$i];
             }
@@ -860,8 +863,8 @@ function getDeliveryFromReturn($return_id) {
     return $row['delivery'];
 }
 
-function groupDeliveryReturns(&$groupedData,$item,$order,$delivered_quantity,$quantity) {
-    $key = $item . '_' . $order;
+function groupDeliveryReturns(&$groupedData,$item,$order,$delivery_remark,$order_remark,$delivered_quantity,$quantity) {
+    $key = $item . '_' . $order. '_' . $delivery_remark. '_' . $order_remark;
     if (!isset($groupedData[$key])) {
         $groupedData[$key] = [
             'item' => $item,

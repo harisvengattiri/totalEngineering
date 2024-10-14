@@ -115,7 +115,7 @@
                     </div>
 
                     <div class="form-group row">
-                      <label align="center" class="col-sm-2 form-control-label"><b>Item</b></label>
+                      <label align="center" class="col-sm-3 form-control-label"><b>Item</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>JW Numbar</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>Delivered Quantity</b></label>
                       <label align="center" class="col-sm-2 form-control-label"><b>Status</b></label>
@@ -123,22 +123,32 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <select class="form-control" name="item[]" id="delItem_0">
                             <?php                                
-                                $sqlItem1="SELECT di.item AS itemId,di.jw AS jwNumber,itm.name AS itemName FROM delivery_item di INNER JOIN items itm ON di.item=itm.id
-                                        WHERE di.delivery_id='$dn'";
+                                $sqlItem1="SELECT di.id AS dID,di.item AS itemId,di.jw AS jwNumber,di.delivery_remark,di.order_remark,itm.name AS itemName
+                                           FROM delivery_item di
+                                           INNER JOIN items itm ON di.item=itm.id
+                                           WHERE di.delivery_id='$dn'";
                                 $resultItem1=$conn->query($sqlItem1);
                                 ?> <option value="">Select Item</option> <?php
                                 if($resultItem1->num_rows > 0) {
                                 while($rowItem1=$resultItem1->fetch_assoc()) {
+                                  $ord_remarkId = $rowItem1['order_remark'];
+                                  $del_remarkId = $rowItem1['delivery_remark'];
+                                  $order_remark = getRemarkOfOrderItem($ord_remarkId);
+                                  $delivery_remark = getRemarkOfdeliveryItem($del_remarkId);
                                 ?>
-                                <option value="<?php echo $rowItem1['itemId'];?>,<?php echo $rowItem1['jwNumber'];?>"> <?php echo $rowItem1['itemName'];?> [<?php echo $rowItem1['jwNumber'];?>]</option>
+                                <option value="<?php echo $rowItem1['itemId'];?>,<?php echo $rowItem1['dID'];?>">
+                                  <?php echo $rowItem1['itemName'];?> [<?php echo $order_remark;?>--><?php echo $delivery_remark;?>]
+                                </option>
                             <?php  } } ?>                      
                             </select>
                         </div>
                         <div class="col-sm-2">
-                          <input type="text" class="form-control" id="ItemJW_0" readonly>
+                          <input type="text" class="form-control" name="jw[]" id="ItemJW_0" readonly>
+                          <input type="hidden" name="delivery_remark[]" id="delivery_remark_0">
+                          <input type="hidden" name="order_remark[]" id="order_remark_0">
                         </div>
                         <div class="col-sm-2">
                           <input type="text" class="form-control delivered-quantity" name="delivered_quantity[]" id="deliveredQuantity_0" readonly>
@@ -230,23 +240,26 @@ $(document).ready(function() {
   $('#delItem_0').on('change', function () {
     var goodsItemRow = this.id.split('_')[1];
     var itemDetails = $(this).val();
-    var dn = <?php echo $dn;?>;
-    getDeliveredQuantity(goodsItemRow, itemDetails, dn);
+    getDeliveredQuantity(goodsItemRow, itemDetails);
   });
 });
 
-function getDeliveredQuantity(goodsItemRow, itemDetails, dn) {
+function getDeliveredQuantity(goodsItemRow, itemDetails) {
   if (itemDetails != "") {
     $.ajax({
     url: '<?php echo BASEURL;?>/loads/get_item_deliveredQuantity',
-    data: {itemDetails: itemDetails,dn: dn},
+    data: {itemDetails: itemDetails},
     type: 'POST',
     dataType: 'json',
     success: function(response) {
       var JwNumber = response.JwNumber;
       var deliveredQuantity = response.deliveredQuantity;
+      var deliveryRemark = response.deliveryRemark;
+      var orderRemark = response.orderRemark;
       $("#ItemJW_" + goodsItemRow).val(JwNumber);
       $("#deliveredQuantity_" + goodsItemRow).val(deliveredQuantity);
+      $("#delivery_remark_" + goodsItemRow).val(deliveryRemark);
+      $("#order_remark_" + goodsItemRow).val(orderRemark);
     },
     error: function(xhr, status, error) {
       console.error("Error: " + error);
@@ -264,22 +277,32 @@ $(document).ready(function() {
         goodsRow.setAttribute('class', 'form-group row');
 
         var goodsReturnInnerDiv = `
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <select class="form-control" name="item[]" id="delItem_${goodsItemRow}">
             <?php                                
-                $sqlItem1="SELECT di.item AS itemId,di.jw AS jwNumber,itm.name AS itemName FROM delivery_item di INNER JOIN items itm ON di.item=itm.id
-                           WHERE di.delivery_id='$dn'";
-                $resultItem1=$conn->query($sqlItem1);
-                ?> <option value="">Select Item</option> <?php
-                if($resultItem1->num_rows > 0) {
-                while($rowItem1=$resultItem1->fetch_assoc()) {
-                ?>
-                <option value="<?php echo $rowItem1['itemId'];?>,<?php echo $rowItem1['jwNumber'];?>"> <?php echo $rowItem1['itemName'];?> [<?php echo $rowItem1['jwNumber'];?>]</option>
+                $sqlItem1="SELECT di.id AS dID,di.item AS itemId,di.jw AS jwNumber,di.delivery_remark,di.order_remark,itm.name AS itemName
+                FROM delivery_item di
+                INNER JOIN items itm ON di.item=itm.id
+                WHERE di.delivery_id='$dn'";
+              $resultItem1=$conn->query($sqlItem1);
+            ?> <option value="">Select Item</option> <?php
+              if($resultItem1->num_rows > 0) {
+              while($rowItem1=$resultItem1->fetch_assoc()) {
+                $ord_remarkId = $rowItem1['order_remark'];
+                $del_remarkId = $rowItem1['delivery_remark'];
+                $order_remark = getRemarkOfOrderItem($ord_remarkId);
+                $delivery_remark = getRemarkOfdeliveryItem($del_remarkId);
+              ?>
+              <option value="<?php echo $rowItem1['itemId'];?>,<?php echo $rowItem1['dID'];?>">
+               <?php echo $rowItem1['itemName'];?> [<?php echo $order_remark;?>--><?php echo $delivery_remark;?>]
+              </option>
             <?php  } } ?>                      
             </select>
         </div>
         <div class="col-sm-2">
-            <input type="text" class="form-control" id="ItemJW_${goodsItemRow}" readonly>
+            <input type="text" class="form-control" name="jw[]" id="ItemJW_${goodsItemRow}" readonly>
+            <input type="hidden" name="delivery_remark[]" id="delivery_remark_${goodsItemRow}">
+            <input type="hidden" name="order_remark[]" id="order_remark_${goodsItemRow}">
         </div>
         <div class="col-sm-2">
             <input type="text" class="form-control delivered-quantity" name="delivered_quantity[]" id="deliveredQuantity_${goodsItemRow}" readonly>
@@ -311,8 +334,7 @@ $(document).ready(function() {
             $(goodsRow).on('change', '[id^="delItem_"]', function() {
               var goodsItemRow = this.id.split('_')[1];
               var itemDetails = $(this).val();
-              var dn = <?php echo $dn;?>;
-                getDeliveredQuantity(goodsItemRow, itemDetails, dn);
+                getDeliveredQuantity(goodsItemRow, itemDetails);
             }); 
 
             goodsItemRow++;
