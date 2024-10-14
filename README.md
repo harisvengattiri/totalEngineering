@@ -19,3 +19,9 @@ REQUIRED TABLES ARE BELOW
 
 - delivery_note
 - delivery_item
+
+- goods_return_note
+- goods_return_item
+
+- invoice
+- invoice_item
