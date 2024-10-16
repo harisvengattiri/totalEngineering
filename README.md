@@ -25,3 +25,7 @@ REQUIRED TABLES ARE BELOW
 
 - invoice
 - invoice_item
+
+
+goods_return_note adding page need to compare its items with delivery items as a function
+invoice adding page need to compare its items with GR items as a function

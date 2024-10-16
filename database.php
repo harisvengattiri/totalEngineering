@@ -529,6 +529,7 @@ function addDeliveryNote($data) {
 
     $itemDetails = $data["item"];
     $order_quantity = $data["order_quantity"];
+    $order_balance = $data["order_balance"];
     $quantity = $data["quantity"];
     $delivery_remark = $data["delivery_item_status"];
     $item_count = sizeof($itemDetails);
@@ -536,7 +537,7 @@ function addDeliveryNote($data) {
     $groupedData = [];
     for ($i = 0; $i < $item_count; $i++) {
         list($item[$i], $jw[$i], $remark[$i]) = explode(',', $itemDetails[$i]);
-        groupDelivery($groupedData,$item[$i],$jw[$i],$remark[$i],$order_quantity[$i],$quantity[$i]);
+        groupDelivery($groupedData,$item[$i],$jw[$i],$remark[$i],$order_balance[$i],$quantity[$i]);
     }
     validateDelivery($groupedData);
 
@@ -691,13 +692,13 @@ function updateInvoicedInDelivery($delivery,$process) {
     $conn->query($sql);
 }
 
-function groupDelivery(&$groupedData,$item,$order,$remark,$order_quantity,$quantity) {
+function groupDelivery(&$groupedData,$item,$order,$remark,$order_balance,$quantity) {
     $key = $item . '_' . $order. '_' . $remark;
     if (!isset($groupedData[$key])) {
         $groupedData[$key] = [
             'item' => $item,
             'order' => $order,
-            'order_quantity' => $order_quantity,
+            'order_balance' => $order_balance,
             'total_delivered_quantity' => 0,
         ];
     }
@@ -706,7 +707,7 @@ function groupDelivery(&$groupedData,$item,$order,$remark,$order_quantity,$quant
 
 function validateDelivery($groupedData) {
     foreach ($groupedData as $group) {
-        if ($group['total_delivered_quantity'] > $group['order_quantity']) {
+        if ($group['total_delivered_quantity'] > $group['order_balance']) {
             throw new Exception();
         }
     }  
@@ -781,6 +782,7 @@ function addReturnNote($data) {
         groupDeliveryReturns($groupedData,$item[$i],$jw[$i],$delivery_remark[$i],$order_remark[$i],$delivered_quantity[$i],$quantity[$i]);
     }
     validateDeliveryReturns($groupedData);
+    validateItemsWithDelivery($groupedData, $dn);
 
     $sql = "INSERT INTO `goods_return_note` (`customer`,`token`,`delivery`,`date`,`attn`,`transportation`)
             VALUES ('{$data["customer"]}','{$data["token"]}','{$dn}','{$data["date"]}','{$data["attention"]}','{$data["transportation"]}')";
@@ -882,6 +884,20 @@ function validateDeliveryReturns($groupedData) {
             throw new Exception();
         }
     }  
+}
+
+function validateItemsWithDelivery(&$groupedData, $dn) {
+    global $conn;
+
+    $sql = "SELECT COUNT(item) AS delivery_item_count FROM `delivery_item` WHERE `delivery_id`='$dn'";
+    $query = $conn->query($sql);
+    $result = mysqli_fetch_array($query);
+    $delivery_item_count = $result['delivery_item_count'];
+    $return_item_count = count($groupedData);
+
+    if($return_item_count != $delivery_item_count) {
+        throw new Exception();
+    }
 }
 
 function getGoodStatusName($status) {

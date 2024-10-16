@@ -178,7 +178,7 @@
                           <input type="text" class="form-control" name="order_quantity[]" id="orderQuantity_0" readonly>
                         </div>
                         <div class="col-sm-1">
-                          <input type="text" class="form-control order-balance" id="orderBalance_0" readonly>
+                          <input type="text" class="form-control order-balance" name="order_balance[]" id="orderBalance_0" readonly>
                         </div>
                         <div class="col-sm-2">
                           <input type="text" min="1" step="any" class="form-control quantity-input" name="quantity[]" value="0">
@@ -326,7 +326,7 @@ $(document).ready(function() {
             <input type="text" class="form-control" name="order_quantity[]" id="orderQuantity_${goodsItemRow}" readonly>
           </div>
           <div class="col-sm-1">
-            <input type="text" class="form-control order-balance" id="orderBalance_${goodsItemRow}" readonly>
+            <input type="text" class="form-control order-balance" name="order_balance[]" id="orderBalance_${goodsItemRow}" readonly>
           </div>
           <div class="col-sm-2">
             <input type="text" min="1" step="any" class="form-control quantity-input" name="quantity[]" value="0">
