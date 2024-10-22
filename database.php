@@ -1004,8 +1004,8 @@ function addInvoice($data) {
                          VALUES ('$invoice_id', '$order[$i]', '$jw[$i]', '$dn[$i]', '$gr[$i]', '$item[$i]', '$dq[$i]', '$price[$i]', '$total[$i]')";
                 $conn->query($sql1);
                 $sum = $sum + $total[$i];
-                updateInvoicedInDelivery($dn[$i],'Add');
-                updateInvoicedInGRN($gr[$i],'Add');
+                // updateInvoicedInDelivery($dn[$i],'Add');
+                // updateInvoicedInGRN($gr[$i],'Add');
             }
         }
         

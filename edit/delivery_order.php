@@ -204,7 +204,7 @@
                   <i class="fa fa-times"></i></a>
                 </div>`;
 
-      if (orderItemRow <= 9) {
+      if (orderItemRow <= 25) {
         $(itemRow).append(ordInnerDiv);
         $('#divSpecificatiion1').append(itemRow);
       }

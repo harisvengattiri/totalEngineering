@@ -271,7 +271,7 @@ function getDeliveredQuantity(goodsItemRow, itemDetails) {
 
 $(document).ready(function() {
     let goodsItemRow = 1;
-    const MAX_GOODS_RETURN_ROWS = 5;
+    const MAX_GOODS_RETURN_ROWS = 25;
 
     $('#btnAddMore').click(function () {
         const goodsRow = document.createElement('div');

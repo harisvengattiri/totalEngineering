@@ -181,7 +181,7 @@
                   <i class="fa fa-times"></i></a>
                 </div>`;
 
-      if (quotationItemRow <= 9) {
+      if (quotationItemRow <= 25) {
         $(itemRow).append(qnoInnerDiv);
         $('#divSpecificatiion1').append(itemRow);
       }
